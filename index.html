@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CleverHire</title>
+  <!-- Favicons -->
+  <!-- <link href="assets/img/favicon.png" rel="icon"> -->
+  <!-- <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <!-- <link href="assets/vendor/aos/aos.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="a.css">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!--CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contactcleverhire@gmail.com">contactcleverhire@gmail.com</a></i>
+        <!-- <i class="bi bi-phone d-flex align-items-center ms-4"><span>895548855</span></i> -->
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <!-- //should change the rename of icons from bi -->
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo"><a href="index.html">CleverHire<span>.</span></a></h1>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#about">About</a></li> -->
+          <li><a class="show-btn" id="loginBtn" onclick="openForm()">Login</a></li>
+          <li><a class="nav-link scrollto" >Register</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+
+    </div>
+  </header>
+  
+<!-- ======= Popup ======= -->
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Login</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" class="btn">Login</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+
+  <!-- ======= Home Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+      <h1>Welcome to <span>CleverHire</span></h1>
+      <h2>Empowering Futures through Automated Campus Placement</h2>
+      <div class="d-flex">
+        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="https://m.youtube.com/watch?v=2ar1wd97oXU&list=PL2K366VwU2XEWxa2IlwttusMm8lZr73lT&index=8&pp=iAQB" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About</h2>
+          <h3>What is <span> CleverHire</span></h3>
+          <h6>CleverHire is a smart campus placement system which makes student placements easy and efficient.</h6>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+            <img src="assets/img/about.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <h3>How To<span> Get Started</span>?</h3>
+            <!-- <p class="fst-italic">
+              Description
+            </p> -->
+            <ul>
+              <li>
+                <i class="bx bx-store-alta"></i>
+                <div>
+                  <h5>Create Account/Login</h5>
+                  <p>Get started effortlessly. Create an account or log in for personalized access to a world of opportunities.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bx bx-imagesa"></i>
+                <div>
+                  <h5>Add/Update Profile Details</h5>
+                  <p>Shape your professional identity. Add/update details to showcase skills, experience, and achievements for a standout profile.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bx bx-imagesa"></i>
+                <div>
+                  <h5>Develop/Maintain a Good Score</h5>
+                  <p>Cultivate success. Develop and maintain a strong profile score by highlighting your skills and accomplishments.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bx bx-imagesa"></i>
+                <div>
+                  <h5>Apply for Jobs</h5>
+                  <p>Navigate your career journey. Easily apply for jobs within the platform, taking a step closer to your professional aspirations.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+   
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients section-bg">
+      <div class="container" data-aos="zoom-in">
+        <div class="section-title">
+          <h2>Recruiters</h2>
+          <h3>Company<span> Partnerships</span></h3>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Highlights</h2>
+          <h3>Check our <span>Features</span></h3>
+          <!-- <p>Description</p> -->
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4><a href="">Personalised Jobs</a></h4>
+              <p>Tailored job matches for a personalized search experience, aligning opportunities with your skills and preferences</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a href="">Model Tests</a></h4>
+              <p>Sharpen skills with realistic model tests, providing insights for self-assessment and continuous improvement.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4><a href="">Mock interviews</a></h4>
+              <p>Boost interview readiness with realistic mock interviews, refining responses for enhanced confidence in real-world job scenarios.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Review Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="zoom-in">
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Robert Downey Jr.</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Revolutionized recruitment with CleverHire. Simplified job postings, interviews, and analytics. Improved efficiency, delighted with results. Game-changer for us!
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Scarlett Johansson</h3>
+                <h4>Designer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  CleverHire enhanced our campus placement process, offering transparency and real-time updates. Robust features, great support. Excellent solution for institutions.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Chris Hemsworth</h3>
+                <h4>Software Engineer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Efficient CleverHire system streamlined our hiring, reducing administrative burden. Impressed by seamless integration and user-friendly interface. Highly recommend!
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+            
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>F.A.Q</h2>
+          <h3>Frequently Asked <span>Questions</span></h3>
+          <!-- <p>description</p> -->
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-xl-10">
+            <ul class="faq-list">
+
+              <li>
+                <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">What is an Automated Campus Placement System (ACPS)?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+                  <p>
+                    An Automated Campus Placement System (ACPS) is a technology-driven platform designed to streamline and automate the entire process of campus placements. It facilitates the interaction between students, colleges, and recruiters, making the placement process more efficient and transparent.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">How does an ACPS benefit students? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                  <p>
+                    ACPS benefits students by providing them with a centralized platform to access information about job opportunities, submit resumes. It ensures equal opportunity and fair representation for all students, making the placement process more accessible.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">How is privacy maintained in an ACPS? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+                  <p>
+                    ACPS platforms usually prioritize data privacy and adhere to strict security protocols. Personal information is typically encrypted, and access is restricted to authorized personnel. Students have control over what information is shared with recruiters, ensuring privacy and confidentiality.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Is training required for users to operate an ACPS?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+                  <p>
+                    ACPS platforms are designed to be user-friendly, and most users, including students, recruiters, and placement coordinators, can easily navigate the system without extensive training. However, basic orientation sessions may be conducted to ensure everyone is familiar with the platform's features.
+                  </p>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <h3><span>Contact Us</span></h3>
+          <!-- <p>Description</p> -->
+        </div>
+
+        
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+          <!-- <div class="col-lg-6 ">
+            <iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
+          </div> -->
+
+          <div class="col-lg-6a"> <!--changed div class name to get contact form in centre-->
+            <form action="/submit-form" method="post" role="form" class="email-form">
+              <div class="row">
+                <div class="col form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <p >Made with ❤️ by VAAR</p>
+  </footer>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <style>
+    /* box-sizing: border-box; */
+
+    /* Button used to open the contact form - fixed at the bottom of the page */
+    .open-button {
+      background-color: #555;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 23px;
+      right: 28px;
+      width: 280px;
+    }
+
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    /* Full-width input fields */
+    .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: #106eea;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+    }
+
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: rgb(0, 0, 0);
+    }
+
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+   }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+[data-aos], body[data-aos] {
+    transition-duration: 50ms;
+  }
+  
+  [data-aos][data-aos-delay="50"], body[data-aos-delay="50"] [data-aos] {
+    transition-delay: 0s;
+  }
+  
+  [data-aos][data-aos-delay="50"].aos-animate, body[data-aos-delay="50"] [data-aos].aos-animate {
+    transition-delay: 50ms;
+  }
+  
+  /* Repeat the pattern for different durations and delays */
+  /* You can generate these rules dynamically if needed */
+  
+  [data-aos][data-aos-duration="100"], body[data-aos-duration="100"] [data-aos] {
+    transition-duration: 0.1s;
+  }
+  
+  [data-aos][data-aos-delay="100"], body[data-aos-delay="100"] [data-aos] {
+    transition-delay: 0s;
+  }
+  
+  [data-aos][data-aos-delay="100"].aos-animate, body[data-aos-delay="100"] [data-aos].aos-animate {
+    transition-delay: 0.1s;
+  }
+  
+  /* Repeat for other durations and delays */
+  
+  /* Easing settings */
+  [data-aos][data-aos-easing=linear], body[data-aos-easing=linear] [data-aos] {
+    transition-timing-function: cubic-bezier(.25, .25, .75, .75);
+  }
+  
+  [data-aos][data-aos-easing=ease], body[data-aos-easing=ease] [data-aos] {
+    transition-timing-function: ease;
+  }
+  
+  /* Repeat for other easing functions */
+  
