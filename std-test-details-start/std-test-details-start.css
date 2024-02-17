@@ -1,0 +1,196 @@
+/* CSS IS COMMENTED WELL, SO YOU CAN EASILY FIND ELEMENTS AND PROPERTIES */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+}
+body{
+    font-family: poppins;
+    background-color: #BFCFE7;
+}
+:root{
+    --sec-color:#ffffff;
+    --bg-color:#BFCFE7;
+    --icon-color:#ffffff;
+    --pri-color:black;
+    --top-color:#575fd6;
+}
+/* -------CleverHire heading------- */
+.cleverhire{
+    text-align: center;
+    background-color:var(--top-color);
+    font-weight: 900;
+    height: 6vh;
+    padding: 20px 0 50px 0;
+    font-size: 20px;
+    /* animation-name:ani-cleverhire;
+    animation-duration: 2s;
+    animation-iteration-count: 1; */
+    /* animation-delay: 1s; */
+}
+.cleverhire a{
+    text-decoration: none;
+    color:#F8EDFF;
+    
+}
+/* @keyframes ani-cleverhire{
+    0%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    30%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    50%{height: 100vh; padding-top: 50vh;font-size: 50px;}
+    100%{height: 6vh;}
+} */
+.cleverhire:hover{
+    color: var(--bg-color);
+    /* text-transform: uppercase; */
+    transition: font-weight 700ms ease-in-out;
+}
+/* -------navigation bar ------- */
+nav{
+    display: flex;
+    padding: 0px 40px 10px;
+    background-color:var(--top-color);
+    /* font-weight: 800; */
+    font-weight: lighter;
+}
+nav .list{
+    /* display: flex; */
+    text-decoration: none;
+}
+nav .list a{
+    font-size: 15px;
+    padding: 0px 10px;
+    color:var(--bg-color);
+    text-decoration: none;
+    transition: color 500ms;
+    /* transition: border 4s; */
+}
+nav .list a:hover{
+    color: var(--sec-color);
+    border:var(--bg-color) 1px solid;
+    border-radius: 20px;
+}
+nav .soc-icon{
+    position: absolute;
+    right: 20px;
+    /* left: 90%; */
+}
+nav i{
+    color:var(--bg-color);
+    padding-right: 20px;
+    
+}
+nav i:hover{
+    color: var(--sec-color);
+}
+
+/* ------- main body------- */
+main-body{
+    display: flex;
+}
+
+/* ------- left menu of pages------- */
+.lmenu .mt{
+    background-color: #bfcfe73b;
+    border:2px #3D3B40 ;
+    border-radius: 15px;
+    color:var(--bg-color);
+    padding: 5px 20px 5px 20px;
+    /* margin: 5% 5%; */
+    left: 50px;
+}
+/* .lmenu-items-con .fa-solid{
+    background-color: ;
+} */
+.lmenu{
+    background-color:  var(--pri-color);
+    width: 200px;
+    height:100vh;
+    padding: 10px 20px;
+    float: left;
+}
+.dp i{
+    color: var(--bg-color);
+    font-size: 50px;
+    display: grid; place-items: center;
+    margin: 30px 0px;
+}
+.lmenu-items-icon i{
+    color: var(--bg-color);
+    font-size: 15px;
+    display: grid; place-items: center;
+    margin: 15px 5px;
+}
+.lmenu-items-con{
+    /* background-color: rgb(215, 255, 71); */
+    /* margin-top: 30px; */
+    display: flex;
+}
+
+.lmenu-items li{
+    padding: 15px 0px 0 10px;
+    text-decoration: none;
+    list-style:none
+
+}
+.lmenu-items a{
+    color: var(--bg-color);
+    /* background-color: rgb(19, 201, 95); */
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 1s;
+    padding: 5px 10px;
+    transition: border 1s;
+    
+}
+.lmenu-items a:hover{
+    color:var(--sec-color);
+    /* color: var(--sec-color); */
+    border:var(--bg-color) 1px solid;
+    border-radius: 20px;
+}
+
+/* -------centre section of webpage ------- */
+.right-box{
+    display: flex;
+}
+.examLayout{
+    display: flex;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    background-color: #f0f0f0;
+    margin: 20px;
+    border-radius: 20px;
+}
+.currentQn{
+    border-radius: 20px;
+    margin: 20px 0 20px 20px;
+    padding: 10px;
+}
+
+.topLayer{
+    width: 100%;
+}
+.currentQnNumber{
+    /* padding: 15px; */
+    
+    
+    border: 5px solid ;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+.currentQnNumber h1{
+    text-align: centre;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 5px 0px 0 15px;
+}
+.timeRemaining{
+}
+.qnCount{
+    background-color: #575fd6;
+    border-radius: 20px;
+    padding: 20px;
+    
+}
