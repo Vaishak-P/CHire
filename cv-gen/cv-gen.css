@@ -112,6 +112,7 @@ main-body{
     height:100vh;
     padding: 10px 20px;
     float: left;
+    /* position: fixed; */
 }
 .dp i{
     color: var(--bg-color);
@@ -160,12 +161,12 @@ h1{
 }
 .right-box{
     /* background-color: brown; */
-    height:100vh;
+    /* height:100%; */
     /* padding: 20px; */
     display: flex;
 }
 .right-div{
-    margin: 20px;
+    margin: 10px;
     /* border: 2px solid blue; */
     border-radius: 30px;
     display: grid;
@@ -212,20 +213,44 @@ h1{
     margin: 30px;
     border: 2px solid blue;
     border-radius: 20px;
-    /* width: 500px; */
-    height: 550px;
+    width: 700px; /* A4 width */
+    height: 550px; /* A4 height */
+    display: grid;
     
+}
+.cv-display-box-top{
+    display: flex;
+    margin-bottom: 10px;
 }
 .cv-display-box h1{
     padding: 20px;
+    display: flex;
+    margin-left: 20px;
 
 }
+.cv-display-box button{
+    height: 30px;
+    width: 100px;
+    background-color: var(--top-color);
+    border-radius: 20px;
+    border: 0;
+    color: var(--sec-color);
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-top: 25px;
+    margin-left: 50%;
+}
 .cv-template{
-    background-color: var(--bg-color);
+    /* background-color: var(--bg-color); */
     height: 470px;
     border-radius: 20px;
     margin-bottom: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.cv-template iframe{
+    overflow: hidden;
+    margin-bottom: 30px;
+    border-radius: 20px;
 }

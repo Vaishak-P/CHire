@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap">
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <style>
+        :root{
+            --text-color:#ffffff;
+            --grey-color:#363636;
+            --green-color:#01A89E;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 0.9em;
+            max-width: 600px;
+            /* width: 210mm; */
+            /* width: 700px; */
+            margin: auto;
+            overflow-x: hidden;
+            
+        }
+
+
+        #cv {
+            background-color:var(--text-color);
+            /* border-radius: 20px; */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* overflow: hidden; */
+            /* width: 70%; */
+            max-width: 600px;
+        }
+
+        #header {
+            background-color: var(--grey-color);
+            color: var(--text-color);
+            padding: 30px 30px;
+            display: flex;
+            align-items: center;
+            width: 570px;
+            /* border-bottom: 2px solid #01A89E; */
+        }
+
+        #header img {
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: 20px;
+            width: 100px;
+            height: 100px;
+        }
+
+        #header h1 {
+            font-size: 2em;
+            text-transform: uppercase;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            /* border-bottom: 2px solid var(--green-color); */
+            padding-bottom: 5px;
+        }
+
+        #header h2 {
+            font-size: 1em;
+            text-transform: uppercase;
+            color: var(--text-color);
+        }
+
+        #main {
+            padding: 0 30px;
+            display: flex;
+            width: 600px;
+        }
+
+        #left-section {
+            width: 500px;
+            margin-right: 20px;
+            padding:20px 20px 0 0px;
+        }
+
+        #right-section {
+            /* flex-grow: 1; */
+            background-color: var(--green-color);
+            padding: 20px 30px 20px 20px;
+            color: var(--text-color);
+            width: 200px;
+        }
+        #right-section p{
+            color: var(--text-color);
+        }
+
+        #right-section h2{
+            color: var(--text-color);
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 5px;
+            /* width: 30px; */
+        }
+
+        h2 {
+            font-size: 1em;
+            font-weight: 900;
+            color: #363636;
+            margin-top: 10px;
+            border-bottom: 2px solid var(--green-color);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h3,.section p{
+            /* font-size: 1em; */
+        }
+        .contact p{
+            color: black;
+        }
+        .experience, .education, .skills {
+            margin: 15px 0 20px 0;
+        }
+
+         p, li {
+            color: var(--grey-color);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .education h3, .skills h2 {
+            color: var(--text-color);
+        }
+
+        .contact-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-icons i {
+            width: 20px;
+            margin-right: 5px;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="cv">
+        <div id="header">
+            <div>
+                <h1>Akshay</h1>
+                <h2>Web Developer</h2>
+            </div>
+            <img src="download.png" alt="Your Photo">
+        </div>
+
+        <div id="main">
+            <div id="left-section">
+                <div class="section">
+                    <h2>Relevant Experience</h2>
+                    <div class="experience">
+                        <h3>Web Developer</h3>
+                        <p>Company Name - Location</p>
+                        <p>Duration: Month Year - Month Year</p>
+                        <p>Responsibilities: Describe your responsibilities.</p>
+                    </div>
+
+                    <!-- FOR MULTIPLE EXPERIENCES -->
+                    <div class="experience">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    <div class="experience">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    
+                </div>
+
+                <div class="section">
+                    <h2>Skills</h2>
+                    <div class="skills">
+                            <ul>
+                                <li>Java Programming</li> 
+                                
+                                <!-- FOR MULTIPLE SKILLS -->
+                                <!-- <li>Python Advanced</li> -->
+                                <!-- <li></li> -->
+                                <!-- <li></li> -->
+                                <!-- <li></li> -->
+                                <!-- <li></li> -->
+                            </ul>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Achievements</h2>
+                    <div class="skills">
+                            <ul>
+                                <li>Google IT Automation with Python Professional Certificate</li>
+
+                                <!-- FOR MULTIPLE SKILLS -->
+                                 <!-- <li></li> -->
+                                <!-- <li></li> -->
+                                <!-- <li></li> -->
+                                <!-- <li></li> -->
+                            </ul>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Interests</h2>
+                    <div class="skills">
+                        <p>HTML, CSS, JavaScript, React, Node.js</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="right-section">
+                <div class="section">
+                    <h2>Education</h2>
+                    <div class="education">
+                        <h3>Your University</h3>
+                        <p>Bachelor of Computer Science</p>
+                        <p>Graduation: Month Year</p>
+
+                        <!-- FOR MULTIPLE EDUCATION -->
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="contact">
+                    <h2>Contact Information</h2>
+                    <div class="contact-icons">
+                        <i class="fa-solid fa-envelope"></i>
+                        <p>your.email@example.com</p>
+                    </div>
+                    <div class="contact-icons">
+                        <i class="fa-solid fa-phone"></i>
+                        <p>+1 (123) 456-7890</p>
+                    </div>
+                    <!-- LINKEDIN -->
+                    <div class="contact-icons">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        <p>linkedin.com/in/yourname</p>
+                    </div>
+                        <!-- PORTFOLIO WEBSITE LINK -->
+                    <div class="contact-icons">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <p>yourportfolio.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
