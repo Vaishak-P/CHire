@@ -109,7 +109,7 @@ main-body{
     background-color:  var(--pri-color);
     /* change */
     width: 210px;
-    height:100vh;
+    height:118vh;
     padding: 10px 20px;
     float: left;
     /* position: fixed; */
@@ -180,7 +180,7 @@ h1{
     /* padding: 10px; */
     /* border: 2px solid blue; */
     border-radius: 30px;
-    width: 300px;
+    width: 230px;
     
 }
 .div-container{

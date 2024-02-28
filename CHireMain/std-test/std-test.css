@@ -55,6 +55,9 @@ nav{
     /* font-weight: 800; */
     font-weight: lighter;
 }
+a{
+    text-decoration: none;
+}
 nav .list{
     /* display: flex; */
     text-decoration: none;

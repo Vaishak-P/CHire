@@ -7,6 +7,7 @@ var app = express();
 
 // Set view engine and configure body-parser
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'CHireMain'));
 app.use(bodyparser.urlencoded({ extended: true }));
 
 // Set up static files middleware
@@ -28,7 +29,7 @@ mysqlConnection.connect((err) => {
 });
 
 app.get('/',(req,res)=>{
-    res.render('D:/mainProject/CHire/CHireMain/index')
+    res.render('index')
 })
 
 // Login authentication route
@@ -58,8 +59,26 @@ app.post('/LOGIN/login.html', (req, res) => {
 
         // Authentication successful
         // Render the EJS file with the user's details
-        res.render('D:/mainProject/CHire/CHireMain/std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total });
+        res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total });
     });
+});
+
+app.get('/CV',(req,res)=>{
+    res.render("cv-gen/cv-gen")
+})
+
+app.get('/cv-template',(req,res)=>{
+    res.render("cv-gen/cv-template")
+})
+
+app.get('/MockTest',(req,res)=>{
+    res.render("std-test/std-test")
+})
+
+app.get('/MockTest/:heading', (req, res) => {
+    const encodedHeading = req.params.heading;
+    const decodedHeading = decodeURIComponent(encodedHeading);
+    res.render("std-test-details/std-test-details",{heading:decodedHeading})
 });
 
 // Start the server
