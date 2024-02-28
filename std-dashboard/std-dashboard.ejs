@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHiret</title>
-    <link rel="stylesheet" href="std-dashboard.css">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -58,11 +58,10 @@
                 <div class="dashboard" id="dashboard">
                     <div class="dash-top">
                         <div class="stud-title">
-                            <div class="stud-name">Welcome <span>Akshay</span></div>
-                            <div class="stud-job-title">Speech Analyst</div>
+                            <div class="stud-name">Welcome <%= userName %> </div>
                         </div>
                         <div class="score">
-                           <h1>69</h1>
+                           <h1><%= total %></h1>
                         </div>
                         <div class="myChart">
                             
@@ -83,15 +82,20 @@
                             </div>
                             <div class="stud-aca-info-con">
                                 <div class="info">
-                                    <h6>cgpa</h6>
+                                    <h6>CGPA</h6>
                                     <h6>sem</h6>
                                     <h6>mock test score</h6>
                                     <h6>mock interview score</h6>
                                     <!-- <h6>skills</h6> -->
                                     <h6>internships</h6>
                                 </div>
-                                <div class="info-f">
+                                <div class="info">
                                     <!-- //info to be fetched -->
+                                    <h6><%= cgpa %></h6>
+                                    <h6><%= sem %></h6>
+                                    <h6><%= test %></h6>
+                                    <h6><%= fluency %></h6>
+                                    <h6><%= internships %></h6>
                                 </div>
                             </div>
                         </div>
@@ -109,11 +113,15 @@
                                 <div class="info">
                                     <h6>phone</h6>
                                     <h6>email</h6>
-                                    <h6>address</h6>
-                                    <h6>blood group</h6>
+                                    <h6>Blood group</h6>
+                                    <h6>Address</h6>
                                 </div>
-                                <div class="info-f">
+                                <div class="info">
                                     <!-- //info to be fetched -->
+                                    <h6><%= phn %></h6>
+                                    <h6><%= mail %></h6>
+                                    <h6><%= bld %></h6>
+                                    <h6><%= address %></h6>
                                 </div>
                             </div>
                         </div>
