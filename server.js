@@ -32,8 +32,12 @@ app.get('/',(req,res)=>{
     res.render('index')
 })
 
+app.get('/LOGIN',(req,res)=>{
+    res.render('LOGIN/login')
+})
+
 // Login authentication route
-app.post('/LOGIN/login.html', (req, res) => {
+app.post('/LOGIN', (req, res) => {
     const email = req.body.email;
     const password = req.body.psw;
     mysqlConnection.query('SELECT * FROM student WHERE email = ?', email, (err, results) => {
@@ -45,15 +49,14 @@ app.post('/LOGIN/login.html', (req, res) => {
 
         if (results.length === 0) {
             // User not found
-            //res.status(401).render('D:/backend/CHire-main/index', { error: 'Invalid credentials. Please try again.' });
-            res.status(401).send('Invalid username or password');
+            res.status(401).render('LOGIN/login', { error: 'Invalid credentials! Please try again.' });
             return;
         }
 
         const user = results[0];
         if (user.password !== password) {
             // Incorrect password
-            res.status(401).send('Invalid username or password');
+            res.status(401).render('LOGIN/login', { error: 'Invalid credentials! Please try again.' });
             return;
         }
 
@@ -80,6 +83,10 @@ app.get('/MockTest/:heading', (req, res) => {
     const decodedHeading = decodeURIComponent(encodedHeading);
     res.render("std-test-details/std-test-details",{heading:decodedHeading})
 });
+
+app.get('/start',(req,res)=>{
+    res.render("std-test-details-start/std-test-details-start")
+})
 
 // Start the server
 app.listen(3000, () => {
