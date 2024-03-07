@@ -2,6 +2,7 @@ const mysql = require('mysql');
 const express = require('express');
 const bodyparser = require('body-parser');
 const path = require('path');
+const { error } = require('console');
 
 var app = express();
 
@@ -36,11 +37,18 @@ app.get('/LOGIN',(req,res)=>{
     res.render('LOGIN/login')
 })
 
+app.get('/LOGOUT',(req,res)=>{
+    res.render('index')
+})
+
+//For storing student details
+let user = {};
+
 // Login authentication route
 app.post('/LOGIN', (req, res) => {
     const email = req.body.email;
     const password = req.body.psw;
-    mysqlConnection.query('SELECT * FROM student WHERE email = ?', email, (err, results) => {
+    mysqlConnection.query('SELECT * FROM users WHERE email = ?', email, (err, results) => {
         if (err) {
             console.error('Error executing query: ', err);
             res.status(500).send('Internal Server Error');
@@ -53,20 +61,52 @@ app.post('/LOGIN', (req, res) => {
             return;
         }
 
-        const user = results[0];
-        if (user.password !== password) {
+        const login = results[0];
+
+        if (login.password !== password) {
             // Incorrect password
             res.status(401).render('LOGIN/login', { error: 'Invalid credentials! Please try again.' });
             return;
         }
 
         // Authentication successful
-        // Render the EJS file with the user's details
-        res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total });
+
+         // Redirect based on user's role
+         switch (login.role) {
+            case 'student':
+                // Redirect to student dashboard
+                mysqlConnection.query('SELECT * FROM student WHERE email = ?', email,(err, results)=>{
+                    if (err) {
+                        console.error('Error executing query: ', err);
+                        res.status(500).send('Internal Server Error');
+                        return;
+                    }
+                    
+                    user = results[0]
+                    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total });
+                });
+                break;
+            case 'placement_coordinator':
+                // Redirect to placement coordinator dashboard
+                res.redirect('/placement-coordinator/dashboard');
+                break;
+            case 'company':
+                // Redirect to company HR dashboard
+                res.redirect('/company-hr/dashboard');
+                break;
+            default:
+                // Handle unknown designation
+                res.status(500).send('Unknown user designation');
+        }
+
     });
 });
 
-app.get('/CV',(req,res)=>{
+app.get('/student/dashboard',(req,res)=>{
+    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total })
+})
+
+app.get('/student/cv',(req,res)=>{
     res.render("cv-gen/cv-gen")
 })
 
@@ -74,7 +114,7 @@ app.get('/cv-template',(req,res)=>{
     res.render("cv-gen/cv-template")
 })
 
-app.get('/MockTest',(req,res)=>{
+app.get('/student/mocktest',(req,res)=>{
     res.render("std-test/std-test")
 })
 
@@ -84,9 +124,6 @@ app.get('/MockTest/:heading', (req, res) => {
     res.render("std-test-details/std-test-details",{heading:decodedHeading})
 });
 
-app.get('/start',(req,res)=>{
-    res.render("std-test-details-start/std-test-details-start")
-})
 
 // Start the server
 app.listen(3000, () => {
