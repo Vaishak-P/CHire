@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="reg-form.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="top">
+            <div class="top1">
+                <h2><span>Student</span> Registration</h2>
+                <h3>Fill the form to complete registration</h3>
+            </div>
+            <div class="top2">
+                <h1>CleverHire</h1>
+            </div>
+        </div>
+        <form>
+            <div class="formSection1">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+    
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+    
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="tel">
+    
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+    
+                <label for="sslcPercentage">SSLC Percentage:</label>
+                <input type="text" id="sslcPercentage" name="sslcPercentage" required>
+    
+                <label for="year">HS Pass Year:</label>
+                <input type="number" id="year" name="year" min="2000" max="2024" required>
+    
+                <label for="hsPercentage">HS Percentage:</label>
+                <input type="text" id="hsPercentage" name="hsPercentage" required>
+    
+                <label for="year">HS Pass Year:</label>
+                <input type="number" id="year" name="year" min="2000" max="2024" required>
+                
+                <label for="ugCourse">Undergraduate Course:</label>
+                <select id="ugCourse" name="ugCourse" class="ugCourse">
+                    <option value="" disabled selected>Select your UG course</option>
+                    <option value="cse">B.Tech in Computer Science and Engineering</option>
+                    <option value="it">B.Tech in Information Technology</option>
+                    <option value="ee">B.Tech in Electrical Engineering</option>
+                    <option value="eee">B.Tech in Electrical and Electronics Engineering</option>
+                    <option value="me">B.Tech in Mechanical Engineering</option>
+                    <option value="pe">B.Tech in Production Engineering</option>
+                    <option value="ce">B.Tech in Civil Engineering</option>
+                    <option value="ece">B.Tech in Electronics and Communication Engineering</option>
+                    <option value="ei">B.Tech in Electronics and Instrumentation Engineering</option>
+                    <option value="che">B.Tech in Chemical Engineering</option>
+                    <option value="aero">B.Tech in Aerospace Engineering</option>
+                    <option value="biotech">B.Tech in Biotechnology</option>
+                    <option value="auto">B.Tech in Automobile Engineering</option>
+                    <option value="env">B.Tech in Environmental Engineering</option>
+                    <option value="csbs">B.Tech in Computer Science and Business Systems</option>
+                    <option value="ie">B.Tech in Instrumentation Engineering</option>
+                    <option value="mse">B.Tech in Materials Science and Engineering</option>
+                    <option value="power">B.Tech in Power Engineering</option>
+                    <option value="petro">B.Tech in Petroleum Engineering</option>
+                    <option value="robotics">B.Tech in Robotics Engineering</option>
+                    <option value="ds">B.Tech in Data Science and Engineering</option>
+                    <option value="nuclear">B.Tech in Nuclear Engineering</option>
+                    <option value="telecom">B.Tech in Telecommunication Engineering</option>
+                    <option value="mechatronics">B.Tech in Mechatronics Engineering</option>
+                </select>
+    
+                <label for="ugPercentage">UG Percentage:</label>
+                <input type="text" id="ugPercentage" name="ugPercentage" required>
+        
+                <label for="year">UG Pass Year:</label>
+                <input type="number" id="year" name="year" min="2000" max="2024" required>
+                <!-- Add other left section fields here -->
+                
+            </div>
+    
+            <div class="formSection2">
+                <label for="pgPercentage">PG Percentage:</label>
+                <input type="text" id="pgPercentage" name="pgPercentage">
+    
+                <label for="pgYear">PG Year of Passing:</label>
+                <input type="number" id="year" name="year" min="2000" max="2024">
+    
+                <label for="softskills">Soft Skills:</label>
+                <input type="text" id="softSkillsInput" placeholder="Type a skill and press Enter">
+                <div id="softSkillsContainer" class="skills-container"></div>
+            
+                <!-- <label for="softSkills">Soft Skills:</label> -->
+                <!-- <select id="softSkills" name="softSkills[]" multiple required>
+                    <option value="communication">Communication</option>
+                    <option value="teamwork">Teamwork</option>
+                    <option value="problemSolving">Problem Solving</option>
+                </select> -->
+    
+                <label for="hardSkills">Hard Skills:</label>
+                <input type="text" id="hardSkillsInput" placeholder="Type a skill and press Enter">
+                <div id="hardSkillsContainer" class="skills-container"></div>
+                <!-- <label for="hardSkills">Hard Skills:</label>
+                <select id="hardSkills" name="hardSkills[]" multiple required>
+                    <option value="programming">Programming</option>
+                    <option value="dataAnalysis">Data Analysis</option>
+                    <option value="projectManagement">Project Management</option>
+                </select> -->
+    
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+        
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+    
+                <label for="photo">Upload Photo:</label>
+                <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required>
+                <!-- Add other right section fields here -->
+            </div>
+            <div class="submit">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function createSkillElement(skillText, container) {
+            // Create a skill element
+            const skillElement = document.createElement('div');
+            skillElement.className = 'skill';
+
+            // Display skill text
+            skillElement.textContent = skillText;
+
+            // Create a close button
+            const closeButton = document.createElement('span');
+            closeButton.className = 'closeButton';
+            closeButton.textContent = 'X';
+
+            // Add click event listener to remove the skill on close button click
+            closeButton.addEventListener('click', function () {
+                container.removeChild(skillElement);
+            });
+
+            // Append close button to the skill element
+            skillElement.appendChild(closeButton);
+
+            return skillElement;
+        }
+
+        function handleSkillsInput(input, container) {
+            input.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' && this.value.trim() !== '') {
+                    // Create a skill element
+                    const skillElement = createSkillElement(this.value.trim(), container);
+
+                    // Append the skill to the skills container
+                    container.appendChild(skillElement);
+
+                    // Clear the input field
+                    this.value = '';
+
+                    // Prevent form submission on Enter key press
+                    event.preventDefault();
+                }
+            });
+        }
+
+        const softSkillsInput = document.getElementById('softSkillsInput');
+        const softSkillsContainer = document.getElementById('softSkillsContainer');
+        handleSkillsInput(softSkillsInput, softSkillsContainer);
+
+        const hardSkillsInput = document.getElementById('hardSkillsInput');
+        const hardSkillsContainer = document.getElementById('hardSkillsContainer');
+        handleSkillsInput(hardSkillsInput, hardSkillsContainer);
+    </script>
+</body>
+</html>

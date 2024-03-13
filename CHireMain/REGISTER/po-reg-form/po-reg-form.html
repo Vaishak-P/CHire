@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="po-reg-form.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="top">
+            <div class="top1">
+                <h2><span>P.O</span> Registration</h2>
+                <h3>Fill the form to complete registration</h3>
+            </div>
+            <div class="top2">
+                <h1>CleverHire</h1>
+            </div>
+        </div>
+        <form>
+            <div class="formSection">
+
+                <div class="formSection1">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="tel">
+    
+                    <label for="instituteName">Institute Name:</label>
+                    <input type="text" id="instituteName" name="instituteName" required>
+    
+                    <label for="dept">Department:</label>
+                    <input type="text" id="dept" name="dept" required>
+                   
+        
+                    
+                    <!-- <label for="photo">Upload Photo:</label>
+                        <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required> -->
+                    </div>
+                    <div class="formSection2">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        
+                </div>
+            </div>
+            
+            <div class="submit">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function createSkillElement(skillText, container) {
+            // Create a skill element
+            const skillElement = document.createElement('div');
+            skillElement.className = 'skill';
+
+            // Display skill text
+            skillElement.textContent = skillText;
+
+            // Create a close button
+            const closeButton = document.createElement('span');
+            closeButton.className = 'closeButton';
+            closeButton.textContent = 'X';
+
+            // Add click event listener to remove the skill on close button click
+            closeButton.addEventListener('click', function () {
+                container.removeChild(skillElement);
+            });
+
+            // Append close button to the skill element
+            skillElement.appendChild(closeButton);
+
+            return skillElement;
+        }
+
+        function handleSkillsInput(input, container) {
+            input.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' && this.value.trim() !== '') {
+                    // Create a skill element
+                    const skillElement = createSkillElement(this.value.trim(), container);
+
+                    // Append the skill to the skills container
+                    container.appendChild(skillElement);
+
+                    // Clear the input field
+                    this.value = '';
+
+                    // Prevent form submission on Enter key press
+                    event.preventDefault();
+                }
+            });
+        }
+
+        const softSkillsInput = document.getElementById('softSkillsInput');
+        const softSkillsContainer = document.getElementById('softSkillsContainer');
+        handleSkillsInput(softSkillsInput, softSkillsContainer);
+
+        const hardSkillsInput = document.getElementById('hardSkillsInput');
+        const hardSkillsContainer = document.getElementById('hardSkillsContainer');
+        handleSkillsInput(hardSkillsInput, hardSkillsContainer);
+    </script>
+</body>
+</html>
