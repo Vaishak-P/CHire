@@ -31,14 +31,15 @@ form {
     justify-content: center;
     /* align-items: center; */
     place-content: center;
-    width:750px;
+    width:760px;
     flex-wrap: wrap;
     /* margin: 10px 0px; */
     border-radius: 20px;
     background-color:  rgba(154, 165, 231,0.5);
     background-color:  var(--sec-color);
     font-weight: 600;
-    margin: 180px 0px 30px 0;
+    margin: 180px 0 30px 0;
+    /* padding-top: 100px; */
     
 }
 .top{
@@ -48,8 +49,10 @@ form {
     position: absolute;
     top: 30px;
     background-color:  rgba(154, 165, 231,0.5);
+    /* width: 100%; */
     padding: 30px 0 30px 20px;
     border-radius: 20px;
+    /* border: dotted var(--bg-color) 2px; */
 }
 .top2 h1{
     color:#9aa5e7;
@@ -59,7 +62,7 @@ form {
     background-color: black;
     padding: 10px 20px;
     /* PRO_TRICK */
-    margin-left: 140px;
+    margin-left: 170px;
     border-radius: 50px 0px 0px 50px;
     transition: all 0.5s;
 }
@@ -79,15 +82,20 @@ h3{
     font-size: 13px;
 }
 .formSection{
-    display: flex;
-    width: 100%;
-
+    background-color: var(--sec-color);
 }
 .formSection1,.formSection2 {
     width: 300px;
     margin:5%;
     font-size: 13px;
 }
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
 .skill {
     display: flex;
     align-items: center;
@@ -107,7 +115,7 @@ h3{
 label {
     /* display: block; */
     margin-bottom: 8px;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 input, select {
@@ -119,7 +127,7 @@ input, select {
     border: var(--pri-color) 0px solid;
     box-shadow: var(--bg-color) 0px 0px 10px;
 }
-#companyName,#contactName ,#companyAddress1,#companyAddress2,#companyAddress3{
+#name,#address1,#address2,#address3,#softSkillsInput,#hardSkillsInput{
     text-transform: capitalize;
 }
 #photoUpload button{
@@ -128,6 +136,8 @@ input, select {
     padding: 8px 12px;
     cursor: pointer;
 }
+
+
 /* Style for password toggle icon */
 .passwordGroup{
     display: flex;
@@ -151,6 +161,9 @@ input, select {
 .eye-icon:hover {
   color: #555; /* Change icon color on hover */
 }
+
+
+
 .submit{
     display: grid;
 }
