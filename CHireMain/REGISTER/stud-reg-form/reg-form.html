@@ -18,7 +18,7 @@
                 <h1>CleverHire</h1>
             </div>
         </div>
-        <form>
+        <form onsubmit="onSubmit()>
             <div class="formSection1">
                 <label for="name">Full Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -31,8 +31,10 @@
     
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
     
-                <label for="sslcPercentage">SSLC Percentage:</label>
+                <!-- <label for="sslcPercentage">SSLC Percentage:</label>
                 <input type="text" id="sslcPercentage" name="sslcPercentage" required>
     
                 <label for="year">HS Pass Year:</label>
@@ -42,8 +44,88 @@
                 <input type="text" id="hsPercentage" name="hsPercentage" required>
     
                 <label for="year">HS Pass Year:</label>
-                <input type="number" id="year" name="year" min="2000" max="2024" required>
+                <input type="number" id="year" name="year" min="2000" max="2024" required> -->
+
+                <label for="country">Country</label>
+                <select name="country" id="country">
+                    <option value="IN" selected>India</option>
+                </select>
+
+                <label for="state">State</label>
+                <select id="states">
+                    <!-- <option value="" disabled selected>Select a state</option> -->
+                    <option value="Kerala" selected>Kerala</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                    <option value="Daman and Diu">Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Puducherry">Puducherry</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+
+                <label for="district">District</label>
+                <select id="districts">
+                    <option value="" disabled selected>Select a district</option>
+                    <option value="Alappuzha">Alappuzha</option>
+                    <option value="Ernakulam">Ernakulam</option>
+                    <option value="Idukki">Idukki</option>
+                    <option value="Kannur">Kannur</option>
+                    <option value="Kasaragod">Kasaragod</option>
+                    <option value="Kollam">Kollam</option>
+                    <option value="Kottayam">Kottayam</option>
+                    <option value="Kozhikode">Kozhikode</option>
+                    <option value="Malappuram">Malappuram</option>
+                    <option value="Palakkad">Palakkad</option>
+                    <option value="Pathanamthitta">Pathanamthitta</option>
+                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                    <option value="Thrissur">Thrissur</option>
+                    <option value="Wayanad">Wayanad</option>
+                </select>
+                    
+            </div>
+    
+            <div class="formSection2">
+                <!-- <label for="pgPercentage">PG Percentage:</label>
+                <input type="text" id="pgPercentage" name="pgPercentage">
+    
+                <label for="pgYear">PG Year of Passing:</label>
+                <input type="number" id="year" name="year" min="2000" max="2024"> -->
                 
+                <label for="college">Educational Institute</label>
+                <select name="college" id="college">
+                    <option value="" disabled selected>Select a state</option>
+                </select>
+               
                 <label for="ugCourse">Undergraduate Course:</label>
                 <select id="ugCourse" name="ugCourse" class="ugCourse">
                     <option value="" disabled selected>Select your UG course</option>
@@ -72,44 +154,21 @@
                     <option value="telecom">B.Tech in Telecommunication Engineering</option>
                     <option value="mechatronics">B.Tech in Mechatronics Engineering</option>
                 </select>
-    
-                <label for="ugPercentage">UG Percentage:</label>
-                <input type="text" id="ugPercentage" name="ugPercentage" required>
-        
+
                 <label for="year">UG Pass Year:</label>
                 <input type="number" id="year" name="year" min="2000" max="2024" required>
-                <!-- Add other left section fields here -->
                 
-            </div>
-    
-            <div class="formSection2">
-                <label for="pgPercentage">PG Percentage:</label>
-                <input type="text" id="pgPercentage" name="pgPercentage">
-    
-                <label for="pgYear">PG Year of Passing:</label>
-                <input type="number" id="year" name="year" min="2000" max="2024">
-    
+                <label for="ugPercentage">UG Percentage:</label>
+                <input type="text" id="ugPercentage" name="ugPercentage" required>
+
                 <label for="softskills">Soft Skills:</label>
                 <input type="text" id="softSkillsInput" placeholder="Type a skill and press Enter">
                 <div id="softSkillsContainer" class="skills-container"></div>
-            
-                <!-- <label for="softSkills">Soft Skills:</label> -->
-                <!-- <select id="softSkills" name="softSkills[]" multiple required>
-                    <option value="communication">Communication</option>
-                    <option value="teamwork">Teamwork</option>
-                    <option value="problemSolving">Problem Solving</option>
-                </select> -->
     
                 <label for="hardSkills">Hard Skills:</label>
                 <input type="text" id="hardSkillsInput" placeholder="Type a skill and press Enter">
                 <div id="hardSkillsContainer" class="skills-container"></div>
-                <!-- <label for="hardSkills">Hard Skills:</label>
-                <select id="hardSkills" name="hardSkills[]" multiple required>
-                    <option value="programming">Programming</option>
-                    <option value="dataAnalysis">Data Analysis</option>
-                    <option value="projectManagement">Project Management</option>
-                </select> -->
-    
+
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
         
@@ -118,8 +177,8 @@
     
                 <label for="photo">Upload Photo:</label>
                 <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required>
-                <!-- Add other right section fields here -->
             </div>
+
             <div class="submit">
                 <button type="submit">Submit</button>
             </div>
@@ -176,6 +235,24 @@
         const hardSkillsInput = document.getElementById('hardSkillsInput');
         const hardSkillsContainer = document.getElementById('hardSkillsContainer');
         handleSkillsInput(hardSkillsInput, hardSkillsContainer);
+
+        // Capitalise input fields
+        function capitalizeInput() {
+            var nameInput = document.getElementById('name');
+            var addressInput = document.getElementById('address');
+
+            nameInput.value = capitalizeFirstLetterEachWord(nameInput.value);
+            addressInput.value = capitalizeFirstLetterEachWord(addressInput.value);
+        }
+
+        function capitalizeFirstLetterEachWord(str) {
+            return str.replace(/\b\w+\b/g, function(word) {
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            });
+        }
+        function onSubmit(){
+            capitalizeInput();
+        }
     </script>
 </body>
 </html>
