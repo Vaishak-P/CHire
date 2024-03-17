@@ -86,9 +86,19 @@ app.post('/LOGIN', (req, res) => {
                     res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total });
                 });
                 break;
-            case 'placement_coordinator':
+            case 'placementOfficer':
                 // Redirect to placement coordinator dashboard
-                res.redirect('/placement-coordinator/dashboard');
+                mysqlConnection.query('SELECT * FROM placement_officer WHERE email = ?', email,(err, results)=>{
+                    if (err) {
+                        console.error('Error executing query: ', err);
+                        res.status(500).send('Internal Server Error');
+                        return;
+                    }
+                    
+                    user = results[0]
+                    console.log(user)
+                    res.render('po/dashboard');
+                });
                 break;
             case 'company':
                 // Redirect to company HR dashboard
@@ -102,21 +112,6 @@ app.post('/LOGIN', (req, res) => {
     });
 });
 
-app.get('/student/dashboard',(req,res)=>{
-    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total })
-})
-
-app.get('/student/cv',(req,res)=>{
-    res.render("cv-gen/cv-gen")
-})
-
-app.get('/cv-template',(req,res)=>{
-    res.render("cv-gen/cv-template")
-})
-
-app.get('/student/mocktest',(req,res)=>{
-    res.render("std-test/std-test")
-})
 
 app.get('/MockTest/:heading', (req, res) => {
     const encodedHeading = req.params.heading;
@@ -124,6 +119,11 @@ app.get('/MockTest/:heading', (req, res) => {
     res.render("std-test-details/std-test-details",{heading:decodedHeading})
 });
 
+const studentRouter = require('./routes/student')
+const poRouter = require('./routes/po')
+
+app.use(studentRouter)
+app.use(poRouter)
 
 // Start the server
 app.listen(3000, () => {
