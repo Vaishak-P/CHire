@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        section {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        #timer-section, #camera-section {
+            max-width: 300px;
+        }
+
+        #timer {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .answer-section {
+            display: none;
+        }
+
+        #fluency-score {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mock Interview</h1>
+    </header>
+    <main>
+        <section id="timer-section">
+            <h2>Time Left</h2>
+            <div id="timer">01:00</div>
+        </section>
+        <section id="question-section">
+            <h2>Questions</h2>
+            <div id="question" class="question"></div>
+            <div class="answer-section">
+                <button class="record-button">Record Answer</button>
+                <p class="speech-text"></p>
+            </div>
+            <button class="next-button">Next</button>
+        </section>
+        <section id="camera-section">
+            <h2>Camera</h2>
+            <video id="video" autoplay></video>
+        </section>
+    </main>
+    <div id="fluency-score"></div>
+    <script>
+        let timeLeft = 60; // 1 minute
+        let roundTime = 20; // 20 seconds per round
+        const timerDisplay = document.getElementById('timer');
+        let round = 1;
+        let totalWords = 0;
+        let timerInterval;
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                timerDisplay.innerHTML = `${minutes}:${seconds}`;
+
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.innerHTML = 'Time is up!';
+                    endInterview();
+                }
+                else if (timeLeft % roundTime === 0) {
+                    nextRound();
+                }
+            }, 1000);
+        }
+
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = true;
+
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            document.querySelector('.speech-text').textContent = transcript;
+            const words = transcript.split(' ').length;
+            totalWords += words;
+        };
+
+        document.querySelectorAll('.next-button').forEach(button => {
+            button.addEventListener('click', nextRound);
+        });
+
+        document.querySelectorAll('.record-button').forEach(button => {
+            button.addEventListener('click', () => {
+                recognition.start();
+            });
+        });
+
+        async function startCamera() {
+            const video = document.getElementById('video');
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing webcam: ', err);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            startTimer();
+            startCamera();
+            setInitialQuestion();
+        });
+
+        function setInitialQuestion() {
+            document.getElementById('question').innerHTML = `
+                <h3>Personal Question</h3>
+                <p>Tell me about yourself.</p>
+            `;
+            document.querySelector('.answer-section').style.display = 'block';
+        }
+
+        function nextRound() {
+            clearInterval(timerInterval);
+            timeLeft -= roundTime;
+            round++;
+            if (round === 2) {
+                document.getElementById('question').innerHTML = `
+                    <h3>Technical Question</h3>
+                    <p>What is the final keyword in Java?</p>
+                `;
+                document.querySelector('.answer-section').style.display = 'block';
+            } else if (round === 3) {
+                document.getElementById('question').innerHTML = `
+                    <h3>HR Question</h3>
+                    <p>What are your salary expectations?</p>
+                `;
+                document.querySelector('.answer-section').style.display = 'block';
+            } else if (round > 3) {
+                endInterview();
+            }
+            startTimer();
+        }
+
+        function endInterview() {
+            clearInterval(timerInterval);
+            timerDisplay.innerHTML = 'Time is up!';
+            const fluency = totalWords / 3;
+            document.getElementById('fluency-score').textContent = `Interview score: ${fluency.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
