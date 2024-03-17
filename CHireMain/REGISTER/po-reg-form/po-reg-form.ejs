@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <link rel="stylesheet" href="po-reg-form.css">
+    <link rel="stylesheet" href="/REGISTER/po-reg-form/po-reg-form.css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -19,7 +19,7 @@
                 <h1>CleverHire</h1>
             </div>
         </div>
-        <form onsubmit="onSubmit()">
+        <form onsubmit="onSubmit()" action="/register/po" method="post">
             <div class="formSection">
 
                 <div class="formSection1">
@@ -30,15 +30,15 @@
                     <input type="email" id="email" name="email" required>
                     
                     <label for="phone">Phone Number:</label>
-                    <input type="tel" id="tel">
+                    <input type="tel" id="tel" name="phone">
 
                     <label for="country">Country</label>
                         <select name="country" id="country">
-                            <option value="IN" selected>India</option>
+                            <option value="India" selected>India</option>
                         </select>
 
                         <label for="state">State</label>
-                        <select id="states">
+                        <select id="states" name="state">
                             <!-- <option value="" disabled selected>Select a state</option> -->
                             <option value="Kerala" selected>Kerala</option>
                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
@@ -80,7 +80,7 @@
                         </select>
 
                         <label for="district">District</label>
-                        <select id="districts">
+                        <select id="districts" name="district">
                             <option value="" disabled selected>Select a district</option>
                             <option value="Alappuzha">Alappuzha</option>
                             <option value="Ernakulam">Ernakulam</option>
@@ -101,11 +101,8 @@
                         <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required> -->
                     </div>
                     <div class="formSection2">
-                        <label for="instituteName">Institute Name:</label>
-                    <input type="text" id="instituteName" name="instituteName" required>
-    
-                    <label for="dept">Department:</label>
-                    <input type="text" id="dept" name="dept" required>
+                        <label for="institute">Institute Name:</label>
+                    <input type="text" id="institute" name="institute" required>
                     <label for="password">Password:</label>
                     <div class="passwordGroup">
                         <input type="password" id="passwordInput" placeholder="Enter Password">
@@ -116,7 +113,7 @@
 
                     <label for="confirmPassword">Confirm Password:</label>
                     <div class="passwordGroup">
-                        <input type="password" id="confirmPasswordInput" placeholder="Confirm Password">
+                        <input name ="password" type="password" id="confirmPasswordInput" placeholder="Confirm Password">
                         <span class="eye-icon">
                         <i class="fas fa-eye"></i>
                         </span>
@@ -126,7 +123,7 @@
                         
                 </div>
             </div>
-            
+            <h6 style="color: red;"><%= locals.error %></h6>
             <div class="submit">
                 <button type="submit">Submit</button>
             </div>
@@ -138,10 +135,10 @@
         // Capitalise input fields
         function capitalizeInput() {
             var nameInput = document.getElementById('name');
-            var addressInput = document.getElementById('address');
+            var instituteInput = document.getElementById('institute');
 
             nameInput.value = capitalizeFirstLetterEachWord(nameInput.value);
-            addressInput.value = capitalizeFirstLetterEachWord(addressInput.value);
+            instituteInput.value = capitalizeFirstLetterEachWord(instituteInput.value);
         }
 
         function capitalizeFirstLetterEachWord(str) {

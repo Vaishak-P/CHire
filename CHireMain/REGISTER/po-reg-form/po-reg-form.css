@@ -119,11 +119,37 @@ input, select {
     border: var(--pri-color) 0px solid;
     box-shadow: var(--bg-color) 0px 0px 10px;
 }
+#name,#institute,#dept{
+    text-transform: capitalize;
+}
 #photoUpload button{
     background-color: #3498db;
     color: #fff;
     padding: 8px 12px;
     cursor: pointer;
+}
+/* Style for password toggle icon */
+.passwordGroup{
+    display: flex;
+    position: relative; 
+    /* //base bg */
+}
+.eye-icon {
+    position: absolute; 
+    /* //come over bg */
+    right: 10px;
+  cursor: pointer; 
+  /* z-index: 2; */
+}
+
+.eye-icon i {
+    padding: 15px 0px 0 10px;
+  color: var(--pri-color);
+}
+
+/* Add hover effect */
+.eye-icon:hover {
+  color: #555; /* Change icon color on hover */
 }
 .submit{
     display: grid;
