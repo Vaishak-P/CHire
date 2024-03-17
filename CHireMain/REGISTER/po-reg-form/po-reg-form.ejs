@@ -103,9 +103,6 @@
                     <div class="formSection2">
                         <label for="institute">Institute Name:</label>
                     <input type="text" id="institute" name="institute" required>
-    
-                    <label for="dept">Department:</label>
-                    <input type="text" id="dept" name="dept" required>
                     <label for="password">Password:</label>
                     <div class="passwordGroup">
                         <input type="password" id="passwordInput" placeholder="Enter Password">
@@ -138,10 +135,10 @@
         // Capitalise input fields
         function capitalizeInput() {
             var nameInput = document.getElementById('name');
-            var addressInput = document.getElementById('address');
+            var instituteInput = document.getElementById('institute');
 
             nameInput.value = capitalizeFirstLetterEachWord(nameInput.value);
-            addressInput.value = capitalizeFirstLetterEachWord(addressInput.value);
+            instituteInput.value = capitalizeFirstLetterEachWord(instituteInput.value);
         }
 
         function capitalizeFirstLetterEachWord(str) {

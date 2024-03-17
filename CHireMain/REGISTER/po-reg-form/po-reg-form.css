@@ -119,7 +119,7 @@ input, select {
     border: var(--pri-color) 0px solid;
     box-shadow: var(--bg-color) 0px 0px 10px;
 }
-#name,#instituteName,#dept{
+#name,#institute,#dept{
     text-transform: capitalize;
 }
 #photoUpload button{
