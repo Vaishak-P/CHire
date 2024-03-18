@@ -17,6 +17,14 @@ body{
     --top-color:#575fd6;
 }
 /* -------CleverHire heading------- */
+.topMenu{
+    position: fixed;
+    width: 100%;
+
+}
+.content{
+    margin: 110px 0 20px 0;
+}
 .cleverhire{
     text-align: center;
     background-color:var(--top-color);
@@ -110,6 +118,11 @@ main-body{
     height:100vh;
     padding: 10px 20px;
     float: left;
+
+    /* ALERT */
+    top: 105px;
+    left: 0;
+    position: fixed;
 }
 .dp i{
     color: var(--bg-color);
@@ -157,6 +170,7 @@ main-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100vh;
+    margin-left: 200px;
 }
 /* -------dashboard ------- */
 .dashboard{
@@ -221,8 +235,9 @@ main-body{
 .stud-info h5{
     font-size: 15px;
     padding-left: 10px;
+    color: var(--icon-color);
 }
-.aca-info-top{
+.info-top{
     background-color: var(--top-color);
     display: grid;
     grid-template-columns:9fr 1fr;
@@ -230,39 +245,28 @@ main-body{
     border-radius: 10px;
     padding: 10px;
 }
-/* button{
-    background-color: var(--top-color);
-    border:5px #3D3B40 ;
-    border-radius: 20px;
-    padding:5px 10px;
-    color: var(--icon-color);
-    
-} */
-.stud-aca-info-con{
+.infoFetchContainer{
+    margin: 10px;
+}
+.row{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-.stud-aca-info .info{
+.row .label{
+    margin: 5px;
+    padding: 5px 0; 
+    font-size:large ;
+    text-transform: capitalize;
+    /* border: 1px solid #3D3B40;
+    border-radius: 15px; */
+}
+.row .value{
     margin: 5px;
     padding: 5px;
     font-size:large ;
-    border: 1px solid #3D3B40;
-    border-radius: 15px;
-}
-.stud-aca-info .info-f{
-    margin: 5px;
-    padding: 5px;
-    font-size:large ;
-    border: 1px solid #3D3B40;
+    border: 1px solid rgba(1,1,1,0.2);
     border-radius: 15px;
 
-}
-.stud-aca-info .info h6{
-    padding-top: 5px;
-
-}
-.aca-info-title{
-    color: var(--icon-color);
 }
 .edit-button{
     background-color:var(--pri-color);
@@ -270,42 +274,6 @@ main-body{
     border-radius: 20px;
     padding:5px 10px;
     color:var(--bg-color);
-}
-/* -------student peresonal info session ------- */
-.per-info-top{
-    background-color: #525CEB;
-    display: grid;
-    grid-template-columns:9fr 1fr;
-    border:2px #3D3B40 ;
-    border-radius: 10px;
-    padding: 8px 8px 8px 0 ;
-    margin-top: 10px;
-}
-.per-info-title{
-    color: var(--icon-color);
-    padding-left: 10px;
-}
-.stud-per-info-con{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.stud-per-info .info{
-    margin: 5px;
-    padding: 5px;
-    font-size:large ;
-    border: 1px solid #3D3B40;
-    border-radius: 15px;
-}
-.stud-per-info .info-f{
-    margin: 5px;
-    padding: 5px;
-    font-size:large ;
-    border: 1px solid #3D3B40;
-    border-radius: 15px;
-}
-.stud-per-info .info h6{
-    padding-top: 5px;
-    
 }
 /* -------right session of webpage ------- */
 /* -------job search bar ------- */
