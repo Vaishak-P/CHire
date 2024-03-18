@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <!-- <link rel="stylesheet" href="stud-reg-form.css"> -->
+    <link rel="stylesheet" href="stud-reg-form.css">
     <link rel="stylesheet" href="/REGISTER/stud-reg-form/stud-reg-form.css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
 </head>
@@ -133,6 +133,9 @@
                     <option value="" disabled selected>Select your institute</option>
                 </select>
                
+                <label for="year">Year of Study:</label>
+                <input type="number" id="year" name="ugyear" min="1" max="4" required>
+                
                 <label for="ugCourse">Undergraduate Course:</label>
                 <select id="ugCourse" name="ugCourse" class="ugCourse">
                     <option value="" disabled selected>Select your UG course</option>
@@ -162,9 +165,6 @@
                     <option value="mechatronics">B.Tech in Mechatronics Engineering</option> -->
                 </select>
 
-                <label for="year">UG Pass Year:</label>
-                <input type="number" id="year" name="ugyear" min="2000" max="2024" required>
-                
                 <label for="cgpa">CGPA:</label>
                 <input type="text" id="cgpa" name="cgpa" placeholder="Enter your current CGPA" required>
 
