@@ -21,10 +21,12 @@ app.use((err, req, res, next) => {
 
 // MySQL Connection Configuration
 const mysqlConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Akshay@123',
-    database: 'cleverhire'
+    connectionLimit: 100,
+    host: "127.0.0.1",
+    user: "newuser",
+    password: "Aswathy@2001",
+    database: "mydatabse",
+    port: "3306"
 });
 
 mysqlConnection.connect((err) => {

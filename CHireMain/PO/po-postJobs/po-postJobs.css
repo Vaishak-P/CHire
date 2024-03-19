@@ -7,6 +7,7 @@
 }
 body{
     font-family: poppins;
+    font-size: var(--h2);
     background-color: #BFCFE7;
 }
 :root{
@@ -15,6 +16,8 @@ body{
     --icon-color:#ffffff;
     --pri-color:black;
     --top-color:#575fd6;
+    --h1:20px;
+    --h2:15px;
 }
 /* -------CleverHire heading------- */
 .topMenu{
@@ -23,7 +26,7 @@ body{
 
 }
 .content{
-    margin: 110px 0 20px 0;
+    margin: 120px 0 20px 20px;
 }
 .cleverhire{
     text-align: center;
@@ -100,7 +103,7 @@ main-body{
 }
 
 /* ------- left menu of pages------- */
-.lmenu .d{
+.lmenu .pnj{
     background-color: #bfcfe73b;
     border:2px #3D3B40 ;
     border-radius: 15px;
@@ -120,7 +123,7 @@ main-body{
     float: left;
 
     /* ALERT */
-    top: 105px;
+    top: 103px;
     left: 0;
     position: fixed;
 }
@@ -163,188 +166,90 @@ main-body{
     padding: 5px 10px;
 
 }
-
 /* -------centre section of webpage ------- */
 .cmenu{
     /* background-color: chartreuse; */
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     height: 100vh;
     margin-left: 200px;
+    margin-bottom: 20px;
 }
-/* -------dashboard ------- */
-.dashboard{
-    margin: 20px;
-    /* padding: 10px; */
-    background-color:#F8EDFF;
-    /* width: 50vw; */
-    border:2px #3D3B40 ;
-    border-radius: 15px;
-}
-.dashboard .dash-top{
-    background-color:var(--bg-color);
-    background-image: url("hero-bg.jpg");
-    background-size: cover;
-    display: grid;
-    grid-template-columns: 8fr 1fr;
-    border:10px #3D3B40 ;
-    border-radius: 15px;
-}
-.dashboard image{
-    filter: opacity(.1);
-}
-.stud-title{
-    padding: 20px 30px;
-    
-}
-.stud-name{
-    font-size:large;
-    color:var(--sec-color);
-}
-.stud-name span{
-    font-weight: 800;
-}
-.stud-job-title{
-    font-size: small;
-    color: rgb(248, 237, 255,.7);
-}
-/* -------score in dashboard ------- */
-.score{
-    display: grid;
-    align-items: center; /*vertical*/
+form {
+    /* background-color: transparent; */
+    /* padding: 20px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
     justify-content: center;
-}
-.score h1{
-    /* left: 20px; */
-    /* text-align: center; */
-    color:var(--icon-color);
-    padding-right: 20px;
-}
-.both-info{
-    margin: 0 20px;
-    padding: 3px 10px 10px 10px;
-    background-color: var(--sec-color);
-    border:2px #3D3B40 ;
-    border-radius: 15px;
-}
-/* -------academic info session ------- */
-.stud-info{
-    margin-top: 10px;
-}
-
-.stud-info h5{
-    font-size: 15px;
-    padding-left: 10px;
-    color: var(--icon-color);
-}
-.info-top{
-    background-color: var(--top-color);
-    display: grid;
-    grid-template-columns:9fr 1fr;
-    border:2px #3D3B40 ;
-    border-radius: 10px;
-    padding: 10px;
-}
-.infoFetchContainer{
-    margin: 10px;
-}
-.row{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.row .label{
-    margin: 5px;
-    padding: 5px 0; 
-    font-size:large ;
-    text-transform: capitalize;
-    /* border: 1px solid #3D3B40;
-    border-radius: 15px; */
-}
-.row .value{
-    margin: 5px;
-    padding: 5px;
-    font-size:large ;
-    border: 1px solid rgba(1,1,1,0.2);
-    border-radius: 15px;
-
-}
-.edit-button{
-    background-color:var(--pri-color);
-    border:5px #3D3B40 ;
+    /* align-items: center; */
+    place-content: center;
+    width:760px;
+    flex-wrap: wrap;
+    /* margin: 10px 0px; */
     border-radius: 20px;
-    padding:5px 10px;
-    color:var(--bg-color);
+    background-color:  rgba(154, 165, 231,0.5);
+    background-color:  var(--sec-color);
+    font-weight: 600;
+    /* MARGIN DIFFERENCE */
 }
-/* -------right session of webpage ------- */
-/* -------job search bar ------- */
-.search-con{
+.formSection{
     background-color: var(--sec-color);
-    margin: 20px 20px 0 0;
-    border: 1px solid var(--sec-color);
-    border-radius: 15px;
-    padding: 20px 0px 5px 0px;
 }
-.search-con h5{
-    text-align: center;
-    padding-bottom: 10px;
-    color: var(--top-color);
-    font-size: large;
-    
-}
-.search{
-    display: grid;
-    grid-template-columns: 9fr 1fr;
-    /* background-color:#eee; */
-    /* padding-bottom: 15px; */
-    padding: 10px 10px 10px 10px;
-}
-.search .search-input{
-    /* width: 85%; */
-    border: 2px solid var(--top-color);
-    border-radius: 25px;
-    padding: 5px 10px;
-    background-color:var(--icon-color);
-    margin: 5px 0px 5px 10px;
-    /* padding-right: 10%; */
-}
-.search-icon{
-    /* float: left; */
-    color: var(--top-color);
-    background-color: var(--icon-color);
-    font-size: 23px;
-    border: none;
-    padding: 0 5px;
-}
-/* -------matching job session ------- */
-.anno{
-    background-color:var(--icon-color);
-    margin: 20px 20px 10px 0;
-    background-color:var(--icon-color);
-    padding: 10px;
-    border:2px #3D3B40 ;
-    border-radius: 15px;
-    
-}
-.anno-top{
-    background-color: var(--top-color);
-    display: grid;
-    grid-template-columns:90fr 8fr;
-    border:2px #3D3B40 ;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-}
-.anno h5{
-    color:var(--sec-color);
-    font-size: 15px;
-}
-.anno a{
-    text-decoration: none;
-}
-.anno li{
+.formSection1,.formSection2 {
+    width: 300px;
+    margin:5%;
     font-size: 13px;
-    list-style: none;
-    padding: 10px 10px 0 10px;
 }
-/* .anno-list{
-} */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+label {
+    /* display: block; */
+    margin-bottom: 8px;
+    padding-top: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 5px 15px;
+    margin: 5px 0 15px 0;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border: var(--pri-color) 0px solid;
+    box-shadow: var(--bg-color) 0px 0px 10px;
+}
+textarea {
+    width: 300px; /* Set the width */
+    height: 100px; /* Set the height */
+    margin: 5px 0 15px 0;
+    padding: 5px 15px;
+    resize: none; /* Disable resizing */
+    border-radius: 20px;
+    border: var(--pri-color) 0px solid;
+    box-shadow: var(--bg-color) 0px 0px 10px;
+}
+.submit{
+    display: grid;
+}
+button {
+    background-color:var(--bg-color);
+    border-radius: 20px;
+    border: 1px solid var(--bg-color);
+    box-shadow: var(--bg-color) 0px 0px 10px;
+    /* display: block; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: var(--sec-color);
+    font-weight: 500;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 0px 0 30px 0;
+    width: 200px;
+}
+button:hover {
+    background-color: var(--pri-color);
+    color: var(--bg-color);
+}
