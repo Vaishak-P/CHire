@@ -91,7 +91,8 @@ app.post('/LOGIN', (req, res) => {
                     // Parse JSON strings into JavaScript objects
                     const softskillsArray = JSON.parse(user.softskills);
                     const hardskillsArray = JSON.parse(user.hardskills);
-                    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address1:user.address1,address2:user.address2,address3:user.address3,total:user.total,hard:hardskillsArray,soft:softskillsArray,institute:user.institute,year:user.ugyear });
+                    const profile = `/images/${user.photo}`
+                    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address1:user.address1,address2:user.address2,address3:user.address3,total:user.total,hard:hardskillsArray,soft:softskillsArray,institute:user.institute,year:user.ugyear,profile:profile });
                 });
                 break;
             case 'placementOfficer':
