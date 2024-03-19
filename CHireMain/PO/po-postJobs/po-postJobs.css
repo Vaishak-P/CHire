@@ -66,25 +66,8 @@ nav{
     /* font-weight: 800; */
     font-weight: lighter;
 }
-nav .list{
-    /* display: flex; */
-    text-decoration: none;
-}
-nav .list a{
-    font-size: 15px;
-    padding: 0px 10px;
-    color:var(--bg-color);
-    text-decoration: none;
-    transition: color 500ms;
-    /* transition: border 4s; */
-}
-nav .list a:hover{
-    color: var(--sec-color);
-    border:var(--bg-color) 1px solid;
-    border-radius: 20px;
-}
 nav .soc-icon{
-    position: absolute;
+    /* position: absolute; */
     right: 20px;
     /* left: 90%; */
 }
@@ -177,6 +160,12 @@ main-body{
 }
 .content h1{
     text-align: center;
+    color: var(--sec-color);
+    font-weight: 900;
+    padding: 20px;
+    text-transform: uppercase;
+    background-color: var(--top-color);
+    border-radius: 20px 20px 0 0;
 }
 .content button{
     display: block;
@@ -246,7 +235,7 @@ textarea {
 
 }
 button {
-    background-color:var(--bg-color);
+    background-color:var(--top-color);
     border-radius: 20px;
     border: 1px solid var(--bg-color);
     box-shadow: var(--bg-color) 0px 0px 10px;
