@@ -181,30 +181,6 @@
     </div>
 
     <script>
-        // Assuming 'district' is the ID of the district dropdown menu
-        $('#districts').change(function() {
-            var selectedDistrict = $(this).val();
-    
-            // Make AJAX request to fetch institute names
-            $.ajax({
-                url: '/institutes', // Endpoint on your server to handle the request
-                method: 'GET',
-                data: { district: selectedDistrict },
-                success: function(response) {
-                    // Populate the dropdown menu with received institute names
-                    $('#institute').empty();
-                    response.institutes.forEach(function(institute) {
-                        $('#institute').append($('<option>', {
-                            value: institute
-                        }));
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching institutes:', error);
-                }
-            });
-        });
-
         function createSkillElement(skillText, container, skillType) {
             // Create a skill element
             const skillElement = document.createElement('div');
@@ -300,7 +276,29 @@
                 this.querySelector('i').classList.toggle('fa-eye-slash');
             });
         });
-
+        // Assuming 'district' is the ID of the district dropdown menu
+        $('#districts').change(function() {
+            var selectedDistrict = $(this).val();
+    
+            // Make AJAX request to fetch institute names
+            $.ajax({
+                url: '/institutes', // Endpoint on your server to handle the request
+                method: 'GET',
+                data: { district: selectedDistrict },
+                success: function(response) {
+                    // Populate the dropdown menu with received institute names
+                    $('#institute').empty();
+                    response.institutes.forEach(function(institute) {
+                        $('#institute').append($('<option>', {
+                            value: institute
+                        }));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching institutes:', error);
+                }
+            });
+        });
     </script>
 </body>
 </html>

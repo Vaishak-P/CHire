@@ -21,12 +21,10 @@ app.use((err, req, res, next) => {
 
 // MySQL Connection Configuration
 const mysqlConnection = mysql.createConnection({
-    connectionLimit: 100,
-    host: "127.0.0.1",
-    user: "newuser",
-    password: "Aswathy@2001",
-    database: "mydatabse",
-    port: "3306"
+    host: 'localhost',
+    user: 'root',
+    password: 'Akshay@123',
+    database: 'cleverhire'
 });
 
 mysqlConnection.connect((err) => {
@@ -90,7 +88,10 @@ app.post('/LOGIN', (req, res) => {
                     }
                     
                     user = results[0]
-                    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address:user.address,bld:user.blood_group,total:user.total });
+                    // Parse JSON strings into JavaScript objects
+                    const softskillsArray = JSON.parse(user.softskills);
+                    const hardskillsArray = JSON.parse(user.hardskills);
+                    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address1:user.address1,address2:user.address2,address3:user.address3,total:user.total,hard:hardskillsArray,soft:softskillsArray,institute:user.institute,year:user.ugyear });
                 });
                 break;
             case 'placementOfficer':
@@ -125,8 +126,6 @@ app.get('/MockTest/:heading', (req, res) => {
     const decodedHeading = decodeURIComponent(encodedHeading);
     res.render("std-test-details/std-test-details",{heading:decodedHeading})
 });
-
-module.exports = {user}
 
 const studentRouter = require('./routes/student')
 const poRouter = require('./routes/po')

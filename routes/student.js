@@ -5,8 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios'); // Import Axios for making HTTP requests
 
-let user = require('D:/mainProject/CHire/server')
-console.log(user)
 
 router.views = path.join(__dirname, 'CHireMain');
 
@@ -95,7 +93,6 @@ router.get('/student/dashboard',(req,res)=>{
 
 router.get('/student/cv',(req,res)=>{
     res.render("cv-gen/cv-gen")
-    console.log(user)
 })
 
 router.get('/cv-template',(req,res)=>{
