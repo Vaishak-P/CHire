@@ -208,6 +208,9 @@ th, td {
     border: 1px solid #ddd;
     border-radius: 20px;
 }
+td{
+
+}
 th {
     background-color: var(--top-color);
     color: var(--sec-color);

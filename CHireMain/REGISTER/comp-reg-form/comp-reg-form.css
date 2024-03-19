@@ -148,9 +148,10 @@ input, select {
 }
 
 /* Add hover effect */
-.eye-icon:hover {
-  color: #555; /* Change icon color on hover */
-}
+.eye-icon i:hover {
+    color: var(--pri-color);
+    transition: all 1s; /* Change icon color on hover */
+  }
 .submit{
     display: grid;
 }
