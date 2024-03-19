@@ -14,6 +14,11 @@ app.use(bodyparser.urlencoded({ extended: true }));
 // Set up static files middleware
 app.use(express.static(path.join(__dirname, 'CHireMain')));
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
 // MySQL Connection Configuration
 const mysqlConnection = mysql.createConnection({
     host: 'localhost',
@@ -118,6 +123,8 @@ app.get('/MockTest/:heading', (req, res) => {
     const decodedHeading = decodeURIComponent(encodedHeading);
     res.render("std-test-details/std-test-details",{heading:decodedHeading})
 });
+
+module.exports = {user}
 
 const studentRouter = require('./routes/student')
 const poRouter = require('./routes/po')
