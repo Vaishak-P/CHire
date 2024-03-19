@@ -57,15 +57,16 @@
                 <!-- CENTRE SECTION OF PAGE -->
                 <div class="cmenu">
                     <section class="content">
-                            <form onsubmit="onSubmit()" method="post" action="/register/student">
+                        <form onsubmit="onSubmit()" method="post" action="/register/student">
+                            <h1>Add a new job</h1>
+                            <div class="formSection">
                                 <div class="formSection1">
                                     <label for="companyName">Company Name:</label>
                                     <input type="text" id="companyName" name="companyName" required>
-                                    
-                                    <label for="qualification">Qualification:</label><br>
-                                    <input type="text" id="qualification" name="qualification" required><br><br>
+                                    <label for="qualification">Qualification:</label>
+                                    <input type="text" id="qualification" name="qualification" required>
                                 
-                                    <label for="employmentType">Employment Type:</label><br>
+                                    <label for="employmentType">Employment Type:</label>
                                     <select id="employmentType" name="employmentType">
                                         <option value="Full-time">Full-time</option>
                                         <option value="Part-time">Part-time</option>
@@ -73,33 +74,35 @@
                                         <option value="Temporary">Temporary</option>
                                         <option value="Internship">Internship</option>
                                         <option value="Freelance">Freelance</option>
-                                    </select><br><br>
+                                    </select>
                                 
-                                    <label for="salaryRange">Salary Range:</label><br>
-                                    <input type="text" id="salaryRange" name="salaryRange"><br><br>
+                                    <label for="salaryRange">Salary Range:</label>
+                                    <input type="text" id="salaryRange" name="salaryRange">
                                     
-                                    <label for="baseLocation">Base Location:</label><br>
-                                    <input type="text" id="baseLocation" name="baseLocation" required><br><br>
+                                    <label for="baseLocation">Base Location:</label>
+                                    <input type="text" id="baseLocation" name="baseLocation" required>
 
                                 </div>
-                        
                                 <div class="formSection2">
-                                    <label for="applicationDeadline">Application Deadline:</label><br>
-                                    <input type="date" id="applicationDeadline" name="applicationDeadline" required><br><br>
+                                    <label for="applicationDeadline">Application Deadline:</label>
+                                    <input type="date" id="applicationDeadline" name="applicationDeadline" required>
 
-                                    <label for="experienceRequired">Experience Required:</label><br>
-                                    <input type="text" id="experienceRequired" name="experienceRequired"><br><br>
+                                    <label for="experienceRequired">Experience Required:</label>
+                                    <input type="text" id="experienceRequired" name="experienceRequired">
 
-                                    <label for="jobDescription">Job Description:</label><br>
-                                    <textarea id="jobDescription"  required></textarea><br><br>
+                                    <label for="jobDescription">Job Description:</label>
+                                    <textarea id="jobDescription"  required></textarea>
+                                
                                 </div>
-                    
-                                <div class="submit">
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="submit">
+                                <button type="submit">Submit</button>
+                            </div>
+                            
+                        </form>
                             
                     </section>
+                
                 </div>
                 
             </div>
