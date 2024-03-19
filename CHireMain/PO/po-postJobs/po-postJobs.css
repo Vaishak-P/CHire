@@ -175,16 +175,21 @@ main-body{
     margin-left: 200px;
     margin-bottom: 20px;
 }
+.content h1{
+    text-align: center;
+}
+.content button{
+    display: block;
+
+}
 form {
     /* background-color: transparent; */
     /* padding: 20px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
     /* align-items: center; */
+    justify-content: center;
     place-content: center;
     width:760px;
-    flex-wrap: wrap;
     /* margin: 10px 0px; */
     border-radius: 20px;
     background-color:  rgba(154, 165, 231,0.5);
@@ -192,8 +197,11 @@ form {
     font-weight: 600;
     /* MARGIN DIFFERENCE */
 }
+
 .formSection{
-    background-color: var(--sec-color);
+    /* background-color: var(--sec-color); */
+    flex-wrap: wrap;
+    display: flex;
 }
 .formSection1,.formSection2 {
     width: 300px;
@@ -233,6 +241,9 @@ textarea {
 }
 .submit{
     display: grid;
+    justify-content: center;
+    place-content: center;
+
 }
 button {
     background-color:var(--bg-color);
@@ -248,6 +259,8 @@ button {
     padding: 10px 15px;
     margin: 0px 0 30px 0;
     width: 200px;
+    justify-content: center;
+    place-content: center;
 }
 button:hover {
     background-color: var(--pri-color);
