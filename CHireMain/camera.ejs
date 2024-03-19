@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Camera</title>
+    <style>
+        #video-container {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        #video-container video,
+        #video-container canvas,
+        #video-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Camera</h1>
+    
+    <div id="video-container">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <h5 style="color: red;"><%= locals.error %></h5>
+        <img id="captured-image" src="" style="display: none;">
+    </div>
+    
+    <!-- Form for submitting the captured image -->
+    <form id="image-form" method="post" action="/save-image">
+        <input type="hidden" name="imageData" id="image-data">
+        <button type="submit" id="capture-btn">Capture</button>
+    </form>
+
+    <script>
+        // Get video stream from user's camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                const videoElement = document.getElementById('video');
+                videoElement.srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing camera:', error);
+            });
+
+        // Capture image from video stream
+        const captureBtn = document.getElementById('capture-btn');
+        const imageForm = document.getElementById('image-form');
+
+        captureBtn.addEventListener('click', () => {
+            const videoElement = document.querySelector('video');
+            const canvasElement = document.getElementById('canvas');
+            const ctx = canvasElement.getContext('2d');
+
+            // Draw video frame onto canvas
+            ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+            // Get the image data URL from canvas
+            const imageData = canvasElement.toDataURL('image/jpeg');
+            
+            // Set the image data in the hidden input field
+            document.getElementById('image-data').value = imageData;
+
+            // Submit the form
+            imageForm.submit();
+        });
+    </script>
+</body>
+</html>

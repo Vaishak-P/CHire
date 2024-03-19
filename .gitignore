@@ -1,0 +1,22 @@
+# Dependency directories
+/node_modules
+
+# Optional npm cache directory
+.npm
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env
+.env.*
+
+# Log files
+logs
+*.log
+
+# Build files
+/build
+
+# Windows
+Thumbs.db
