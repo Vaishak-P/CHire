@@ -9,7 +9,6 @@ body{
     font-family: poppins;
     font-size: var(--h2);
     background-color: #BFCFE7;
-        
 }
 :root{
     --sec-color:#ffffff;
@@ -104,7 +103,7 @@ main-body{
 }
 
 /* ------- left menu of pages------- */
-.lmenu .d{
+.lmenu .pnj{
     background-color: #bfcfe73b;
     border:2px #3D3B40 ;
     border-radius: 15px;
@@ -174,42 +173,83 @@ main-body{
     /* grid-template-columns: 1fr 1fr; */
     height: 100vh;
     margin-left: 200px;
-    margin-right: 20px;
+    margin-bottom: 20px;
 }
-.welcomeDashboard{
-    background-color:var(--bg-color);
-    background-image: url("hero-bg.jpg");
-    background-size: cover;
-    border:10px #3D3B40 ;
-    border-radius: 15px;
-    padding: 20px;
-    color: var(--sec-color);
-    width: 500px;
-    
-}
-.welcomeDashboard h1{
-    font-size: var(--h1);
-}
-.welcomeDashboard h2{
-    font-weight: 200;
-    font-size:var(--h2);
-}
-table {
-    width: 100%;
-    /* border-collapse:collapse; */
-    margin-top: 20px;
+form {
+    /* background-color: transparent; */
+    /* padding: 20px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    place-content: center;
+    width:760px;
+    flex-wrap: wrap;
+    /* margin: 10px 0px; */
     border-radius: 20px;
-    background-color: var(--sec-color)
+    background-color:  rgba(154, 165, 231,0.5);
+    background-color:  var(--sec-color);
+    font-weight: 600;
+    /* MARGIN DIFFERENCE */
+}
+.formSection{
+    background-color: var(--sec-color);
+}
+.formSection1,.formSection2 {
+    width: 300px;
+    margin:5%;
+    font-size: 13px;
+}
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+label {
+    /* display: block; */
+    margin-bottom: 8px;
+    padding-top: 10px;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-    border-radius: 20px;
+input, select {
+    width: 100%;
+    padding: 5px 15px;
+    margin: 5px 0 15px 0;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border: var(--pri-color) 0px solid;
+    box-shadow: var(--bg-color) 0px 0px 10px;
 }
-th {
-    background-color: var(--top-color);
+textarea {
+    width: 300px; /* Set the width */
+    height: 100px; /* Set the height */
+    margin: 5px 0 15px 0;
+    padding: 5px 15px;
+    resize: none; /* Disable resizing */
+    border-radius: 20px;
+    border: var(--pri-color) 0px solid;
+    box-shadow: var(--bg-color) 0px 0px 10px;
+}
+.submit{
+    display: grid;
+}
+button {
+    background-color:var(--bg-color);
+    border-radius: 20px;
+    border: 1px solid var(--bg-color);
+    box-shadow: var(--bg-color) 0px 0px 10px;
+    /* display: block; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     color: var(--sec-color);
-    text-align: center;
+    font-weight: 500;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 0px 0 30px 0;
+    width: 200px;
+}
+button:hover {
+    background-color: var(--pri-color);
+    color: var(--bg-color);
 }

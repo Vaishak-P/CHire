@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>CleverHiret</title>
+            <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
+            <link rel="stylesheet" href="po-postJobs.css">
+            <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+            <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </head>
+        <body>
+            <div class="topMenu">
+                <div class="cleverhire">
+                    <p><a href="/index.html">CleverHire</a></p>
+                </div>
+            
+            <!-- NAVIGATION -->
+                <nav>
+                    <div class="list">
+                        <a href="">Home</a>
+                        <!-- <a href="">About US</a> -->
+                        <a href="">Listed Jobs</a>
+                        <!-- <a href="">Contact</a> -->
+                    </div>
+                    <div class="soc-icon">
+                        <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href=""><i class="fa-brands fa-facebook"></i></a>
+                        <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </nav>
+        
+            </div>
+            <div class="main-body">
+                <!-- LEFT SECTION OF PAGE  -->
+                <section class="lmenu">
+                    <div class="dp">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div class="lmenu-items-con">
+                        <!-- <div class="lmenu-items-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                             <i class="fa-solid fa-chart-line"></i>
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <i class="fa-solid fa-people-group"></i>
+        
+                        </div> -->
+                        <div class="lmenu-items">
+                            <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                            <li><a class="pnj" href="/student/mocktest">Post New Job</a></li>
+                            <li><a class="l" href="/LOGOUT">Logout</a></li>
+                        </div>
+                    </div>
+                </section>
+                <!-- CENTRE SECTION OF PAGE -->
+                <div class="cmenu">
+                    <section class="content">
+                            <form onsubmit="onSubmit()" method="post" action="/register/student">
+                                <div class="formSection1">
+                                    <label for="companyName">Company Name:</label>
+                                    <input type="text" id="companyName" name="companyName" required>
+                                    
+                                    <label for="qualification">Qualification:</label><br>
+                                    <input type="text" id="qualification" name="qualification" required><br><br>
+                                
+                                    <label for="employmentType">Employment Type:</label><br>
+                                    <select id="employmentType" name="employmentType">
+                                        <option value="Full-time">Full-time</option>
+                                        <option value="Part-time">Part-time</option>
+                                        <option value="Contract">Contract</option>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="Internship">Internship</option>
+                                        <option value="Freelance">Freelance</option>
+                                    </select><br><br>
+                                
+                                    <label for="salaryRange">Salary Range:</label><br>
+                                    <input type="text" id="salaryRange" name="salaryRange"><br><br>
+                                    
+                                    <label for="baseLocation">Base Location:</label><br>
+                                    <input type="text" id="baseLocation" name="baseLocation" required><br><br>
+
+                                </div>
+                        
+                                <div class="formSection2">
+                                    <label for="applicationDeadline">Application Deadline:</label><br>
+                                    <input type="date" id="applicationDeadline" name="applicationDeadline" required><br><br>
+
+                                    <label for="experienceRequired">Experience Required:</label><br>
+                                    <input type="text" id="experienceRequired" name="experienceRequired"><br><br>
+
+                                    <label for="jobDescription">Job Description:</label><br>
+                                    <textarea id="jobDescription"  required></textarea><br><br>
+                                </div>
+                    
+                                <div class="submit">
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </form>
+                            
+                    </section>
+                </div>
+                
+            </div>
+        </body>
+</html>
