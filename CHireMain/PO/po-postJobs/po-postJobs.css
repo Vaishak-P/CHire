@@ -23,10 +23,11 @@ body{
 .topMenu{
     position: fixed;
     width: 100%;
-
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px ;
 }
 .content{
-    margin: 120px 0 20px 20px;
+    margin: 120px 0px 20px 20px;
 }
 .cleverhire{
     text-align: center;

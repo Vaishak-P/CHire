@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHiret</title>
+    <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
+    </div>
+
+<!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <a href="">Home</a>
+            <a href="">About US</a>
+            <a href="">Listed Jobs</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                    <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
+                    <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
+                    <li><a class="cv" href="/student/cv">CV Generation</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="cmenu">
+            <section>
+                <div class="dashboard" id="dashboard">
+                    <div class="dash-top">
+                        <div class="stud-title">
+                            <div class="stud-name">Welcome <%= userName %> </div>
+                        </div>
+                        <div class="score">
+                           <h1><%= total %></h1>
+                        </div>
+                        <div class="myChart">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="both-info">
+                    <div class="stud-info">
+                        <!-- STUDENT ACADEMIC INFO -->
+                        <div class="stud-aca-info">
+                            <div class="aca-info-top">
+                                <div class="aca-info-title">
+                                    <h5>Academic Info</h5>
+                                </div>
+                                <!-- <div class="edit-aca-info">
+                                    <button class="edit-button">Edit</button>
+                                </div> -->
+                            </div>
+                            <div class="stud-aca-info-con">
+                                <div class="info">
+                                    <h6>CGPA</h6>
+                                    <h6>sem</h6>
+                                    <h6>mock test score</h6>
+                                    <h6>mock interview score</h6>
+                                    <!-- <h6>skills</h6> -->
+                                    <h6>internships</h6>
+                                </div>
+                                <div class="info">
+                                    <!-- //info to be fetched -->
+                                    <h6><%= cgpa %></h6>
+                                    <h6><%= sem %></h6>
+                                    <h6><%= test %></h6>
+                                    <h6><%= fluency %></h6>
+                                    <h6><%= internships %></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- STUDENT PERSONAL INFO -->
+                        <div class="stud-per-info">
+                            <div class="per-info-top">
+                                <div class="per-info-title">
+                                    <h5>Personal Info</h5>
+                                </div>
+                                <!-- <div class="edit-aca-info">
+                                    <button class="edit-button">Edit</button>
+                                </div> -->
+                            </div>
+                            <div class="stud-per-info-con">
+                                <div class="info">
+                                    <h6>phone</h6>
+                                    <h6>email</h6>
+                                    <h6>Blood group</h6>
+                                    <h6>Address</h6>
+                                </div>
+                                <div class="info">
+                                    <!-- //info to be fetched -->
+                                    <h6><%= phn %></h6>
+                                    <h6><%= mail %></h6>
+                                    <h6><%= bld %></h6>
+                                    <h6><%= address %></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- RIGHT SECTION OF PAGE  -->
+            <section>
+                <div class="rmenu">
+                    <!-- SEARCH  -->
+                    <div class="search-con">
+                        <h5>Search Jobs</h5>
+                        <div class="search">
+                            <input type="text" class="search-input" placeholder="Search...">
+                            <button type="button" class="search-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- MATCHING JOBS  -->
+                    <div class="anno">
+                        <div class="anno-top">
+                            <h5>Matching Jobs</h5>
+                        </div>
+                        <div class="anno-list">
+                            <li><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, aspernatur.</a></li>
+                            <li><a href="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, laborum.</a></li>
+                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, doloribus.</a></li>
+                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic, tenetur?</a></li>
+                            <li><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, aspernatur.</a></li>
+                            <li><a href="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, laborum.</a></li>
+                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, doloribus.</a></li>
+                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, doloribus.</a></li>
+                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic, tenetur?</a></li>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
