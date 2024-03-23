@@ -240,7 +240,7 @@ main-body{
     border-radius: 15px;
 }
 /* -------academic info session ------- */
-.stud-info{
+/* .stud-info{
     margin-top: 10px;
 }
 
@@ -248,6 +248,9 @@ main-body{
     font-size: 15px;
     padding-left: 10px;
     color: var(--icon-color);
+} */
+.po-details{
+    background-color: var(--sec-color);
 }
 .info-top{
     background-color: var(--top-color);

@@ -4,36 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHiret</title>
-    <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
+    <link rel="stylesheet" href="std-dashboard.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="cleverhire">
-        <p><a href="/index.html">CleverHire</a></p>
-    </div>
+    <div class="topMenu">
+        <div class="cleverhire">
+            <p><a href="/index.html">CleverHire</a></p>
+        </div>
+    
+    <!-- NAVIGATION -->
+        <nav>
+            <div class="list">
+                <a href="">Home</a>
+                <a href="">About US</a>
+                <a href="">Listed Jobs</a>
+                <a href="">Contact</a>
+            </div>
+            <div class="soc-icon">
+                <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </nav>
 
-<!-- NAVIGATION -->
-    <nav>
-        <div class="list">
-            <a href="">Home</a>
-            <a href="">About US</a>
-            <a href="">Listed Jobs</a>
-            <a href="">Contact</a>
-        </div>
-        <div class="soc-icon">
-            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
-            <a href=""><i class="fa-brands fa-facebook"></i></a>
-            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
-            <a href=""><i class="fa-brands fa-instagram"></i></a>
-        </div>
-    </nav>
+    </div>
     <div class="main-body">
         <!-- LEFT SECTION OF PAGE  -->
         <section class="lmenu">
             <div class="dp">
-                <i class="fa-solid fa-user-graduate"></i>
+                <!-- <i class="fa-solid fa-user-graduate"></i> -->
+                <img src="sp.jpg" alt="dp">
             </div>
             <div class="lmenu-items-con">
                 <!-- <div class="lmenu-items-icon">
@@ -54,7 +59,7 @@
         </section>
         <!-- CENTRE SECTION OF PAGE -->
         <div class="cmenu">
-            <section>
+            <section class="content">
                 <div class="dashboard" id="dashboard">
                     <div class="dash-top">
                         <div class="stud-title">
@@ -72,64 +77,156 @@
                     <div class="stud-info">
                         <!-- STUDENT ACADEMIC INFO -->
                         <div class="stud-aca-info">
-                            <div class="aca-info-top">
+                            <div class="info-top">
                                 <div class="aca-info-title">
                                     <h5>Academic Info</h5>
                                 </div>
-                                <!-- <div class="edit-aca-info">
+                                <div class="edit-aca-info">
                                     <button class="edit-button">Edit</button>
-                                </div> -->
-                            </div>
-                            <div class="stud-aca-info-con">
-                                <div class="info">
-                                    <h6>CGPA</h6>
-                                    <h6>sem</h6>
-                                    <h6>mock test score</h6>
-                                    <h6>mock interview score</h6>
-                                    <!-- <h6>skills</h6> -->
-                                    <h6>internships</h6>
                                 </div>
-                                <div class="info">
-                                    <!-- //info to be fetched -->
-                                    <h6><%= cgpa %></h6>
-                                    <h6><%= sem %></h6>
-                                    <h6><%= test %></h6>
-                                    <h6><%= fluency %></h6>
-                                    <h6><%= internships %></h6>
+                            </div>
+                            <div class="infoFetchContainer">
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Institute</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= institute %></h6>
+                                        <h6><%= district %></h6>
+                                        <h6><%= state %></h6>
+                                        <h6><%= country %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Year of Study</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= ugyear %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Undergraduate Course</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= ugCourse %></h6>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Current CGPA</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= cgpa %></h6>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>mock test score</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= test %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>mock interview score</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= fluency %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>internships</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= internships %></h6>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Soft Skills</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= soft %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Hard Skills</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= hard %></h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- STUDENT PERSONAL INFO -->
                         <div class="stud-per-info">
-                            <div class="per-info-top">
+                            <div class="info-top">
                                 <div class="per-info-title">
                                     <h5>Personal Info</h5>
                                 </div>
-                                <!-- <div class="edit-aca-info">
+                                <div class="edit-aca-info">
                                     <button class="edit-button">Edit</button>
-                                </div> -->
+                                </div>
                             </div>
-                            <div class="stud-per-info-con">
-                                <div class="info">
-                                    <h6>phone</h6>
-                                    <h6>email</h6>
-                                    <h6>Blood group</h6>
-                                    <h6>Address</h6>
+                            <div class="infoFetchContainer">
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Address</h6>
+                                    </div>
+                                    <div class="value">
+                                        <!-- FOR 3 ADDRESS LINE -->
+                                        <h6><%= address %></h6>
+                                        <h6><%= address %></h6>
+                                        <h6><%= address %></h6>
+                                    </div>
                                 </div>
-                                <div class="info">
-                                    <!-- //info to be fetched -->
-                                    <h6><%= phn %></h6>
-                                    <h6><%= mail %></h6>
-                                    <h6><%= bld %></h6>
-                                    <h6><%= address %></h6>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>email</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= mail %></h6>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>phone</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= phn %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>DOB</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= dob %></h6>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="label">
+                                        <h6>Blood group</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= bld %></h6>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             <!-- RIGHT SECTION OF PAGE  -->
-            <section>
+            <section class="content">
                 <div class="rmenu">
                     <!-- SEARCH  -->
                     <div class="search-con">
