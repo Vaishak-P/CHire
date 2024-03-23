@@ -29,9 +29,6 @@ body{
     box-shadow: 0 0 10px ;
 
 }
-.content{
-    margin: 120px 0 20px 20px;
-}
 .cleverhire{
     text-align: center;
     background-color:var(--top-color);
@@ -39,10 +36,6 @@ body{
     height: 6vh;
     padding: 20px 0 50px 0;
     font-size: 20px;
-    /* animation-name:ani-cleverhire;
-    animation-duration: 2s;
-    animation-iteration-count: 1; */
-    /* animation-delay: 1s; */
 }
 .cleverhire a{
     text-decoration: none;
@@ -62,16 +55,16 @@ body{
     transition: color 700ms ease-in-out;
     transition: font-weight 700ms ease-in-out;
 }
+
+
 /* -------navigation bar ------- */
 nav{
     display: flex;
     padding: 0px 40px 10px;
     background-color:var(--top-color);
-    /* font-weight: 800; */
     font-weight: lighter;
 }
 nav .list{
-    /* display: flex; */
     text-decoration: none;
 }
 nav .list a{
@@ -79,13 +72,11 @@ nav .list a{
     padding: 0px 10px;
     color:var(--bg-color);
     text-decoration: none;
-    transition: color 500ms;
-    /* transition: border 4s; */
+    transition: all 500ms;
 }
 nav .list a:hover{
     color: var(--sec-color);
-    border:var(--bg-color) 1px solid;
-    border-radius: 20px;
+    padding: 5px;
 }
 nav .soc-icon{
     position: absolute;
@@ -113,7 +104,6 @@ main-body{
     border-radius: 15px;
     color:var(--bg-color);
     padding: 5px 20px 5px 20px;
-    /* margin: 5% 5%; */
     left: 50px;
 }
 /* .lmenu-items-con .fa-solid{
@@ -144,8 +134,6 @@ main-body{
     margin: 15px 5px;
 }
 .lmenu-items-con{
-    /* background-color: rgb(215, 255, 71); */
-    /* margin-top: 30px; */
     display: flex;
 }
 
@@ -157,7 +145,6 @@ main-body{
 }
 .lmenu-items a:hover{
     color:var(--sec-color);
-    /* color: var(--sec-color); */
     border:var(--bg-color) 1px solid;
     border-radius: 20px;
 }
@@ -178,6 +165,9 @@ main-body{
     height: 100vh;
     margin-left: 200px;
     margin-right: 20px;
+}
+.content{
+    margin: 120px 0 20px 20px;
 }
 .welcomeDashboard{
     background-color:var(--bg-color);
@@ -259,27 +249,4 @@ main-body{
 
 }
 
-/* edit form toggle  */
-.toggleEditForm{
-    /* display: none; */
-    width: 500px;
-    background-color: #575fd6;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
-}
-.cmenu.active{
-    filter: blur(5px); /* Apply blur effect */
-
-}
-#editForm{
-    display: none;
-
-}
-.blurred {
-    transition: filter 0.3s ease; /* Smooth transition */
-}
-
-/* form style */
