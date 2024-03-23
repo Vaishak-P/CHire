@@ -4,7 +4,7 @@ const router = expres.Router()
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios'); // Import Axios for making HTTP requests
-
+let flag = null
 router.views = path.join(__dirname, 'CHireMain');
 
 // Parse JSON bodies
@@ -114,8 +114,19 @@ router.get('/cv-template',(req,res)=>{
 })
 
 router.get('/student/mocktest',(req,res)=>{
+    flag = "test"
     res.render("camera")
     // res.render("std-test/std-test")
+})
+
+router.get('/student/mockinterview',(req,res)=>{
+    flag="interview"
+    res.render("camera")
+    //res.render('FLUENCY/interview')
+})
+
+router.get('/student/fluency',(req,res)=>{
+    res.render('FLUENCY/fluency')
 })
 
 const saveImage = async (imageData) => {
@@ -189,33 +200,41 @@ router.post('/save-image', async (req, res) => {
         console.log(match)
 
         if (match) {
-            // res.render("std-test/std-test");
-            const user = getUser();
-            const profile = `/images/${user.photo}`
-            res.render("std-test/std-test.ejs",{profile:profile} );
+            if(flag==="test"){
+                flag=null
+                // res.render("std-test/std-test");
+                const user = getUser();
+                const profile = `/images/${user.photo}`
+                res.render("std-test/std-test.ejs",{profile:profile} );
+            }else{
+                flag=null
+                res.render('FLUENCY/interview')
+            }
         } else {
             console.log("Rendering error page");
-            renderPage("camera", res, { error: "Mismatch in the image" }); // Render camera page with error message
+            res.render("camera",{error:"Mismatch in the image"})
+            //renderPage("camera", res, { error: "Mismatch in the image" }); // Render camera page with error message
         }
 
         await deleteCapturedImage(`CHireMain/images/${filename}`);
     } catch (error) {
         console.error('Error performing face recognition:', error);
-        renderPage("camera", res, { error: "No face detected" });
+        res.render("camera",{error:"No face detected"})
+        //renderPage("camera", res, { error: "No face detected" });
     }
 }
 );
 
-function renderPage(page, res, data) {
-    res.render(page, data, (err, html) => {
-        if (err) {
-            console.error('Error rendering page:', err);
-            res.status(500).send('Internal Server Error');
-        } else {
-            res.send(html);
-        }
-    });
-}
+// function renderPage(page, res, data) {
+//     res.render(page, data, (err, html) => {
+//         if (err) {
+//             console.error('Error rendering page:', err);
+//             res.status(500).send('Internal Server Error');
+//         } else {
+//             res.send(html);
+//         }
+//     });
+// }
 
 
 
