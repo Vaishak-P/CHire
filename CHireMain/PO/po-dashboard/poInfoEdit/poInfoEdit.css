@@ -36,10 +36,6 @@ body{
     height: 6vh;
     padding: 20px 0 50px 0;
     font-size: 20px;
-    /* animation-name:ani-cleverhire;
-    animation-duration: 2s;
-    animation-iteration-count: 1; */
-    /* animation-delay: 1s; */
 }
 .cleverhire a{
     text-decoration: none;
@@ -66,11 +62,9 @@ nav{
     display: flex;
     padding: 0px 40px 10px;
     background-color:var(--top-color);
-    /* font-weight: 800; */
     font-weight: lighter;
 }
 nav .list{
-    /* display: flex; */
     text-decoration: none;
 }
 nav .list a{
@@ -78,13 +72,11 @@ nav .list a{
     padding: 0px 10px;
     color:var(--bg-color);
     text-decoration: none;
-    transition: color 500ms;
-    /* transition: border 4s; */
+    transition: all 500ms;
 }
 nav .list a:hover{
     color: var(--sec-color);
-    border:var(--bg-color) 1px solid;
-    border-radius: 20px;
+    padding: 5px;
 }
 nav .soc-icon{
     position: absolute;
@@ -142,8 +134,6 @@ main-body{
     margin: 15px 5px;
 }
 .lmenu-items-con{
-    /* background-color: rgb(215, 255, 71); */
-    /* margin-top: 30px; */
     display: flex;
 }
 
@@ -155,7 +145,6 @@ main-body{
 }
 .lmenu-items a:hover{
     color:var(--sec-color);
-    /* color: var(--sec-color); */
     border:var(--bg-color) 1px solid;
     border-radius: 20px;
 }
@@ -177,22 +166,18 @@ main-body{
     margin-left: 200px;
     margin-right: 20px;
 }
-
 .content{
     margin: 120px 0 20px 20px;
 }
+
 /* form section  */
 form {
-    /* background-color: transparent; */
-    /* padding: 20px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     place-content: center;
     width:750px;
     flex-wrap: wrap;
-    /* margin: 10px 0px; */
     border-radius: 20px;
     background-color:  rgba(154, 165, 231,0.5);
     background-color:  var(--sec-color);
@@ -201,7 +186,6 @@ form {
     
 }
 form h2{
-    
     background-color: var(--top-color);
     padding: 20px;
     border-radius: 0 0 20px 20px;
@@ -226,7 +210,6 @@ form h2{
 }
 
 label {
-    /* display: block; */
     margin-bottom: 8px;
     padding-top: 30px;
 }
@@ -254,10 +237,8 @@ input, select {
     position: absolute; 
     /* //come over bg */
     right: 10px;
-  cursor: pointer; 
-  /* z-index: 2; */
+    cursor: pointer; 
 }
-
 .eye-icon i {
     padding: 15px 0px 0 10px;
   color: var(--pri-color);
@@ -266,7 +247,7 @@ input, select {
 /* Add hover effect */
 .eye-icon i:hover {
     color: var(--pri-color);
-    transition: all 1s; /* Change icon color on hover */
+    transition: all 1s;
   }
 .submit{
     display: grid;
@@ -279,7 +260,6 @@ input, select {
     border-radius: 20px;
     border: 1px solid var(--bg-color);
     box-shadow: var(--bg-color) 0px 0px 10px;
-    /* display: block; */
     cursor: pointer;
     transition: background-color 0.3s ease;
     color: var(--sec-color);
