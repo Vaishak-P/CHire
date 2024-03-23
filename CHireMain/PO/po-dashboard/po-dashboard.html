@@ -10,7 +10,7 @@
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </head>
-        <body>
+        <body id="body">
             <div class="topMenu">
                 <div class="cleverhire">
                     <p><a href="/index.html">CleverHire</a></p>
@@ -49,15 +49,15 @@
                         </div> -->
                         <div class="lmenu-items">
                             <li><a class="d" href="/student/dashboard">Dashboard</a></li>
-                            <li><a class="mt" href="/student/listedJobs">Listed Jobs</a></li>
-                            <li><a class="mt" href="/student/newJob">Post New Job</a></li>
-                            <!-- <li><a class="lj" href="/student/mocktest">Post New Job</a></li> -->
+                            <li><a class="pnj" href="/student/mocktest">Post New Job</a></li>
+                            <li><a class=lj" href="/student/dashboard">Listed Jobs</a></li>
+                            <li><a class=sl" href="/student/dashboard">Student List</a></li>
                             <li><a class="l" href="/LOGOUT">Logout</a></li>
                         </div>
                     </div>
                 </section>
                 <!-- CENTRE SECTION OF PAGE -->
-                <div class="cmenu">
+                <div class="cmenu" id="cmenu">
                     <section class="content">
 
                         <div class="row1">
@@ -70,10 +70,224 @@
                                 </div>
                             </div>
                         </div>
-                       
+                        
+                            <!-- STUDENT PERSONAL INFO -->
+                        <div class="po-details">
+                            <div class="info-top">
+                                <div class="per-info-title">
+                                    <h2>Personal Info</h2>
+                                </div>
+                                <div>
+                                    <button class="edit-button" onclick="showEditForm()">Edit</button>
+                                </div>
+                            </div>
+                            <div class="infoFetchContainer">
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Address</h6>
+                                    </div>
+                                    <div class="value">
+                                        <!-- FOR 3 ADDRESS LINE -->
+                                        <h6><%= address %></h6>
+                                        <h6><%= address %></h6>
+                                        <h6><%= address %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>email</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= mail %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>phone</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= phn %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>DOB</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= dob %></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
+
+                    <!-- Edit form  -->
+                    <div class="toggleEditForm">
+                        <form onsubmit="onSubmit()" id="editForm">
+                            <div class="formSection">
+                
+                                <div class="formSection1">
+                                    <label for="name">Full Name:</label>
+                                    <input type="text" id="name" name="name" required>
+                                    
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email" required>
+                                    
+                                    <label for="phone">Phone Number:</label>
+                                    <input type="tel" id="tel">
+                
+                                    <label for="country">Country</label>
+                                        <select name="country" id="country">
+                                            <option value="IN" selected>India</option>
+                                        </select>
+                
+                                        <label for="state">State</label>
+                                        <select id="states">
+                                            <!-- <option value="" disabled selected>Select a state</option> -->
+                                            <option value="Kerala" selected>Kerala</option>
+                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                            <option value="Assam">Assam</option>
+                                            <option value="Bihar">Bihar</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                            <option value="Daman and Diu">Daman and Diu</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Goa">Goa</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Ladakh">Ladakh</option>
+                                            <option value="Lakshadweep">Lakshadweep</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Manipur">Manipur</option>
+                                            <option value="Meghalaya">Meghalaya</option>
+                                            <option value="Mizoram">Mizoram</option>
+                                            <option value="Nagaland">Nagaland</option>
+                                            <option value="Odisha">Odisha</option>
+                                            <option value="Puducherry">Puducherry</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Sikkim">Sikkim</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Tripura">Tripura</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                            <option value="Uttarakhand">Uttarakhand</option>
+                                            <option value="West Bengal">West Bengal</option>
+                                        </select>
+                
+                                        <label for="district">District</label>
+                                        <select id="districts">
+                                            <option value="" disabled selected>Select a district</option>
+                                            <option value="Alappuzha">Alappuzha</option>
+                                            <option value="Ernakulam">Ernakulam</option>
+                                            <option value="Idukki">Idukki</option>
+                                            <option value="Kannur">Kannur</option>
+                                            <option value="Kasaragod">Kasaragod</option>
+                                            <option value="Kollam">Kollam</option>
+                                            <option value="Kottayam">Kottayam</option>
+                                            <option value="Kozhikode">Kozhikode</option>
+                                            <option value="Malappuram">Malappuram</option>
+                                            <option value="Palakkad">Palakkad</option>
+                                            <option value="Pathanamthitta">Pathanamthitta</option>
+                                            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                            <option value="Thrissur">Thrissur</option>
+                                            <option value="Wayanad">Wayanad</option>
+                                        </select>
+                                    <!-- <label for="photo">Upload Photo:</label>
+                                        <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required> -->
+                                    </div>
+                                    <div class="formSection2">
+                                        <label for="instituteName">Institute Name:</label>
+                                    <input type="text" id="instituteName" name="instituteName" required>
+                    
+                                    <label for="dept">Department:</label>
+                                    <input type="text" id="dept" name="dept" required>
+                                    <label for="password">Password:</label>
+                                    <div class="passwordGroup">
+                                        <input type="password" id="passwordInput" placeholder="Enter Password">
+                                        <span class="eye-icon">
+                                        <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                
+                                    <label for="confirmPassword">Confirm Password:</label>
+                                    <div class="passwordGroup">
+                                        <input type="password" id="confirmPasswordInput" placeholder="Confirm Password">
+                                        <span class="eye-icon">
+                                        <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                
+                                        
+                                        
+                                </div>
+                            </div>
+                            
+                            <div class="submit">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
                 
             </div>
+
+            <script>
+                document.getElementById('toggleFormButton').addEventListener('click', function() {
+        // Create the form element
+        var form = document.createElement('form');
+        form.id = 'popupForm';
+        form.innerHTML = `
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeForm()">Close</button>
+        `;
+        
+        // Append the form to the body
+        document.body.appendChild(form);
+
+        // Add blur class to body
+        document.body.classList.add('blurred');
+    });
+
+    // Function to close the form
+    function closeForm() {
+        var form = document.getElementById('popupForm');
+        if (form) {
+            form.remove();
+            document.body.classList.remove('blurred');
+        }
+    }
+
+
+                // toggle edit form 
+                // function showEditForm() {
+                //     // document.getElementById("userInfo").style.display = "none";
+                //     // document.getElements("toggleEditForm").style.display = "block";
+                    
+                //     var editForm=document.getElementById("editForm");
+                //     editForm.style.display="block";
+                //     var blur=document.getElementById("cmenu");
+                //     blur.classList.toggle('active');
+                    
+                // }
+
+                // function hideEditForm() {
+                //     document.getElementById("userInfo").style.display = "block";
+                //     document.getElementById("editForm").style.display = "none";
+                // }
+            </script>
         </body>
 </html>

@@ -17,6 +17,7 @@ body{
     --icon-color:#ffffff;
     --pri-color:black;
     --top-color:#575fd6;
+    --border-color:rgba(204, 204, 204, 0.5);
     --h1:20px;
     --h2:15px;
 }
@@ -24,6 +25,8 @@ body{
 .topMenu{
     position: fixed;
     width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px ;
 
 }
 .content{
@@ -194,25 +197,89 @@ main-body{
     font-weight: 200;
     font-size:var(--h2);
 }
-table {
-    width: 100%;
-    /* border-collapse:collapse; */
+
+/* PO INFORMATION */
+/* po overall info box  */
+.po-details{
+    background-color: var(--sec-color);
+    padding: 20px;
     margin-top: 20px;
-    border-radius: 20px;
-    background-color: var(--sec-color)
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    width: 500px;
 }
-
-th, td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-}
-td{
-
-}
-th {
+/* heading section  */
+.info-top{
     background-color: var(--top-color);
-    color: var(--sec-color);
-    text-align: center;
+    display: grid;
+    grid-template-columns:9fr 0.5fr;
+    border:2px #3D3B40 ;
+    border-radius: 15px;
+    padding: 10px;
 }
+.info-top h2{
+    font-size: var(--h2);
+    color: var(--sec-color);
+    padding-left: 10px;
+}
+.edit-button{
+    background-color:var(--pri-color);
+    border:5px #3D3B40 ;
+    border-radius: 20px;
+    padding:5px 20px;
+    color:var(--bg-color);
+}
+/* main contents */
+.infoFetchContainer{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+}
+
+/* inside the fetch-container  */
+.row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.row .label{
+    margin: 5px;
+    padding: 5px 0; 
+    font-size:large ;
+    text-transform: capitalize;
+    /* border: 1px solid #3D3B40;
+    border-radius: 15px; */
+}
+.row .value{
+    margin: 5px;
+    padding: 10px;
+    font-size:large ;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+
+}
+
+/* edit form toggle  */
+.toggleEditForm{
+    /* display: none; */
+    width: 500px;
+    background-color: #575fd6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+.cmenu.active{
+    filter: blur(5px); /* Apply blur effect */
+
+}
+#editForm{
+    display: none;
+
+}
+.blurred {
+    transition: filter 0.3s ease; /* Smooth transition */
+}
+
+/* form style */
