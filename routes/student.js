@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios'); // Import Axios for making HTTP requests
 
-
 router.views = path.join(__dirname, 'CHireMain');
 
 // Parse JSON bodies
@@ -17,6 +16,14 @@ const mysqlConnection = mysql.createConnection({
     user: 'root',
     password: 'Akshay@123',
     database: 'cleverhire'
+});
+// Import the setUser function from server.js
+const { setUser, getUser } = require('../server');
+//const { profile } = require('console');
+
+router.post('/setUser', (req, res) => {
+    setUser(req.body.userData); // Set the user data received from the request body
+    res.send('User data set successfully');
 });
 
 router.get('/REGISTER/student',(req,res)=>{
@@ -88,11 +95,18 @@ router.get('/institutes', (req, res) => {
 
 
 router.get('/student/dashboard',(req,res)=>{
-    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,sem:user.sem,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,addres:user.addres,bld:user.blood_group,total:user.total })
+    const user = getUser();
+    //Parse JSON strings into JavaScript objects
+    const softskillsArray = JSON.parse(user.softskills);
+    const hardskillsArray = JSON.parse(user.hardskills);
+    const profile = `/images/${user.photo}`
+    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address1:user.address1,address2:user.address2,address3:user.address3,total:user.total,hard:hardskillsArray,soft:softskillsArray,institute:user.institute,year:user.ugyear,profile:profile });
 })
 
 router.get('/student/cv',(req,res)=>{
-    res.render("cv-gen/cv-gen")
+    const user = getUser();
+    const profile = `/images/${user.photo}`
+    res.render("cv-gen/cv-gen",{profile:profile})
 })
 
 router.get('/cv-template',(req,res)=>{
@@ -138,7 +152,6 @@ const callFaceRecognition = async (user_profile_image_path, captured_image_path)
             user_profile_image_path: user_profile_image_path,
             captured_image_path: captured_image_path
         });
-        console.log("dfdfg")
         console.log('Face recognition response:', response.data);
         return response.data.match; // Return the match result
     } catch (error) {
@@ -176,9 +189,10 @@ router.post('/save-image', async (req, res) => {
         console.log(match)
 
         if (match) {
-            console.log("Rendering test page");
             // res.render("std-test/std-test");
-            res.render("std-test/std-test.ejs", );
+            const user = getUser();
+            const profile = `/images/${user.photo}`
+            res.render("std-test/std-test.ejs",{profile:profile} );
         } else {
             console.log("Rendering error page");
             renderPage("camera", res, { error: "Mismatch in the image" }); // Render camera page with error message
