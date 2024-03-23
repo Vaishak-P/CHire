@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHiret</title>
-    <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
-    <link rel="stylesheet" href="std-dashboard.css">
+    <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css">
+    <!-- <link rel="stylesheet" href="std-dashboard.css"> -->
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -38,16 +38,9 @@
         <section class="lmenu">
             <div class="dp">
                 <!-- <i class="fa-solid fa-user-graduate"></i> -->
-                <img src="sp.jpg" alt="dp">
+                <img src="<%= locals.profile %>" alt="dp">
             </div>
             <div class="lmenu-items-con">
-                <!-- <div class="lmenu-items-icon">
-                    <i class="fa-solid fa-chart-line"></i>
-                     <i class="fa-solid fa-chart-line"></i>
-                    <i class="fa-solid fa-book-open-reader"></i>
-                    <i class="fa-solid fa-people-group"></i>
-
-                </div> -->
                 <div class="lmenu-items">
                     <li><a class="d" href="/student/dashboard">Dashboard</a></li>
                     <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
@@ -91,10 +84,10 @@
                                         <h6>Institute</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= institute %></h6>
-                                        <h6><%= district %></h6>
-                                        <h6><%= state %></h6>
-                                        <h6><%= country %></h6>
+                                        <h6><%= locals.institute %></h6>
+                                        <h6><%= locals.district %></h6>
+                                        <h6><%= locals.state %></h6>
+                                        <h6><%= locals.country %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -102,17 +95,17 @@
                                         <h6>Year of Study</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= ugyear %></h6>
+                                        <h6><%= locals.year %></h6>
                                     </div>
-                                </div>
+                                <!-- </div>
                                 <div class="row">
                                     <div class="label">
                                         <h6>Undergraduate Course</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= ugCourse %></h6>
+                                        <h6><%= locals.ugCourse %></h6>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 <div class="row">
                                     <div class="label">
@@ -122,7 +115,6 @@
                                         <h6><%= cgpa %></h6>
                                     </div>
                                 </div>
-                                
                                 <div class="row">
                                     <div class="label">
                                         <h6>mock test score</h6>
@@ -153,7 +145,7 @@
                                         <h6>Soft Skills</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= soft %></h6>
+                                        <h6><%= locals.soft %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -161,7 +153,7 @@
                                         <h6>Hard Skills</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= hard %></h6>
+                                        <h6><%= locals.hard %></h6>
                                     </div>
                                 </div>
                             </div>
@@ -183,9 +175,9 @@
                                     </div>
                                     <div class="value">
                                         <!-- FOR 3 ADDRESS LINE -->
-                                        <h6><%= address %></h6>
-                                        <h6><%= address %></h6>
-                                        <h6><%= address %></h6>
+                                        <h6><%= address1 %></h6>
+                                        <h6><%= address2 %></h6>
+                                        <h6><%= address3 %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -194,6 +186,14 @@
                                     </div>
                                     <div class="value">
                                         <h6><%= mail %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>phone</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= phn %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
