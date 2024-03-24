@@ -30,10 +30,6 @@ router.get('/REGISTER/student',(req,res)=>{
     res.render('REGISTER/stud-reg-form/stud-reg-form')
 })
 
-router.post('/register/student',(req,res)=>{
-    console.log(req.body)
-})
-
 // Assuming you have a route to handle the AJAX request
 router.get('/institutes', (req, res) => {
     console.log('api endpoint invoked successfully')
@@ -57,41 +53,86 @@ router.get('/institutes', (req, res) => {
     );
 });
 
+router.post('/register/student', (req, res) => {
+    const { name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, softskills, hardskills, password, photo, ugyear, internships} = req.body;
+    const softskillsString = JSON.stringify(softskills)
+    const hardskillsString = JSON.stringify(hardskills)
 
+    // Check if email or phone already exists
+    mysqlConnection.query(
+        'SELECT * FROM student WHERE email = ? OR phone = ?',
+        [email, phone],
+        (err, results) => {
+            if (err) {
+                console.error('Error executing query: ', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
 
+            // If email or phone already exists, send a warning message
+            if (results.length > 0) {
+                res.render('REGISTER/stud-reg-form/stud-reg-form',{error:'Email or phone already exists'});
+                return;
+            }
 
-// router.post('/register/student', (req, res) => {
-//     const { name, phone, email, softskills, password, photo } = req.body;
-//     const softskillsString = JSON.stringify(softskills);
+            // Begin transaction
+            mysqlConnection.beginTransaction((err) => {
+                if (err) {
+                    console.error('Error starting transaction: ', err);
+                    res.status(500).send('Internal Server Error');
+                    return;
+                }
 
-//     mysqlConnection.query(
-//         'INSERT INTO users (email, password, role) VALUES (?, ?, ?)',
-//         [email, password, 'student'],
-//         (err, results) => {
-//             if (err) {
-//                 console.error('Error executing query: ', err);
-//                 res.status(500).send('Internal Server Error');
-//                 return;
-//             }
-//         }
-//     );
+                // Insert into users table
+                mysqlConnection.query(
+                    'INSERT INTO users (email, password, role) VALUES (?, ?, ?)',
+                    [email, password, 'student'],
+                    (err, results) => {
+                        if (err) {
+                            console.error('Error inserting into users table: ', err);
+                            mysqlConnection.rollback(() => {
+                                res.status(500).send('Internal Server Error');
+                            });
+                            console.log('value added into users table')
+                            return;
+                        }
 
-//     mysqlConnection.query(
-//         'INSERT INTO student (photo, name, phone, email, password, softskills, addres, blood_group, cgpa, sem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-//         [photo, name, phone, email, password, softskillsString, "hjaskd", "a+", 3.5, 7],
-//         (err, results) => {
-//             if (err) {
-//                 console.error('Error executing query: ', err);
-//                 res.status(500).send('Internal Server Error');
-//                 return;
-//             }
+                        // Insert into student table
+                        mysqlConnection.query(
+                            'INSERT INTO student (name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, softskills, hardskills, password, photo, ugyear, interships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?)',
+                            [name,email,phone,address1,address2,address3,country,state,district,institute,cgpa,softskillsString,hardskillsString,password,photo,ugyear,internships],
+                            (err, results) => {
+                                if (err) {
+                                    console.error('Error inserting into student table: ', err);
+                                    mysqlConnection.rollback(() => {
+                                        res.status(500).send('Internal Server Error');
+                                    });
+                                    console.log('values added into students table')
+                                    return;
+                                }
 
-//             // Registration successful
-//             res.redirect('/LOGIN');
-//         }
-//     );
-
-// });
+                                // Commit transaction if everything is successful
+                                mysqlConnection.commit((err) => {
+                                    if (err) {
+                                        console.error('Error committing transaction: ', err);
+                                        mysqlConnection.rollback(() => {
+                                            res.status(500).send('Internal Server Error');
+                                        });
+                                        console.log('committed successfully')
+                                        return;
+                                    }
+                                    console.log('registration successfull')
+                                    // Registration successful
+                                    res.redirect('/LOGIN');
+                                });
+                            }
+                        );
+                    }
+                );
+            });
+        }
+    );
+});
 
 
 router.get('/student/dashboard',(req,res)=>{
@@ -120,9 +161,8 @@ router.get('/student/mocktest',(req,res)=>{
 })
 
 router.get('/student/mockinterview',(req,res)=>{
-    flag="interview"
+    flag = "interview"
     res.render("camera")
-    //res.render('FLUENCY/interview')
 })
 
 router.get('/student/fluency',(req,res)=>{
@@ -202,7 +242,6 @@ router.post('/save-image', async (req, res) => {
         if (match) {
             if(flag==="test"){
                 flag=null
-                // res.render("std-test/std-test");
                 const user = getUser();
                 const profile = `/images/${user.photo}`
                 res.render("std-test/std-test.ejs",{profile:profile} );
@@ -213,7 +252,6 @@ router.post('/save-image', async (req, res) => {
         } else {
             console.log("Rendering error page");
             res.render("camera",{error:"Mismatch in the image"})
-            //renderPage("camera", res, { error: "Mismatch in the image" }); // Render camera page with error message
         }
 
         await deleteCapturedImage(`CHireMain/images/${filename}`);
