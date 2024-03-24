@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <link rel="stylesheet" href="stud-reg-form.css">
     <link rel="stylesheet" href="/REGISTER/stud-reg-form/stud-reg-form.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -111,41 +111,24 @@
             <div class="formSection2">
                 
                 <label for="college">Educational Institute</label>
-                <select name="college" id="college" name="institute">
+                <select id="college" name="institute">
                     <option value="" disabled selected>Select your institute</option>
-                </select>
-               
-                <label for="ugCourse">Undergraduate Course:</label>
-                <select id="ugCourse" name="ugCourse" class="ugCourse">
-                    <option value="" disabled selected>Select your UG course</option>
-                    <!-- <option value="cse">B.Tech in Computer Science and Engineering</option>
-                    <option value="it">B.Tech in Information Technology</option>
-                    <option value="ee">B.Tech in Electrical Engineering</option>
-                    <option value="eee">B.Tech in Electrical and Electronics Engineering</option>
-                    <option value="me">B.Tech in Mechanical Engineering</option>
-                    <option value="pe">B.Tech in Production Engineering</option>
-                    <option value="ce">B.Tech in Civil Engineering</option>
-                    <option value="ece">B.Tech in Electronics and Communication Engineering</option>
-                    <option value="ei">B.Tech in Electronics and Instrumentation Engineering</option>
-                    <option value="che">B.Tech in Chemical Engineering</option>
-                    <option value="aero">B.Tech in Aerospace Engineering</option>
-                    <option value="biotech">B.Tech in Biotechnology</option>
-                    <option value="auto">B.Tech in Automobile Engineering</option>
-                    <option value="env">B.Tech in Environmental Engineering</option>
-                    <option value="csbs">B.Tech in Computer Science and Business Systems</option>
-                    <option value="ie">B.Tech in Instrumentation Engineering</option>
-                    <option value="mse">B.Tech in Materials Science and Engineering</option>
-                    <option value="power">B.Tech in Power Engineering</option>
-                    <option value="petro">B.Tech in Petroleum Engineering</option>
-                    <option value="robotics">B.Tech in Robotics Engineering</option>
-                    <option value="ds">B.Tech in Data Science and Engineering</option>
-                    <option value="nuclear">B.Tech in Nuclear Engineering</option>
-                    <option value="telecom">B.Tech in Telecommunication Engineering</option>
-                    <option value="mechatronics">B.Tech in Mechatronics Engineering</option> -->
                 </select>
 
                 <label for="cgpa">CGPA:</label>
                 <input type="text" id="cgpa" name="cgpa" placeholder="Enter your current CGPA" required>
+
+                <label for="ugyear">Year of study:</label>
+                <select name="ugyear" id="ugyear">
+                    <option value="" disabled selected>Select your year</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+
+                <label for="internships">Internships:</label>
+                <input type="text" id="internships" name="internships" placeholder="Type the name of the companies">
 
                 <label for="softskills">Soft Skills:</label>
                 <input type="text" id="softSkillsInput" placeholder="Type a skill and press Enter">
@@ -173,7 +156,7 @@
                 <label for="photo">Upload Photo:</label>
                 <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required>
             </div>
-
+            <h6 style="color: red;"><%= locals.error %></h6>
             <div class="submit">
                 <button type="submit">Submit</button>
             </div>
@@ -278,7 +261,6 @@
                 this.querySelector('i').classList.toggle('fa-eye-slash');
             });
         });
-
         // Assuming 'district' is the ID of the district dropdown menu
         $('#districts').change(function() {
             var selectedDistrict = $(this).val();
@@ -290,11 +272,10 @@
                 data: { district: selectedDistrict },
                 success: function(response) {
                     // Populate the dropdown menu with received institute names
-                    $('#institute').empty();
                     response.institutes.forEach(function(institute) {
-                        $('#institute').append($('<option>', {
-                            value: institute
-                        }));
+                        value = String(institute.institute)
+                        $('#college').append($('<option></option>').attr('value',value).text(value)) 
+                        
                     });
                 },
                 error: function(xhr, status, error) {
@@ -302,7 +283,6 @@
                 }
             });
         });
-
     </script>
 </body>
 </html>
