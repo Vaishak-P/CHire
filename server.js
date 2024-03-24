@@ -141,9 +141,11 @@ module.exports = { setUser, getUser };
 
 const studentRouter = require('./routes/student');
 const poRouter = require('./routes/po');
+const compRouter = require('./routes/company')
 
 app.use(studentRouter);
 app.use(poRouter);
+app.use(compRouter);
 
 // Start the server
 app.listen(3000, () => {
