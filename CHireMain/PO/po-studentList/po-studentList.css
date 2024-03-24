@@ -98,7 +98,7 @@ main-body{
 }
 
 /* ------- left menu of pages------- */
-.lmenu .pnj{
+.lmenu .sl{
     background-color: #bfcfe73b;
     border:2px #3D3B40 ;
     border-radius: 15px;
@@ -157,70 +157,7 @@ main-body{
     padding: 5px 10px;
 
 }
-/* ------- left menu of pages------- */
-.lmenu .pnj{
-    background-color: #bfcfe73b;
-    border:2px #3D3B40 ;
-    border-radius: 15px;
-    color:var(--bg-color);
-    padding: 5px 20px 5px 20px;
-    /* margin: 5% 5%; */
-    left: 50px;
-}
-/* .lmenu-items-con .fa-solid{
-    background-color: ;
-} */
-.lmenu{
-    background-color:  var(--pri-color);
-    width: 200px;
-    height:100vh;
-    padding: 10px 20px;
-    float: left;
 
-    /* ALERT */
-    top: 103px;
-    left: 0;
-    position: fixed;
-}
-.dp i{
-    color: var(--bg-color);
-    font-size: 50px;
-    display: grid; place-items: center;
-    margin: 30px 0px;
-}
-.lmenu-items-icon i{
-    color: var(--bg-color);
-    font-size: 15px;
-    display: grid; place-items: center;
-    margin: 15px 5px;
-}
-.lmenu-items-con{
-    /* background-color: rgb(215, 255, 71); */
-    /* margin-top: 30px; */
-    display: flex;
-}
-
-.lmenu-items li{
-    padding: 15px 0px 0 10px;
-    text-decoration: none;
-    list-style:none
-
-}
-.lmenu-items a:hover{
-    color:var(--sec-color);
-    /* color: var(--sec-color); */
-    border:var(--bg-color) 1px solid;
-    border-radius: 20px;
-}
-.lmenu-items a{
-    color: var(--bg-color);
-    /* background-color: rgb(19, 201, 95); */
-    text-decoration: none;
-    font-size: 15px;
-    transition: color 1s;
-    padding: 5px 10px;
-
-}
 /* -------centre section of webpage ------- */
 .cmenu{
     /* background-color: chartreuse; */
@@ -233,94 +170,48 @@ main-body{
 .content{
     margin: 120px 0 20px 20px;
 }
-form {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    place-content: center;
-    width:750px;
-    flex-wrap: wrap;
+table{
+    background-color: var(--sec-color);
     border-radius: 20px;
-    background-color:  rgba(154, 165, 231,0.5);
-    background-color:  var(--sec-color);
-    font-weight: 600;
-    margin: 0px 0px 30px 0;
+    padding: 20px;
+}
+thead th{
+    background-color: var(--top-color);
+    color: var(--sec-color);
+    box-shadow:0 0 10px var(--bg-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+tbody td{
+    border-radius: 20px;
+    padding: 5px 20px;
+}
+td:nth-child(even){
+    background-color: var(--border-color);
+}
+td:nth-child(odd){
+    /* background-color: var(--bg-color); */
+    border: 1px solid var(--border-color);
+}
+.buttonContainer{
+    padding: 0;
+}
+.edit-button{
+    background-color:var(--sec-color);
+    border:5px #3D3B40 ;
+    border-radius: 20px;
+    padding:10px 30px;
+    /* color:var(--bg-color); */
+    font-weight: 500;
+    text-transform: uppercase;
+    width:100%;
+    height: 100%;
     
 }
-form h1{
-    background-color: var(--top-color);
-    padding: 20px;
-    border-radius: 0 0 20px 20px;
-    color: var(--sec-color);
-    text-transform: uppercase;
-    width: fit-content;
-    text-align: center;
-}
-.formSection{
-    display: flex;
-    width: 100%;
-
-}
-.formSection1,.formSection2 {
-    width: 300px;
-    margin:5%;
-    font-size: 13px;
-}
-.skills-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-label {
-    /* display: block; */
-    margin-bottom: 8px;
-    padding-top: 10px;
-}
-
-input, select {
-    width: 100%;
-    padding: 5px 15px;
-    margin: 5px 0 15px 0;
-    box-sizing: border-box;
-    border-radius: 30px;
-    border: var(--pri-color) 0px solid;
-    box-shadow: var(--bg-color) 0px 0px 10px;
-}
-textarea {
-    width: 300px; /* Set the width */
-    height: 100px; /* Set the height */
-    margin: 5px 0 15px 0;
-    padding: 5px 15px;
-    resize: none; /* Disable resizing */
-    border-radius: 20px;
-    border: var(--pri-color) 0px solid;
-    box-shadow: var(--bg-color) 0px 0px 10px;
-}
-.submit{
-    display: grid;
-    justify-content: center;
-    place-content: center;
-
-}
-button {
-    background-color:var(--top-color);
-    border-radius: 20px;
-    border: 1px solid var(--bg-color);
-    box-shadow: var(--bg-color) 0px 0px 10px;
-    /* display: block; */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: var(--sec-color);
-    font-weight: 500;
-    align-items: center;
-    padding: 10px 15px;
-    margin: 0px 0 30px 0;
-    width: 200px;
-    justify-content: center;
-    place-content: center;
-}
-button:hover {
+.edit-button:hover{
     background-color: var(--pri-color);
     color: var(--bg-color);
+    box-shadow: 0 0 10px var(--bg-color);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
