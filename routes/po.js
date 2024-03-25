@@ -10,6 +10,13 @@ const mysqlConnection = mysql.createConnection({
     database: 'cleverhire'
 });
 
+const { setUser, getUser } = require('../server');
+
+router.post('/setUser', (req, res) => {
+    setUser(req.body.userData); // Set the user data received from the request body
+    res.send('User data set successfully');
+});
+
 router.get('/REGISTER/po',(req,res)=>{
     res.render('REGISTER/po-reg-form/po-reg-form')
 })
@@ -90,5 +97,25 @@ router.post('/register/po', (req, res) => {
     );
 });
 
+router.get('/po/dashboard',(req,res)=>{
+    const user = getUser();
+    res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute})
+})
+
+router.get('/LOGIN/po/edit',(req,res)=>{
+    res.render('PO/po-dashboard/poInfoEdit/poInfoEdit')
+})
+
+router.get('/po/postjobs',(req,res)=>{
+    res.render('PO/po-postJobs/po-postJobs')
+})
+
+router.get('/po/listedjobs',(req,res)=>{
+    res.render('PO/po-listedJobs/po-listedJobs')
+})
+
+router.get('/po/studentlist',(req,res)=>{
+    res.render('PO/po-studentList/po-studentList')
+})
 
 module.exports = router

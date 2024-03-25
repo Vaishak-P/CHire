@@ -5,7 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
             <!-- ALERT -->
-            <link rel="stylesheet" href="po-dashboard.css">
+            <link rel="stylesheet" href="/PO/po-dashboard/po-dashboard.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,7 +19,7 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <a href="">Placement Officer: REJIN </a>
+                        <a href="">Placement Officer: <%= userName %></a>
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -49,10 +49,10 @@
         
                         </div> -->
                         <div class="lmenu-items">
-                            <li><a class="d" href="/student/dashboard">Dashboard</a></li>
-                            <li><a class="pnj" href="/student/mocktest">Post New Job</a></li>
-                            <li><a class=lj" href="/student/dashboard">Listed Jobs</a></li>
-                            <li><a class=sl" href="/student/dashboard">Student List</a></li>
+                            <li><a class="d" href="/po/dashboard">Dashboard</a></li>
+                            <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
+                            <li><a class=lj" href="/po/listedjobs">Listed Jobs</a></li>
+                            <li><a class=sl" href="/po/studentlist">Student List</a></li>
                             <li><a class="l" href="/LOGOUT">Logout</a></li>
                         </div>
                     </div>
@@ -64,10 +64,10 @@
                         <div class="row1">
                             <div class="welcomeDashboard">
                                 <div class="name">
-                                    <h1>Welcome Rejin</h1>
+                                    <h1>Welcome <%= userName %></h1>
                                 </div>
                                 <div class="po">
-                                    <h2>Placement Officer, GEC IDUKKI</h2>
+                                    <h2>Placement Officer,<%= institute %></h2>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                 </div>
                                 <div>
                                     <!-- ALERT -->
-                                    <a href="CleverHire\CHireMain\PO\po-dashboard\poInfoEdit\poInfoEdit.html" ><button class="edit-button" id="edit-button">Edit</button></a>
+                                    <a href="PO/edit" ><button class="edit-button" id="edit-button">Edit</button></a>
                                 </div>
                             </div>
                             <div class="infoFetchContainer">
@@ -90,9 +90,9 @@
                                     </div>
                                     <div class="value">
                                         <!-- FOR 3 ADDRESS LINE -->
-                                        <h6><%= address %></h6>
-                                        <h6><%= address %></h6>
-                                        <h6><%= address %></h6>
+                                        <h6><%= locals.address1 %></h6>
+                                        <h6><%= locals.address2 %></h6>
+                                        <h6><%= locals.address3 %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -100,7 +100,7 @@
                                         <h6>email</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= mail %></h6>
+                                        <h6><%= locals.mail %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -108,7 +108,7 @@
                                         <h6>phone</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= phn %></h6>
+                                        <h6><%= locals.phn %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -116,7 +116,7 @@
                                         <h6>DOB</h6>
                                     </div>
                                     <div class="value">
-                                        <h6><%= dob %></h6>
+                                        <h6><%= locals.dob %></h6>
                                     </div>
                                 </div>
                             </div>
