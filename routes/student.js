@@ -165,8 +165,10 @@ router.get('/student/mockinterview',(req,res)=>{
     res.render("camera")
 })
 
-router.get('/student/fluency',(req,res)=>{
-    res.render('FLUENCY/fluency')
+router.get('/fluency.html',(req,res)=>{
+    const user = getUser();
+    const profile = `/images/${user.photo}`
+    res.render('MOCK INTERVIEW/fluency',{profile:profile})
 })
 
 const saveImage = async (imageData) => {
@@ -247,7 +249,9 @@ router.post('/save-image', async (req, res) => {
                 res.render("std-test/std-test.ejs",{profile:profile} );
             }else{
                 flag=null
-                res.render('FLUENCY/interview')
+                const user = getUser();
+                const profile = `/images/${user.photo}`
+                res.render('MOCK INTERVIEW/interview',{profile:profile})
             }
         } else {
             console.log("Rendering error page");
@@ -258,22 +262,8 @@ router.post('/save-image', async (req, res) => {
     } catch (error) {
         console.error('Error performing face recognition:', error);
         res.render("camera",{error:"No face detected"})
-        //renderPage("camera", res, { error: "No face detected" });
     }
 }
 );
-
-// function renderPage(page, res, data) {
-//     res.render(page, data, (err, html) => {
-//         if (err) {
-//             console.error('Error rendering page:', err);
-//             res.status(500).send('Internal Server Error');
-//         } else {
-//             res.send(html);
-//         }
-//     });
-// }
-
-
 
 module.exports = router

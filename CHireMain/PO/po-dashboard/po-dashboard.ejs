@@ -80,7 +80,7 @@
                                 </div>
                                 <div>
                                     <!-- ALERT -->
-                                    <a href="PO/edit" ><button class="edit-button" id="edit-button">Edit</button></a>
+                                    <a onclick="window.location.href='/PO/edit'" ><button class="edit-button" id="edit-button">Edit</button></a>
                                 </div>
                             </div>
                             <div class="infoFetchContainer">
@@ -90,9 +90,9 @@
                                     </div>
                                     <div class="value">
                                         <!-- FOR 3 ADDRESS LINE -->
-                                        <h6><%= locals.address1 %></h6>
-                                        <h6><%= locals.address2 %></h6>
-                                        <h6><%= locals.address3 %></h6>
+                                        <h6><%= locals.institute %></h6>
+                                        <h6><%= locals.district %></h6>
+                                        <h6><%= locals.state %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -111,14 +111,14 @@
                                         <h6><%= locals.phn %></h6>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="label">
                                         <h6>DOB</h6>
                                     </div>
                                     <div class="value">
                                         <h6><%= locals.dob %></h6>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </section>

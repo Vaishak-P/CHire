@@ -113,7 +113,7 @@ app.post('/LOGIN', (req, res) => {
                         return;
                     }
                     user = results[0];
-                    res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute});
+                    res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state});
                 });
                 break;
             case 'company':
