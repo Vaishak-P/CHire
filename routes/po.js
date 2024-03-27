@@ -138,11 +138,9 @@ router.post('/edit/po', (req, res) => {
                 res.status(500).send('Internal Server Error');
                 return;
             }
-            //setUser(results[0])
-            user = results[0];
-            console.log(user)
+            setUser(results[0])
+            user = results[0]
             res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state})
-            // res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state});
         });
         
     });
@@ -151,6 +149,44 @@ router.post('/edit/po', (req, res) => {
 router.get('/po/postjobs',(req,res)=>{
     res.render('PO/po-postJobs/po-postJobs')
 })
+
+router.post('/PO/postjob', (req, res) => {
+    let user = getUser();
+    const { jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
+    const institute = user.institute;
+    console.log(req.body, user);
+
+    // Check if a job with the same jobId already exists
+    const selectQuery = "SELECT * FROM jobs WHERE jobId = ?";
+    mysqlConnection.query(selectQuery, [jobId], (err, rows) => {
+        if (err) {
+            console.error("Error selecting job:", err);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+        
+        // If a job with the same jobId exists, return an error
+        if (rows.length > 0) {
+            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists"})
+            return;
+        }
+
+        // Prepare SQL statement to insert job details into the jobs table
+        const sql = "INSERT INTO jobs (jobId, company, post, qualification, type, salary, location, deadline, experience, description, approved, institute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Execute the SQL statement
+        mysqlConnection.query(sql, [jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 1, institute], (err, result) => {
+            if (err) {
+                console.error("Error inserting job:", err);
+                res.status(500).send("Error adding job");
+            } else {
+                console.log("Job added successfully");
+                res.render('PO/po-listedJobs/po-listedJobs')
+            }
+        });
+    });
+});
+
 
 router.get('/po/listedjobs',(req,res)=>{
     res.render('PO/po-listedJobs/po-listedJobs')

@@ -60,12 +60,16 @@
                 <!-- CENTRE SECTION OF PAGE -->
                 <div class="cmenu">
                     <section class="content">
-                        <form onsubmit="onSubmit()" method="post" action="/register/student">
+                        <form onsubmit="onSubmit()" method="post" action="/PO/postjob">
                             <h1>Add a new job</h1>
                             <div class="formSection">
                                 <div class="formSection1">
+                                    <label for="jobId">Job ID:</label>
+                                    <input type="text" id="jobId" name="jobId" required>
                                     <label for="companyName">Company Name:</label>
                                     <input type="text" id="companyName" name="companyName" required>
+                                    <label for="jobPost">Job Post:</label>
+                                    <input type="text" id="jobPost" name="jobPost" required>
                                     <label for="qualification">Qualification:</label>
                                     <input type="text" id="qualification" name="qualification" required>
                                 
@@ -82,11 +86,13 @@
                                     <label for="salaryRange">Salary Range:</label>
                                     <input type="text" id="salaryRange" name="salaryRange">
                                     
-                                    <label for="baseLocation">Base Location:</label>
-                                    <input type="text" id="baseLocation" name="baseLocation" required>
+                                    
 
                                 </div>
                                 <div class="formSection2">
+                                    <label for="baseLocation">Base Location:</label>
+                                    <input type="text" id="baseLocation" name="baseLocation" required>
+
                                     <label for="applicationDeadline">Application Deadline:</label>
                                     <input type="date" id="applicationDeadline" name="applicationDeadline" required>
 
@@ -94,10 +100,11 @@
                                     <input type="text" id="experienceRequired" name="experienceRequired">
 
                                     <label for="jobDescription">Job Description:</label>
-                                    <textarea id="jobDescription"  required></textarea>
+                                    <textarea id="jobDescription" name="jobDescription" required></textarea>
                                 
                                 </div>
                             </div>
+                            <h6 style="color: red;"><%= locals.error %></h6>
                             <div class="submit">
                                 <button type="submit">Submit</button>
                             </div>
