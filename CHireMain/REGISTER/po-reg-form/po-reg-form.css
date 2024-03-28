@@ -155,7 +155,11 @@ input, select {
 .submit{
     display: grid;
 }
-button {
+.form-bottom h6{
+    text-align: center;
+    padding-bottom: 5px;
+}
+.form-bottom button {
     background-color:var(--bg-color);
     border-radius: 20px;
     border: 1px solid var(--bg-color);
@@ -170,7 +174,7 @@ button {
     margin: 0px 0 30px 0;
     width: 200px;
 }
-button:hover {
+.form-bottom button:hover {
     background-color: var(--pri-color);
     color: var(--bg-color);
 }
