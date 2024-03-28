@@ -32,7 +32,6 @@ router.get('/REGISTER/student',(req,res)=>{
 
 // Assuming you have a route to handle the AJAX request
 router.get('/institutes', (req, res) => {
-    console.log('api endpoint invoked successfully')
     const selectedDistrict = req.query.district;
 
     // Query the database for institute names sorted by district
@@ -45,7 +44,6 @@ router.get('/institutes', (req, res) => {
                 res.status(500).json({ error: 'Internal Server Error' });
                 return;
             }
-            console.log(results)
             // Send the list of institute names as a response
             res.json({ institutes: results });
             
@@ -93,7 +91,6 @@ router.post('/register/student', (req, res) => {
                             mysqlConnection.rollback(() => {
                                 res.status(500).send('Internal Server Error');
                             });
-                            console.log('value added into users table')
                             return;
                         }
 
@@ -107,7 +104,6 @@ router.post('/register/student', (req, res) => {
                                     mysqlConnection.rollback(() => {
                                         res.status(500).send('Internal Server Error');
                                     });
-                                    console.log('values added into students table')
                                     return;
                                 }
 
@@ -118,10 +114,8 @@ router.post('/register/student', (req, res) => {
                                         mysqlConnection.rollback(() => {
                                             res.status(500).send('Internal Server Error');
                                         });
-                                        console.log('committed successfully')
                                         return;
                                     }
-                                    console.log('registration successfull')
                                     // Registration successful
                                     res.redirect('/LOGIN');
                                 });
@@ -205,7 +199,6 @@ const callFaceRecognition = async (user_profile_image_path, captured_image_path)
             user_profile_image_path: user_profile_image_path,
             captured_image_path: captured_image_path
         });
-        console.log('Face recognition response:', response.data);
         return response.data.match; // Return the match result
     } catch (error) {
         throw error;
@@ -254,7 +247,6 @@ router.post('/save-image', async (req, res) => {
                 res.render('MOCK INTERVIEW/interview',{profile:profile})
             }
         } else {
-            console.log("Rendering error page");
             res.render("camera",{error:"Mismatch in the image"})
         }
 

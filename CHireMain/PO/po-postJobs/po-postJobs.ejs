@@ -60,7 +60,7 @@
                 <!-- CENTRE SECTION OF PAGE -->
                 <div class="cmenu">
                     <section class="content">
-                        <form onsubmit="onSubmit()" method="post" action="/PO/postjob">
+                        <form onsubmit="return onSubmit()" method="post" action="/PO/postjob">
                             <h1>Add a new job</h1>
                             <div class="formSection">
                                 <div class="formSection1">
@@ -104,7 +104,8 @@
                                 
                                 </div>
                             </div>
-                            <h6 style="color: red;"><%= locals.error %></h6>
+                            <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
+                            <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
                             <div class="submit">
                                 <button type="submit">Submit</button>
                             </div>
@@ -114,5 +115,29 @@
                 </div>
                 
             </div>
+
+            <script>
+                function onSubmit() {
+                    // Get the application deadline input value
+                    var deadlineInput = document.getElementById("applicationDeadline").value;
+                    
+                    // Convert the input value to a Date object
+                    var deadlineDate = new Date(deadlineInput);
+            
+                    // Get the current date
+                    var currentDate = new Date();
+            
+                    // Compare the deadline date with the current date
+                    if (deadlineDate < currentDate) {
+                        // If the deadline has passed, display an error message
+                        document.getElementById("errorMessage").innerText = "Application deadline has already passed.";
+                        return false; // Prevent form submission
+                    } else {
+                        // If the deadline is valid, clear any previous error message
+                        document.getElementById("errorMessage").innerText = "";
+                        return true; // Allow form submission
+                    }
+                }
+            </script>
         </body>
 </html>
