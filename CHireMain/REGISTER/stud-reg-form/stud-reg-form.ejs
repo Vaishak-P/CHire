@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <link rel="stylesheet" href="/REGISTER/stud-reg-form/stud-reg-form.css">
+    <!-- <link rel="stylesheet" href="stud-reg-form.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
 </head>
@@ -114,6 +115,17 @@
                 <select id="college" name="institute">
                     <option value="" disabled selected>Select your institute</option>
                 </select>
+                
+                <label for="college">Department</label>
+                <select id="department" name="department">
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="cse">Computer Science & Engineering</option>
+                    <option value="ece">Electronics & Communication Engineering</option>
+                    <option value="mech">Mechanical Engineering</option>
+                    <option value="civil">Civil Engineering</option>
+                    <option value="eee">Electrical & Electronics Engineering</option>
+                    <option value="it">Information Technology</option>
+                    </select>
 
                 <label for="cgpa">CGPA:</label>
                 <input type="text" id="cgpa" name="cgpa" placeholder="Enter your current CGPA" required>
@@ -156,9 +168,11 @@
                 <label for="photo">Upload Photo:</label>
                 <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required>
             </div>
-            <h6 style="color: red;"><%= locals.error %></h6>
-            <div class="submit">
-                <button type="submit">Submit</button>
+            <div class="form-bottom">
+                <h6 style="color: red;"><%= locals.error %></h6>
+                <div class="submit">
+                    <button type="submit">Submit</button>
+                </div>
             </div>
         </form>
     </div>
