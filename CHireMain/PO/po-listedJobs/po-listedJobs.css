@@ -211,6 +211,12 @@ main-body{
     padding: 10px;
 
 }
+/* highlight company name  */
+#companyName{
+    color: var(--top-color);
+    font-size: 15px;
+    font-weight: 800;
+}
 .row .label h6{
     font-weight: 900;
 }

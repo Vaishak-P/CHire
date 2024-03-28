@@ -4,7 +4,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHire</title>
-            <link rel="stylesheet" href="/PO/po-listedJobs/po-listedJobs.css">
+            <link rel="stylesheet" href="po-listedJobs.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -50,8 +50,9 @@
                         <div class="lmenu-items">
                             <li><a class="d" href="/po/dashboard">Dashboard</a></li>
                             <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
-                            <li><a class=lj" href="/po/listedjobs">Listed Jobs</a></li>
-                            <li><a class=sl" href="/po/studentlist">Student List</a></li>
+                            <li><a class="pnj" href="/po/approveJobs">Approve Jobs</a></li>
+                            <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
+                            <li><a class="sl" href="/po/studentlist">Student List</a></li>
                             <li><a class="l" href="/LOGOUT">Logout</a></li>
                         </div>
                     </div>
@@ -67,10 +68,10 @@
                             <div class="jobGrid">
                                 <div class="row">
                                     <div class="label">
-                                        <h6>Company name</h6>
+                                        <h6 id="companyName">Company name</h6>
                                     </div>
                                     <div class="value">
-                                        <h6>: <%= job.company %></h6>
+                                        <h6 id="companyName">: <%= job.company %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -139,7 +140,7 @@
                                 </div>
     
                                 <!-- Render other job details similarly -->
-                                <button>EDIT</button>
+                                <!-- <button>EDIT</button> -->
                             </div>
                         <% }); %>
                       </div>
