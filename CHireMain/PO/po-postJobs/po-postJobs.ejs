@@ -5,7 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
             <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
-            <link rel="stylesheet" href="/PO/po-postJobs/po-postJobs.css">
+            <link rel="stylesheet" href="po-postJobs.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,7 +19,7 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <a href="">Placement Officer: REJIN </a>
+                        <a href="">Placement Officer: <%= userName %></a>
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -105,10 +105,12 @@
                                 
                                 </div>
                             </div>
-                            <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
-                            <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
-                            <div class="submit">
-                                <button type="submit">Submit</button>
+                            <div class="form-bottom">
+                                <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
+                                <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
+                                <div class="submit">
+                                    <button type="submit">Submit</button>
+                                </div>
                             </div>
                         </form>
                     </section>
