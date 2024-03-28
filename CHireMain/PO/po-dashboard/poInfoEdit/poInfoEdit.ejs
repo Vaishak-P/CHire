@@ -5,7 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
             <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
-            <link rel="stylesheet" href="poInfoEdit.css">
+            <link rel="stylesheet" href="/PO/po-dashboard/poInfoEdit/poInfoEdit.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,7 +19,7 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <a href="">Placement Officer: REJIN </a>
+                        <a href="">Placement Officer: <%= user.name %> </a>
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -61,19 +61,19 @@
                 <div class="cmenu" id="cmenu">
                     <section class="content">
                         <!-- FORM SECTION  -->
-                        <form onsubmit="onSubmit()" action="/register/po" method="post">
+                        <form onsubmit="onSubmit()" action="/edit/po" method="post">
                             <h2>Edit your informations</h2>
                             <div class="formSection">
                 
                                 <div class="formSection1">
                                     <label for="name">Full Name:</label>
-                                    <input type="text" id="name" name="name" required>
+                                    <input type="text" id="name" name="name" value="<%= user.name %>">
                                     
                                     <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email" required>
+                                    <input type="email" id="email" name="email" value="<%= user.email %>">
                                     
                                     <label for="phone">Phone Number:</label>
-                                    <input type="tel" id="tel" name="phone">
+                                    <input type="tel" id="tel" name="phone" value="<%= user.phone %>">
                 
                                     <label for="country">Country</label>
                                         <select name="country" id="country">
@@ -83,72 +83,72 @@
                                         <label for="state">State</label>
                                         <select id="states" name="state">
                                             <!-- <option value="" disabled selected>Select a state</option> -->
-                                            <option value="Kerala" selected>Kerala</option>
-                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                            <option value="Assam">Assam</option>
-                                            <option value="Bihar">Bihar</option>
-                                            <option value="Chandigarh">Chandigarh</option>
-                                            <option value="Chhattisgarh">Chhattisgarh</option>
-                                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                                            <option value="Daman and Diu">Daman and Diu</option>
-                                            <option value="Delhi">Delhi</option>
-                                            <option value="Goa">Goa</option>
-                                            <option value="Gujarat">Gujarat</option>
-                                            <option value="Haryana">Haryana</option>
-                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                            <option value="Jharkhand">Jharkhand</option>
-                                            <option value="Karnataka">Karnataka</option>
-                                            <option value="Ladakh">Ladakh</option>
-                                            <option value="Lakshadweep">Lakshadweep</option>
-                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                            <option value="Maharashtra">Maharashtra</option>
-                                            <option value="Manipur">Manipur</option>
-                                            <option value="Meghalaya">Meghalaya</option>
-                                            <option value="Mizoram">Mizoram</option>
-                                            <option value="Nagaland">Nagaland</option>
-                                            <option value="Odisha">Odisha</option>
-                                            <option value="Puducherry">Puducherry</option>
-                                            <option value="Punjab">Punjab</option>
-                                            <option value="Rajasthan">Rajasthan</option>
-                                            <option value="Sikkim">Sikkim</option>
-                                            <option value="Tamil Nadu">Tamil Nadu</option>
-                                            <option value="Telangana">Telangana</option>
-                                            <option value="Tripura">Tripura</option>
-                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                            <option value="Uttarakhand">Uttarakhand</option>
-                                            <option value="West Bengal">West Bengal</option>
+                                            <option value="Kerala" <%= user.state === 'kerala' ? 'selected' : '' %>>Kerala</option>
+                                            <option value="Andaman and Nicobar Islands" <%= user.state === 'Andaman and Nicobar Islands' ? 'selected' : '' %>>Andaman and Nicobar Islands</option>
+                                            <option value="Andhra Pradesh" <%= user.state === 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh" <%= user.state === 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+                                            <option value="Assam" <%= user.state === 'Assam' ? 'selected' : '' %>>Assam</option>
+                                            <option value="Bihar" <%= user.state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
+                                            <option value="Chandigarh" <%= user.state === 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
+                                            <option value="Chhattisgarh" <%= user.state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+                                            <option value="Dadra and Nagar Haveli" <%= user.state === 'Dadra and Nagar Haveli' ? 'selected' : '' %>>Dadra and Nagar Haveli</option>
+                                            <option value="Daman and Diu" <%= user.state === 'Daman and Diu' ? 'selected' : '' %>>Daman and Diu</option>
+                                            <option value="Delhi" <%= user.state === 'Delhi' ? 'selected' : '' %>>Delhi</option>
+                                            <option value="Goa" <%= user.state === 'Goa' ? 'selected' : '' %>>Goa</option>
+                                            <option value="Gujarat" <%= user.state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
+                                            <option value="Haryana" <%= user.state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
+                                            <option value="Himachal Pradesh" <%= user.state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+                                            <option value="Jammu and Kashmir" <%= user.state === 'Jammu and Kashmir' ? 'selected' : '' %>>Jammu and Kashmir</option>
+                                            <option value="Jharkhand" <%= user.state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+                                            <option value="Karnataka" <%= user.state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
+                                            <option value="Ladakh" <%= user.state === 'Ladakh' ? 'selected' : '' %>>Ladakh</option>
+                                            <option value="Lakshadweep" <%= user.state === 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
+                                            <option value="Madhya Pradesh" <%= user.state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+                                            <option value="Maharashtra" <%= user.state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+                                            <option value="Manipur" <%= user.state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
+                                            <option value="Meghalaya" <%= user.state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+                                            <option value="Mizoram" <%= user.state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
+                                            <option value="Nagaland" <%= user.state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
+                                            <option value="Odisha" <%= user.state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
+                                            <option value="Puducherry" <%= user.state === 'Puducherry' ? 'selected' : '' %>>Puducherry</option>
+                                            <option value="Punjab" <%= user.state === 'Punjab' ? 'selected' : '' %>>Punjab</option>
+                                            <option value="Rajasthan" <%= user.state === 'Rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+                                            <option value="Sikkim" <%= user.state === 'Sikkim' ? 'selected' : '' %>>Sikkim</option>
+                                            <option value="Tamil Nadu" <%= user.state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+                                            <option value="Telangana" <%= user.state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
+                                            <option value="Tripura" <%= user.state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
+                                            <option value="Uttar Pradesh" <%= user.state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+                                            <option value="Uttarakhand" <%= user.state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+                                            <option value="West Bengal" <%= user.state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
                                         </select>
                 
                                         <label for="district">District</label>
                                         <select id="districts" name="district">
-                                            <option value="" disabled selected>Select a district</option>
-                                            <option value="Alappuzha">Alappuzha</option>
-                                            <option value="Ernakulam">Ernakulam</option>
-                                            <option value="Idukki">Idukki</option>
-                                            <option value="Kannur">Kannur</option>
-                                            <option value="Kasaragod">Kasaragod</option>
-                                            <option value="Kollam">Kollam</option>
-                                            <option value="Kottayam">Kottayam</option>
-                                            <option value="Kozhikode">Kozhikode</option>
-                                            <option value="Malappuram">Malappuram</option>
-                                            <option value="Palakkad">Palakkad</option>
-                                            <option value="Pathanamthitta">Pathanamthitta</option>
-                                            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                                            <option value="Thrissur">Thrissur</option>
-                                            <option value="Wayanad">Wayanad</option>
+                                            <!-- <option value="" disabled selected>Select a district</option> -->
+                                            <option value="Alappuzha" <%= user.district === 'Alappuzha' ? 'selected' : '' %>>Alappuzha</option>
+                                            <option value="Ernakulam" <%= user.district === 'Ernakulam' ? 'selected' : '' %>>Ernakulam</option>
+                                            <option value="Idukki" <%= user.district === 'Idukki' ? 'selected' : '' %>>Idukki</option>
+                                            <option value="Kannur" <%= user.district === 'Kannur' ? 'selected' : '' %>>Kannur</option>
+                                            <option value="Kasaragod" <%= user.district === 'Kasaragod' ? 'selected' : '' %>>Kasaragod</option>
+                                            <option value="Kollam" <%= user.district === 'Kollam' ? 'selected' : '' %>>Kollam</option>
+                                            <option value="Kottayam" <%= user.district === 'Kottayam' ? 'selected' : '' %>>Kottayam</option>
+                                            <option value="Kozhikode" <%= user.district === 'Kozhikode' ? 'selected' : '' %>>Kozhikode</option>
+                                            <option value="Malappuram" <%= user.district === 'Malappuram' ? 'selected' : '' %>>Malappuram</option>
+                                            <option value="Palakkad" <%= user.district === 'Palakkad' ? 'selected' : '' %>>Palakkad</option>
+                                            <option value="Pathanamthitta" <%= user.district === 'Pathanamthitta' ? 'selected' : '' %>>Pathanamthitta</option>
+                                            <option value="Thiruvananthapuram" <%= user.district === 'Thiruvananthapuram' ? 'selected' : '' %>>Thiruvananthapuram</option>
+                                            <option value="Thrissur" <%= user.district === 'Thrissur' ? 'selected' : '' %>>Thrissur</option>
+                                            <option value="Wayanad" <%= user.district === 'Wayanad' ? 'selected' : '' %>>Wayanad</option>
                                         </select>
                                     <!-- <label for="photo">Upload Photo:</label>
                                         <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required> -->
                                     </div>
                                     <div class="formSection2">
                                         <label for="institute">Institute Name:</label>
-                                    <input type="text" id="institute" name="institute" required>
+                                    <input type="text" id="institute" name="institute" value="<%= user.institute %>">
                                     <label for="password">Password:</label>
                                     <div class="passwordGroup">
-                                        <input type="password" id="passwordInput" placeholder="Enter Password">
+                                        <input type="password" id="passwordInput" placeholder="Enter Password" value="<%= user.password %>">
                                         <span class="eye-icon">
                                         <i class="fas fa-eye"></i>
                                         </span>
@@ -156,7 +156,7 @@
                 
                                     <label for="confirmPassword">Confirm Password:</label>
                                     <div class="passwordGroup">
-                                        <input name ="password" type="password" id="confirmPasswordInput" placeholder="Confirm Password">
+                                        <input name ="password" type="password" id="confirmPasswordInput" placeholder="Confirm Password" value="<%= user.password %>">
                                         <span class="eye-icon">
                                         <i class="fas fa-eye"></i>
                                         </span>

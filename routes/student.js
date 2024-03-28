@@ -32,7 +32,6 @@ router.get('/REGISTER/student',(req,res)=>{
 
 // Assuming you have a route to handle the AJAX request
 router.get('/institutes', (req, res) => {
-    console.log('api endpoint invoked successfully')
     const selectedDistrict = req.query.district;
 
     // Query the database for institute names sorted by district
@@ -45,7 +44,6 @@ router.get('/institutes', (req, res) => {
                 res.status(500).json({ error: 'Internal Server Error' });
                 return;
             }
-            console.log(results)
             // Send the list of institute names as a response
             res.json({ institutes: results });
             
@@ -93,7 +91,6 @@ router.post('/register/student', (req, res) => {
                             mysqlConnection.rollback(() => {
                                 res.status(500).send('Internal Server Error');
                             });
-                            console.log('value added into users table')
                             return;
                         }
 
@@ -107,7 +104,6 @@ router.post('/register/student', (req, res) => {
                                     mysqlConnection.rollback(() => {
                                         res.status(500).send('Internal Server Error');
                                     });
-                                    console.log('values added into students table')
                                     return;
                                 }
 
@@ -118,10 +114,8 @@ router.post('/register/student', (req, res) => {
                                         mysqlConnection.rollback(() => {
                                             res.status(500).send('Internal Server Error');
                                         });
-                                        console.log('committed successfully')
                                         return;
                                     }
-                                    console.log('registration successfull')
                                     // Registration successful
                                     res.redirect('/LOGIN');
                                 });
@@ -165,8 +159,10 @@ router.get('/student/mockinterview',(req,res)=>{
     res.render("camera")
 })
 
-router.get('/student/fluency',(req,res)=>{
-    res.render('FLUENCY/fluency')
+router.get('/fluency.html',(req,res)=>{
+    const user = getUser();
+    const profile = `/images/${user.photo}`
+    res.render('MOCK INTERVIEW/fluency',{profile:profile})
 })
 
 const saveImage = async (imageData) => {
@@ -203,7 +199,6 @@ const callFaceRecognition = async (user_profile_image_path, captured_image_path)
             user_profile_image_path: user_profile_image_path,
             captured_image_path: captured_image_path
         });
-        console.log('Face recognition response:', response.data);
         return response.data.match; // Return the match result
     } catch (error) {
         throw error;
@@ -247,10 +242,11 @@ router.post('/save-image', async (req, res) => {
                 res.render("std-test/std-test.ejs",{profile:profile} );
             }else{
                 flag=null
-                res.render('FLUENCY/interview')
+                const user = getUser();
+                const profile = `/images/${user.photo}`
+                res.render('MOCK INTERVIEW/interview',{profile:profile})
             }
         } else {
-            console.log("Rendering error page");
             res.render("camera",{error:"Mismatch in the image"})
         }
 
@@ -258,22 +254,8 @@ router.post('/save-image', async (req, res) => {
     } catch (error) {
         console.error('Error performing face recognition:', error);
         res.render("camera",{error:"No face detected"})
-        //renderPage("camera", res, { error: "No face detected" });
     }
 }
 );
-
-// function renderPage(page, res, data) {
-//     res.render(page, data, (err, html) => {
-//         if (err) {
-//             console.error('Error rendering page:', err);
-//             res.status(500).send('Internal Server Error');
-//         } else {
-//             res.send(html);
-//         }
-//     });
-// }
-
-
 
 module.exports = router

@@ -112,10 +112,8 @@ app.post('/LOGIN', (req, res) => {
                         res.status(500).send('Internal Server Error');
                         return;
                     }
-                    setUser(results[0]);
-                    //user = results[0];
-                    console.log(user);
-                    res.render('po/dashboard');
+                    user = results[0];
+                    res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state});
                 });
                 break;
             case 'company':
