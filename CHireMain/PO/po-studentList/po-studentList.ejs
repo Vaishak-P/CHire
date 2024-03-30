@@ -5,6 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
             <link rel="stylesheet" href="/PO/po-studentList/po-studentList.css">
+            <!-- <link rel="stylesheet" href="po-studentList.css"> -->
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,9 +18,13 @@
             
             <!-- NAVIGATION -->
                 <nav>
-                    <div class="list">
-                        <a href="">Placement Officer: <%= locals.user.name %> </a>
-                    </div>
+                  <div class="list">
+                    <a href="">Placement Officer: <%= userName %></a>
+                    <!-- <a href="">Home</a> -->
+                    <!-- <a href="">About US</a> -->
+                    <!-- <a href="">Listed Jobs</a> -->
+                    <!-- <a href="">Contact</a> -->
+                </div>
                     <div class="soc-icon">
                         <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
                         <a href=""><i class="fa-brands fa-facebook"></i></a>
@@ -47,42 +52,198 @@
                     </div>
                 </section>
                 <!-- CENTRE SECTION OF PAGE -->
-                <div class="cmenu">
-                    <section class="content">
-                        <div class="tableContainer">
+                 <!-- CENTRE SECTION OF PAGE -->
+                 <div class="cmenu">
+                  <section class="content">
+                      <div class="tableContainer">
 
-                            <table>
-                                <thead>
-                                  <tr>
-                                    <th>Sl.No</th>
-                                    <th>Name of Student</th>
-                                    <th>Year of Study</th>
-                                    <th>Branch</th>
-                                    <th>Current CGPA</th>
-                                    <th>Applied Jobs</th>
-                                    <th>Application</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <% students.forEach((student, index) => { %>
-                                    <tr>
-                                        <td><%= index + 1 %></td>
-                                        <td><%= student.name %></td>
-                                        <td><%= student.ugyear %></td>
-                                        <td><%= student.branch %></td>
-                                        <td><%= student.cgpa %></td>
-                                        <td><%= student.appliedjobs !== null ? student.appliedjobs : 'Null' %></td>
-                                        <td class="buttonContainer">
-                                            <a href="#"><button class="edit-button">View</button></a>
-                                        </td>
-                                    </tr>
-                                  <% }); %>
-                                </tbody>
-                              </table>
-                        </div>
-                    </section>
-                
-                </div>
+                          <table>
+                              <thead>
+                                <tr>
+                                  <th>Sl.No</th>
+                                  <th>Name of Student</th>
+                                  <th>Year of Study</th>
+                                  <th>Branch</th>
+                                  <th>Current CGPA</th>
+                                  <th>Applied Jobs</th>
+                                  <th>Application</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Row 1, Cell 1</td>
+                                  <td>Row 1, Cell 2</td>
+                                  <td>Row 1, Cell 3</td>
+                                  <td>Row 1, Cell 4</td>
+                                  <td>Row 1, Cell 5</td>
+                                  <td>Row 1, Cell 6</td>
+                                  <td class="buttonContainer"><button id="view-button">View</button></td>
+                                </tr>
+                               
+                              </tbody>
+                            </table>
+                      </div>
+                      <!-- application form sent by student  -->
+                      <div class="both-info" id="infoPopup">
+                          <div class="closeButton" id="closeButton">
+                              <h4>x</h4>
+                          </div>
+                          <div class="stud-info">
+                              
+                              <!-- STUDENT PERSONAL INFO -->
+                              <div class="stud-per-info">
+                                  <div class="info-top">
+                                      <div class="per-info-title">
+                                          <h5>Personal Info</h5>
+                                      </div>
+                                  </div>
+                                  <div class="infoFetchContainer">
+                                      <div class="namepic">
+                                          <div class="name">
+                                              <h2>name</h2>
+                                          </div>
+                                          <div class="pic">
+                                              <img src="<%= locals.profile %>" alt="dp">
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="label">
+                                              <h6>Address</h6>
+                                          </div>
+                                          <div class="value">
+                                              <!-- FOR 3 ADDRESS LINE -->
+                                              <h6><%= address1 %></h6>
+                                              <h6><%= address2 %></h6>
+                                              <h6><%= address3 %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row" id="evenDiv">
+                                          <div class="label">
+                                              <h6>email</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= mail %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="label">
+                                              <h6>phone</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= phn %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row" id="evenDiv">
+                                          <div class="label">
+                                              <h6>date of birth</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= dob %></h6>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- STUDENT ACADEMIC INFO -->
+                              <div class="stud-aca-info">
+                                  <div class="info-top">
+                                      <div class="aca-info-title">
+                                          <h5>Academic Info</h5>
+                                      </div>
+                                  </div>
+                                  <div class="infoFetchContainer">
+                                      <div class="row">
+                                          <div class="label">
+                                              <h6>Institute</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= locals.institute %></h6>
+                                              <h6><%= locals.district %></h6>
+                                              <h6><%= locals.state %></h6>
+                                              <h6><%= locals.country %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row"  id="evenDiv">
+                                          <div class="label">
+                                              <h6>Year of Study</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= locals.year %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="label">
+                                              <h6>Current CGPA</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= cgpa %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row" id="evenDiv">
+                                          <div class="label">
+                                              <h6>mock test score</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= test %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="label">
+                                              <h6>mock interview score</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= fluency %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row" id="evenDiv">
+                                          <div class="label">
+                                              <h6>internships</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= internships %></h6>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="row">
+                                          <div class="label">
+                                              <h6>Soft Skills</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= locals.soft %></h6>
+                                          </div>
+                                      </div>
+                                      <div class="row" id="evenDiv">
+                                          <div class="label">
+                                              <h6>Hard Skills</h6>
+                                          </div>
+                                          <div class="value">
+                                              <h6><%= locals.hard %></h6>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                  </section>
+              
+              </div>
+              
+          </div>
+          <div id="popupWrapper"></div>
+          <script>
+              const viewButton = document.getElementById("view-button");
+              const infoPopupDiv = document.getElementById("infoPopup");
+              viewButton.addEventListener("click", function() {
+                  infoPopupDiv.style.display = "block"; // Change display from none to block
+                  popupWrapper.style.display = "block";
+              });
+              const closeButton = document.getElementById("closeButton");
+              closeButton.addEventListener("click", function() {
+                  infoPopupDiv.style.display = "none";
+                  popupWrapper.style.display = "none";
+              });
+
+          </script>
                 
             </div>
         </body>

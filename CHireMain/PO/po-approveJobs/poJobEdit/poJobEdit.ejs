@@ -5,7 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
             <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
-            <link rel="stylesheet" href="po-postJobs.css">
+            <link rel="stylesheet" href="poJobEdit.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,7 +19,7 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <a href="">Placement Officer: <%= locals.user.name %> </a>
+                        <a href="">Placement Officer: <%= userName %></a>
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -62,7 +62,7 @@
                 <div class="cmenu">
                     <section class="content">
                         <form onsubmit="return onSubmit()" method="post" action="/PO/postjob">
-                            <h1>Add a new job</h1>
+                            <h1>Edit Job Details</h1>
                             <div class="formSection">
                                 <div class="formSection1">
                                     <label for="jobId">Job ID:</label>
@@ -86,9 +86,6 @@
                                 
                                     <label for="salaryRange">Salary Range:</label>
                                     <input type="text" id="salaryRange" name="salaryRange">
-                                    
-                                    
-
                                 </div>
                                 <div class="formSection2">
                                     <label for="baseLocation">Base Location:</label>

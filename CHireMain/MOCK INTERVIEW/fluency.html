@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="fluency.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
+    </div>
+
+<!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <a href="">Home</a>
+            <a href="">About US</a>
+            <a href="">Listed Jobs</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <img src="<%= locals.profile %>" alt="dp">
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                    <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
+                    <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
+                    <li><a class="cv" href="/student/cv">CV Generation</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="right-box">
+            <div class="mainContainer">
+                <div class="headingSection">
+                    <h1>Mock Interview</h1>
+                </div>
+                <div class="contentSection">
+                    <section id="timer-section">
+                        <h3>Time Left</h3>
+                        <div class="timerContainer">
+                            <h1 id="timer">1:00</h1>
+                        </div>
+                    </section>
+                    <section id="question-section">
+                        <h3>Questions</h3>
+                        <div id="question" class="question"></div>
+                        <div class="answer-section">
+                            <button class="record-button">Record Answer</button>
+                            <p class="speech-text">here where transcribed text appears</p>
+                        </div>
+                        <button class="next-button">Next</button>
+                    </section>
+                    <section id="camera-section">
+                        <h3>Camera</h3>
+                        <video id="video" autoplay></video>
+                    </section>
+                </div>
+                <div id="fluency-score"></div>
+                <script>
+                    let timeLeft = 60; // 1 minute
+                    let roundTime = 20; // 20 seconds per round
+                    const timerDisplay = document.getElementById('timer');
+                    let round = 1;
+                    let totalWords = 0;
+                    let timerInterval;
+            
+                    function startTimer() {
+                        timerInterval = setInterval(() => {
+                            const minutes = Math.floor(timeLeft / 60);
+                            let seconds = timeLeft % 60;
+            
+                            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+                            timerDisplay.innerHTML = `${minutes}:${seconds}`;
+            
+                            timeLeft--;
+            
+                            if (timeLeft < 0) {
+                                clearInterval(timerInterval);
+                                timerDisplay.innerHTML = '0:00';
+                                endInterview();
+                            }
+                            else if (timeLeft % roundTime === 0) {
+                                nextRound();
+                            }
+                        }, 1000);
+                    }
+            
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.interimResults = true;
+            
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        document.querySelector('.speech-text').textContent = transcript;
+                        const words = transcript.split(' ').length;
+                        totalWords += words;
+                    };
+            
+                    document.querySelectorAll('.next-button').forEach(button => {
+                        button.addEventListener('click', nextRound);
+                    });
+            
+                    document.querySelectorAll('.record-button').forEach(button => {
+                        button.addEventListener('click', () => {
+                            recognition.start();
+                        });
+                    });
+            
+                    async function startCamera() {
+                        const video = document.getElementById('video');
+            
+                        try {
+                            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                            video.srcObject = stream;
+                        } catch (err) {
+                            console.error('Error accessing webcam: ', err);
+                        }
+                    }
+            
+                    window.addEventListener('load', function() {
+                        startTimer();
+                        startCamera();
+                        setInitialQuestion();
+                    });
+            
+                    function setInitialQuestion() {
+                        document.getElementById('question').innerHTML = `
+                            <h3>Personal Question</h3>
+                            <p>Tell me about yourself.</p>
+                        `;
+                        document.querySelector('.answer-section').style.display = 'block';
+                    }
+            
+                    function nextRound() {
+                        clearInterval(timerInterval);
+                        timeLeft -= roundTime;
+                        round++;
+                        if (round === 2) {
+                            document.getElementById('question').innerHTML = `
+                                <h3>Technical Question</h3>
+                                <p>What is the final keyword in Java?</p>
+                            `;
+                            document.querySelector('.answer-section').style.display = 'block';
+                        } else if (round === 3) {
+                            document.getElementById('question').innerHTML = `
+                                <h3>HR Question</h3>
+                                <p>What is  your salary expectations?</p>
+                            `;
+                            document.querySelector('.answer-section').style.display = 'block';
+                        } else if (round > 3) {
+                            endInterview();
+                        }
+                        startTimer();
+                    }
+            
+                    function endInterview() {
+                        clearInterval(timerInterval);
+                        timerDisplay.innerHTML = '0:00';
+                        const fluency = totalWords / 3;
+                        document.getElementById('fluency-score').textContent = `Interview score: ${fluency.toFixed(2)}`;
+                    }
+                </script>
+
+</body>
+</html>
+
+
