@@ -22,7 +22,7 @@ router.get('/REGISTER/po',(req,res)=>{
 })
 
 router.post('/register/po', (req, res) => {
-    const { name, email, phone, country, state, district, institute, dept, password} = req.body;
+    const { name, email, phone, country, state, district, institute, password} = req.body;
 
     // Check if email or phone already exists
     mysqlConnection.query(
@@ -146,7 +146,8 @@ router.post('/edit/po', (req, res) => {
 });
 
 router.get('/po/postjobs',(req,res)=>{
-    res.render('PO/po-postJobs/po-postJobs')
+    user = getUser()
+    res.render('PO/po-postJobs/po-postJobs',{user})
 })
 
 router.post('/PO/postjob', (req, res) => {
@@ -165,7 +166,7 @@ router.post('/PO/postjob', (req, res) => {
         
         // If a job with the same jobId exists, return an error
         if (rows.length > 0) {
-            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists"})
+            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists",user})
             return;
         }
 
@@ -178,7 +179,7 @@ router.post('/PO/postjob', (req, res) => {
                 console.error("Error inserting job:", err);
                 res.status(500).send("Error adding job");
             } else {
-                res.render('PO/po-listedJobs/po-listedJobs')
+                res.render('PO/po-listedJobs/po-listedJobs',{user})
             }
         });
     });
@@ -203,21 +204,47 @@ const fetchListedJobs = () => {
 
 // Define a route to handle requests for fetching listed jobs
 router.get('/po/listedjobs', async (req, res) => {
+    user = getUser()
     try {
         // Fetch listed jobs using async/await
         const jobs = await fetchListedJobs();
 
         // Render the HTML template with the fetched jobs data
-        res.render('PO/po-listedJobs/po-listedJobs', { jobs });
+        res.render('PO/po-listedJobs/po-listedJobs', { jobs,user });
     } catch (error) {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
     }
 });
 
-
-router.get('/po/studentlist',(req,res)=>{
-    res.render('PO/po-studentList/po-studentList')
-})
+router.get('/po/studentlist', async (req, res) => {
+    user = getUser()
+    try {
+      // Query database for students belonging to the institute
+      const institute = user.institute;
+      console.log(institute)
+      const students = await getStudentsByInstitute(institute);
+      console.log(students)
+      res.render('PO/po-studentList/po-studentList', { students,user }); // Pass students data to the view
+    } catch (error) {
+      console.error('Error fetching students:', error);
+      res.status(500).send('Error fetching students');
+    }
+});
+  
+// Function to get students by institute from the database
+async function getStudentsByInstitute(institute) {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM student WHERE institute = ?`;
+      mysqlConnection.query(query, [institute], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+}
+  
 
 module.exports = router

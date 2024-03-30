@@ -4,7 +4,6 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
-            <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
             <link rel="stylesheet" href="/PO/po-studentList/po-studentList.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
@@ -19,11 +18,7 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <a href="">Placement Officer: REJIN </a>
-                        <!-- <a href="">Home</a> -->
-                        <!-- <a href="">About US</a> -->
-                        <!-- <a href="">Listed Jobs</a> -->
-                        <!-- <a href="">Contact</a> -->
+                        <a href="">Placement Officer: <%= locals.user.name %> </a>
                     </div>
                     <div class="soc-icon">
                         <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
@@ -41,13 +36,6 @@
                         <i class="fa-solid fa-user-graduate"></i>
                     </div>
                     <div class="lmenu-items-con">
-                        <!-- <div class="lmenu-items-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                             <i class="fa-solid fa-chart-line"></i>
-                            <i class="fa-solid fa-book-open-reader"></i>
-                            <i class="fa-solid fa-people-group"></i>
-        
-                        </div> -->
                         <div class="lmenu-items">
                           <li><a class="d" href="/po/dashboard">Dashboard</a></li>
                           <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
@@ -76,51 +64,19 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>Row 1, Cell 1</td>
-                                    <td>Row 1, Cell 2</td>
-                                    <td>Row 1, Cell 3</td>
-                                    <td>Row 1, Cell 4</td>
-                                    <td>Row 1, Cell 5</td>
-                                    <td>Row 1, Cell 6</td>
-                                    <td class="buttonContainer"><a href=""><button class="edit-button">View</button></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>Row 1, Cell 1</td>
-                                    <td>Row 1, Cell 2</td>
-                                    <td>Row 1, Cell 3</td>
-                                    <td>Row 1, Cell 4</td>
-                                    <td>Row 1, Cell 5</td>
-                                    <td>Row 1, Cell 6</td>
-                                    <td class="buttonContainer"><a href=""><button class="edit-button">View</button></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>Row 1, Cell 1</td>
-                                    <td>Row 1, Cell 2</td>
-                                    <td>Row 1, Cell 3</td>
-                                    <td>Row 1, Cell 4</td>
-                                    <td>Row 1, Cell 5</td>
-                                    <td>Row 1, Cell 6</td>
-                                    <td class="buttonContainer"><a href=""><button class="edit-button">View</button></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>Row 1, Cell 1</td>
-                                    <td>Row 1, Cell 2</td>
-                                    <td>Row 1, Cell 3</td>
-                                    <td>Row 1, Cell 4</td>
-                                    <td>Row 1, Cell 5</td>
-                                    <td>Row 1, Cell 6</td>
-                                    <td class="buttonContainer"><a href=""><button class="edit-button">View</button></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>Row 1, Cell 1</td>
-                                    <td>Row 1, Cell 2</td>
-                                    <td>Row 1, Cell 3</td>
-                                    <td>Row 1, Cell 4</td>
-                                    <td>Row 1, Cell 5</td>
-                                    <td>Row 1, Cell 6</td>
-                                    <td class="buttonContainer"><a href=""><button class="edit-button">View</button></a></td>
-                                  </tr>
+                                  <% students.forEach((student, index) => { %>
+                                    <tr>
+                                        <td><%= index + 1 %></td>
+                                        <td><%= student.name %></td>
+                                        <td><%= student.ugyear %></td>
+                                        <td><%= student.branch %></td>
+                                        <td><%= student.cgpa %></td>
+                                        <td><%= student.appliedjobs !== null ? student.appliedjobs : 'Null' %></td>
+                                        <td class="buttonContainer">
+                                            <a href="#"><button class="edit-button">View</button></a>
+                                        </td>
+                                    </tr>
+                                  <% }); %>
                                 </tbody>
                               </table>
                         </div>
