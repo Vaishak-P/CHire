@@ -47,15 +47,32 @@ app.get('/LOGOUT',(req,res)=>{
 
 //For storing student details
 let user = {};
+let student = {}
+let po = {}
+let comp = {}
 
-// Function to set user data
-const setUser = (userData) => {
-    user = userData;
+const setStudent = (userData) => {
+    student = userData;
 };
 
-// Function to get user data
-const getUser = () => {
-    return user;
+const setPo = (userData) => {
+    po = userData;
+};
+
+const setComp = (userData) => {
+    comp = userData;
+};
+
+const getStudent = () => {
+    return student;
+};
+
+const getPo = () => {
+    return po;
+};
+
+const getComp = () => {
+    return comp;
 };
 
 // Login authentication route
@@ -95,13 +112,13 @@ app.post('/LOGIN', (req, res) => {
                         res.status(500).send('Internal Server Error');
                         return;
                     }
-                    
-                    user = results[0];
+                    setStudent(results[0])
+                    //user = results[0];
                     // Parse JSON strings into JavaScript objects
-                    const softskillsArray = JSON.parse(user.softskills);
-                    const hardskillsArray = JSON.parse(user.hardskills);
-                    const profile = `/images/${user.photo}`;
-                    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address1:user.address1,address2:user.address2,address3:user.address3,total:user.total,hard:hardskillsArray,soft:softskillsArray,institute:user.institute,year:user.ugyear,profile:profile });
+                    const softskillsArray = JSON.parse(student.softskills);
+                    const hardskillsArray = JSON.parse(student.hardskills);
+                    const profile = `/images/${student.photo}`;
+                    res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
                 });
                 break;
             case 'placementOfficer':
@@ -112,8 +129,9 @@ app.post('/LOGIN', (req, res) => {
                         res.status(500).send('Internal Server Error');
                         return;
                     }
-                    user = results[0];
-                    res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state});
+                    setPo(results[0])
+                    //user = results[0];
+                    res.render('PO/po-dashboard/po-dashboard',{userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state});
                 });
                 break;
             case 'company':
@@ -135,7 +153,7 @@ app.get('/MockTest/:heading', (req, res) => {
 });
 
 // Export user variable after it has been assigned a value
-module.exports = { setUser, getUser };
+module.exports = { setStudent, setPo, setComp, getStudent, getPo, getComp };
 
 const studentRouter = require('./routes/student');
 const poRouter = require('./routes/po');

@@ -18,11 +18,11 @@ const mysqlConnection = mysql.createConnection({
     database: 'cleverhire'
 });
 // Import the setUser function from server.js
-const { setUser, getUser } = require('../server');
+const { setStudent, getStudent } = require('../server');
 //const { profile } = require('console');
 
-router.post('/setUser', (req, res) => {
-    setUser(req.body.userData); // Set the user data received from the request body
+router.post('/setStudent', (req, res) => {
+    setStudent(req.body.userData); // Set the user data received from the request body
     res.send('User data set successfully');
 });
 
@@ -130,17 +130,17 @@ router.post('/register/student', (req, res) => {
 
 
 router.get('/student/dashboard',(req,res)=>{
-    const user = getUser();
+    const student = getStudent();
     //Parse JSON strings into JavaScript objects
-    const softskillsArray = JSON.parse(user.softskills);
-    const hardskillsArray = JSON.parse(user.hardskills);
-    const profile = `/images/${user.photo}`
-    res.render('std-dashboard/std-dashboard', {userName:user.name,cgpa:user.cgpa,test:user.mocktest_score,fluency:user.fluency_score,internships:user.internships,phn:user.phone,mail:user.email,address1:user.address1,address2:user.address2,address3:user.address3,total:user.total,hard:hardskillsArray,soft:softskillsArray,institute:user.institute,year:user.ugyear,profile:profile });
+    const softskillsArray = JSON.parse(student.softskills);
+    const hardskillsArray = JSON.parse(student.hardskills);
+    const profile = `/images/${student.photo}`
+    res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
 })
 
 router.get('/student/cv',(req,res)=>{
-    const user = getUser();
-    const profile = `/images/${user.photo}`
+    const student = getStudent();
+    const profile = `/images/${student.photo}`
     res.render("cv-gen/cv-gen",{profile:profile})
 })
 
@@ -151,7 +151,6 @@ router.get('/cv-template',(req,res)=>{
 router.get('/student/mocktest',(req,res)=>{
     flag = "test"
     res.render("camera")
-    // res.render("std-test/std-test")
 })
 
 router.get('/student/mockinterview',(req,res)=>{
@@ -160,8 +159,8 @@ router.get('/student/mockinterview',(req,res)=>{
 })
 
 router.get('/fluency.html',(req,res)=>{
-    const user = getUser();
-    const profile = `/images/${user.photo}`
+    const student = getStudent();
+    const profile = `/images/${student.photo}`
     res.render('MOCK INTERVIEW/fluency',{profile:profile})
 })
 
@@ -237,13 +236,13 @@ router.post('/save-image', async (req, res) => {
         if (match) {
             if(flag==="test"){
                 flag=null
-                const user = getUser();
-                const profile = `/images/${user.photo}`
+                const student = getStudent();
+                const profile = `/images/${student.photo}`
                 res.render("std-test/std-test.ejs",{profile:profile} );
             }else{
                 flag=null
-                const user = getUser();
-                const profile = `/images/${user.photo}`
+                const student = getStudent();
+                const profile = `/images/${student.photo}`
                 res.render('MOCK INTERVIEW/interview',{profile:profile})
             }
         } else {

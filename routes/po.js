@@ -10,10 +10,10 @@ const mysqlConnection = mysql.createConnection({
     database: 'cleverhire'
 });
 
-const { setUser, getUser } = require('../server');
+const { setPo, getPo } = require('../server');
 
-router.post('/setUser', (req, res) => {
-    setUser(req.body.userData); // Set the user data received from the request body
+router.post('/setPo', (req, res) => {
+    setPo(req.body.userData); // Set the user data received from the request body
     res.send('User data set successfully');
 });
 
@@ -98,19 +98,19 @@ router.post('/register/po', (req, res) => {
 });
 
 router.get('/po/dashboard',(req,res)=>{
-    let user = getUser();
-    res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state})
+    let po = getPo();
+    res.render('PO/po-dashboard/po-dashboard',{userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
 })
 
 router.get('/PO/edit',(req,res)=>{
-    let user = getUser();
-    res.render('PO/po-dashboard/poInfoEdit/poInfoEdit',{user})
+    let po = getPo();
+    res.render('PO/po-dashboard/poInfoEdit/poInfoEdit',{po})
 })
 
 // Route to handle form submission and update user's data
 router.post('/edit/po', (req, res) => {
-    let user = getUser();
-    const userId = user.id;
+    let po = getPo();
+    const userId = po.id;
     const { name, email, phone, state, district, institute, password } = req.body;
     const query = 'UPDATE placement_officer SET name = ?, email = ?, phone = ?, state = ?, district = ?, institute = ?, password = ? WHERE id = ?';
   
@@ -137,23 +137,24 @@ router.post('/edit/po', (req, res) => {
                 res.status(500).send('Internal Server Error');
                 return;
             }
-            setUser(results[0])
-            user = results[0]
-            res.render('PO/po-dashboard/po-dashboard',{userName:user.name,mail:user.email,phn:user.phone,institute:user.institute,district:user.district,state:user.state})
+            //setUser(results[0])
+            setPo(results[0])
+            //user = results[0]
+            res.render('PO/po-dashboard/po-dashboard',{userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
         });
         
     });
 });
 
 router.get('/po/postjobs',(req,res)=>{
-    user = getUser()
-    res.render('PO/po-postJobs/po-postJobs',{user})
+    po = getPo()
+    res.render('PO/po-postJobs/po-postJobs',{po})
 })
 
 router.post('/PO/postjob', (req, res) => {
-    let user = getUser();
+    let po = getPo();
     const { jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
-    const institute = user.institute;
+    const institute = po.institute;
 
     // Check if a job with the same jobId already exists
     const selectQuery = "SELECT * FROM jobs WHERE jobId = ?";
@@ -166,7 +167,7 @@ router.post('/PO/postjob', (req, res) => {
         
         // If a job with the same jobId exists, return an error
         if (rows.length > 0) {
-            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists",user})
+            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists",po})
             return;
         }
 
@@ -179,7 +180,7 @@ router.post('/PO/postjob', (req, res) => {
                 console.error("Error inserting job:", err);
                 res.status(500).send("Error adding job");
             } else {
-                res.render('PO/po-listedJobs/po-listedJobs',{user})
+                res.render('PO/po-listedJobs/po-listedJobs',{po})
             }
         });
     });
@@ -204,13 +205,13 @@ const fetchListedJobs = () => {
 
 // Define a route to handle requests for fetching listed jobs
 router.get('/po/listedjobs', async (req, res) => {
-    user = getUser()
+    po = getPo()
     try {
         // Fetch listed jobs using async/await
         const jobs = await fetchListedJobs();
 
         // Render the HTML template with the fetched jobs data
-        res.render('PO/po-listedJobs/po-listedJobs', { jobs,user });
+        res.render('PO/po-listedJobs/po-listedJobs', { jobs,po });
     } catch (error) {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
@@ -218,14 +219,13 @@ router.get('/po/listedjobs', async (req, res) => {
 });
 
 router.get('/po/studentlist', async (req, res) => {
-    user = getUser()
+    po = getPo()
     try {
       // Query database for students belonging to the institute
-      const institute = user.institute;
-      console.log(institute)
+      const institute = po.institute;
       const students = await getStudentsByInstitute(institute);
       console.log(students)
-      res.render('PO/po-studentList/po-studentList', { students,user }); // Pass students data to the view
+      res.render('PO/po-studentList/po-studentList', {po,students }); // Pass students data to the view
     } catch (error) {
       console.error('Error fetching students:', error);
       res.status(500).send('Error fetching students');

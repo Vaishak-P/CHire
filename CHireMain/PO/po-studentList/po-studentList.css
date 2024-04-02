@@ -121,11 +121,17 @@ main-body{
     left: 0;
     position: fixed;
 }
-.dp i{
-    color: var(--bg-color);
-    font-size: 50px;
-    display: grid; place-items: center;
-    margin: 30px 0px;
+.dp{
+    margin: 30px;
+    width: 100px; /* Adjust width and height to set the size of the circle */
+    height: 100px;
+    border-radius: 50%; /* Make it circular */
+    overflow: hidden; /* Clip the content to the circle */
+    border: 2px solid #ccc;
+}.dp img{
+    width: 100%; /* Make the image fill the container */
+    height: 100%;
+    object-fit: cover;
 }
 .lmenu-items-icon i{
     color: var(--bg-color);
@@ -196,7 +202,7 @@ td:nth-child(odd){
 .buttonContainer{
     padding: 0;
 }
-#view-button{
+.view-button{
     background-color:var(--sec-color);
     border:5px #3D3B40 ;
     border-radius: 20px;
@@ -208,7 +214,7 @@ td:nth-child(odd){
     height: 100%;
     
 }
-#view-button:hover{
+.view-button:hover{
     background-color: var(--pri-color);
     color: var(--bg-color);
     box-shadow: 0 0 10px var(--bg-color);
