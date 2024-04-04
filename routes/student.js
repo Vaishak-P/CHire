@@ -52,7 +52,7 @@ router.get('/institutes', (req, res) => {
 });
 
 router.post('/register/student', (req, res) => {
-    const { name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, softskills, hardskills, password, photo, ugyear, internships} = req.body;
+    const { name, email, phone, address1, address2, address3,country, state, district, institute, department, cgpa, softskills, hardskills, password, photo, ugyear, internships} = req.body;
     const softskillsString = JSON.stringify(softskills)
     const hardskillsString = JSON.stringify(hardskills)
 
@@ -96,8 +96,8 @@ router.post('/register/student', (req, res) => {
 
                         // Insert into student table
                         mysqlConnection.query(
-                            'INSERT INTO student (name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, softskills, hardskills, password, photo, ugyear, interships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?)',
-                            [name,email,phone,address1,address2,address3,country,state,district,institute,cgpa,softskillsString,hardskillsString,password,photo,ugyear,internships],
+                            'INSERT INTO student (name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, softskills, hardskills, password, photo, ugyear, internships, department) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?)',
+                            [name,email,phone,address1,address2,address3,country,state,district,institute,cgpa,softskillsString,hardskillsString,password,photo,ugyear,internships,department],
                             (err, results) => {
                                 if (err) {
                                     console.error('Error inserting into student table: ', err);
@@ -224,11 +224,15 @@ const deleteCapturedImage = async (captured_image_path) => {
 
 router.post('/save-image', async (req, res) => {
     try {
+        const student = getStudent();
         const { imageData } = req.body;
 
         const filename = await saveImage(imageData);
 
-        const user_profile_image_path = 'CHireMain/images/SAVE_20230728_213842.jpg'; // Path to user profile image
+        const user_profile_image_path = `CHireMain/images/${student.photo}`
+        console.log(user_profile_image_path)
+
+        //const user_profile_image_path = 'CHireMain/images/SAVE_20230728_213842.jpg'; // Path to user profile image
 
         const match = await callFaceRecognition(user_profile_image_path, `CHireMain/images/${filename}`);
         console.log(match)
@@ -236,12 +240,12 @@ router.post('/save-image', async (req, res) => {
         if (match) {
             if(flag==="test"){
                 flag=null
-                const student = getStudent();
+                //const student = getStudent();
                 const profile = `/images/${student.photo}`
                 res.render("std-test/std-test.ejs",{profile:profile} );
             }else{
                 flag=null
-                const student = getStudent();
+                //const student = getStudent();
                 const profile = `/images/${student.photo}`
                 res.render('MOCK INTERVIEW/interview',{profile:profile})
             }

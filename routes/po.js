@@ -22,7 +22,7 @@ router.get('/REGISTER/po',(req,res)=>{
 })
 
 router.post('/register/po', (req, res) => {
-    const { name, email, phone, country, state, district, institute, password} = req.body;
+    const { name, email, phone, country, state, district, institute, password, photo} = req.body;
 
     // Check if email or phone already exists
     mysqlConnection.query(
@@ -64,8 +64,8 @@ router.post('/register/po', (req, res) => {
 
                         // Insert into placement_officer table
                         mysqlConnection.query(
-                            'INSERT INTO placement_officer (name,email, phone, country, state, district, institute, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                            [name,email,phone,country,state,district,institute,password],
+                            'INSERT INTO placement_officer (name,email, phone, country, state, district, institute, password, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            [name,email,phone,country,state,district,institute,password,photo],
                             (err, results) => {
                                 if (err) {
                                     console.error('Error inserting into placement_officer table: ', err);
@@ -218,13 +218,13 @@ router.get('/po/listedjobs', async (req, res) => {
     }
 });
 
+
 router.get('/po/studentlist', async (req, res) => {
     po = getPo()
     try {
       // Query database for students belonging to the institute
       const institute = po.institute;
       const students = await getStudentsByInstitute(institute);
-      console.log(students)
       res.render('PO/po-studentList/po-studentList', {po,students }); // Pass students data to the view
     } catch (error) {
       console.error('Error fetching students:', error);
@@ -245,6 +245,30 @@ async function getStudentsByInstitute(institute) {
       });
     });
 }
+
+const fetchPendingJobs = () =>{
+    return new Promise((resolve, reject)=>{
+        const sql = "SELECT * FROM jobs WHERE approved = 0";
+        mysqlConnection.query(sql, (err,results) => {
+            if(err){
+                reject(err)
+            } else {
+                resolve(results)
+            }
+        })
+    })
+}
+
+router.get('/po/approveJobs', async (req,res)=>{
+    po = getPo()
+    try{
+        const jobs = await fetchPendingJobs();
+        res.render('PO/po-approveJobs/po-approveJobs',{jobs,po})
+    }catch(error){
+        console.error("Error fetching listed jobs : ", error);
+        res.status(500).send('Internal Server Error');
+    }
+})
   
 
 module.exports = router

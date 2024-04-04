@@ -15,7 +15,7 @@ router.get('/REGISTER/company',(req,res)=>{
 })
 
 router.post('/register/company', (req, res) => {
-    const { companyName, email, contactName, phone, contactEmail, companyUrl, address1, address2, address3, state, district, password} = req.body;
+    const { companyName, email, contactName, phone, contactEmail, companyUrl, address1, address2, address3, state, district, password, photo} = req.body;
 
     // Check if email or phone already exists
     mysqlConnection.query(
@@ -57,8 +57,8 @@ router.post('/register/company', (req, res) => {
 
                         // Insert into company table
                         mysqlConnection.query(
-                            'INSERT INTO company (name, email, contactName, phone, contactEmail, url, address1, address2, address3, state, district, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                            [companyName,email,contactName,phone,contactEmail,companyUrl,address1,address2,address3,state,district,password],
+                            'INSERT INTO company (name, email, contactName, phone, contactEmail, url, address1, address2, address3, state, district, password, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            [companyName,email,contactName,phone,contactEmail,companyUrl,address1,address2,address3,state,district,password,photo],
                             (err, results) => {
                                 if (err) {
                                     console.error('Error inserting into company table: ', err);
