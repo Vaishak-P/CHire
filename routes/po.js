@@ -180,20 +180,20 @@ router.post('/PO/postjob', (req, res) => {
                 console.error("Error inserting job:", err);
                 res.status(500).send("Error adding job");
             } else {
-                res.render('PO/po-listedJobs/po-listedJobs',{po})
+                res.render('PO/po-postJobs/po-postJobs',{po})
             }
         });
     });
 });
 
 // Define a function to fetch listed jobs from the database
-const fetchListedJobs = () => {
+const fetchListedJobs = (institute) => {
     return new Promise((resolve, reject) => {
         // Prepare SQL statement to select jobs where approved is 1
-        const sql = "SELECT * FROM jobs WHERE approved = 1";
+        const sql = "SELECT * FROM jobs WHERE approved = 1 AND institute = ?";
 
         // Execute the SQL statement
-        mysqlConnection.query(sql, (err, results) => {
+        mysqlConnection.query(sql,[institute], (err, results) => {
             if (err) {
                 reject(err);
             } else {
@@ -207,8 +207,9 @@ const fetchListedJobs = () => {
 router.get('/po/listedjobs', async (req, res) => {
     po = getPo()
     try {
+        institute = po.institute
         // Fetch listed jobs using async/await
-        const jobs = await fetchListedJobs();
+        const jobs = await fetchListedJobs(institute);
 
         // Render the HTML template with the fetched jobs data
         res.render('PO/po-listedJobs/po-listedJobs', { jobs,po });
@@ -246,10 +247,10 @@ async function getStudentsByInstitute(institute) {
     });
 }
 
-const fetchPendingJobs = () =>{
+const fetchPendingJobs = (institute) =>{
     return new Promise((resolve, reject)=>{
-        const sql = "SELECT * FROM jobs WHERE approved = 0";
-        mysqlConnection.query(sql, (err,results) => {
+        const sql = "SELECT * FROM jobs WHERE approved = 0 AND institute = ?";
+        mysqlConnection.query(sql,[institute], (err,results) => {
             if(err){
                 reject(err)
             } else {
@@ -262,13 +263,36 @@ const fetchPendingJobs = () =>{
 router.get('/po/approveJobs', async (req,res)=>{
     po = getPo()
     try{
-        const jobs = await fetchPendingJobs();
+        institute = po.institute
+        const jobs = await fetchPendingJobs(institute);
         res.render('PO/po-approveJobs/po-approveJobs',{jobs,po})
     }catch(error){
         console.error("Error fetching listed jobs : ", error);
         res.status(500).send('Internal Server Error');
     }
 })
+
+// Handle POST request to approve job
+router.post('/approveJob', (req, res) => {
+    const jobId = req.body.jobId; // assuming you're sending jobId with your request
+    const sql = `UPDATE jobs SET approved = 1 WHERE jobId = ${jobId}`;
+    mysqlConnection.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(`Job ${jobId} approved.`);
+      res.send('Job approved successfully.');
+    });
+});
+  
+// Handle POST request to decline job
+router.post('/declineJob', (req, res) => {
+    const jobId = req.body.jobId; // assuming you're sending jobId with your request
+    const sql = `DELETE FROM jobs WHERE jobId = ${jobId}`;
+    mysqlConnection.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(`Job ${jobId} declined.`);
+      res.send('Job declined and deleted successfully.');
+    });
+});
   
 
 module.exports = router

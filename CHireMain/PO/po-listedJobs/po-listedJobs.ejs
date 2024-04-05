@@ -19,10 +19,6 @@
                 <nav>
                     <div class="list">
                         <a href="">Placement Officer: <%= locals.po.name %> </a>
-                        <!-- <a href="">Home</a> -->
-                        <!-- <a href="">About US</a> -->
-                        <!-- <a href="">Listed Jobs</a> -->
-                        <!-- <a href="">Contact</a> -->
                     </div>
                     <div class="soc-icon">
                         <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
@@ -40,13 +36,6 @@
                         <i class="fa-solid fa-po-graduate"></i>
                     </div>
                     <div class="lmenu-items-con">
-                        <!-- <div class="lmenu-items-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                             <i class="fa-solid fa-chart-line"></i>
-                            <i class="fa-solid fa-book-open-reader"></i>
-                            <i class="fa-solid fa-people-group"></i>
-        
-                        </div> -->
                         <div class="lmenu-items">
                             <li><a class="d" href="/po/dashboard">Dashboard</a></li>
                             <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
@@ -63,87 +52,91 @@
                         <div class="headingSection">
                             <h1>Latest Jobs</h1>
                         </div>
-                      <div class="jobGridContainer">
-                        <% jobs.forEach(job => { %>
-                            <div class="jobGrid">
-                                <div class="row">
-                                    <div class="label">
-                                        <h6 id="companyName">Company name</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6 id="companyName">: <%= job.company %></h6>
-                                    </div>
+                        <div class="jobGridContainer">
+                            <% if (jobs.length === 0) { %>
+                                <div class="error-message">
+                                    <p style="color: red;">There are no listed jobs.</p>
                                 </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Job Post</h6>
+                            <% } else { %>
+                                <% jobs.forEach(job => { %>
+                                    <div class="jobGrid">
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6 id="companyName">Company name</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6 id="companyName">: <%= job.company %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Job Post</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.post %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Qualification</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.qualification %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Job Type</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.type %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Salary Range</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.salary %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Base Location</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.location %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Application deadline</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.deadline %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Experience required</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.experience %></h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="label">
+                                                <h6>Job description</h6>
+                                            </div>
+                                            <div class="value">
+                                                <h6>:<%= job.description %></h6>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="value">
-                                        <h6>:<%= job.post %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Qualification</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.qualification %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Job Type</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.type %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Salary Range</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.salary %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Base Location</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.location %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Application deadline</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.deadline %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Experience required</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.experience %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Job description</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6>:<%= job.description %></h6>
-                                    </div>
-                                </div>
-    
-                                <!-- Render other job details similarly -->
-                                <!-- <button>EDIT</button> -->
-                            </div>
-                        <% }); %>
-                      </div>
+                                <% }); %>
+                            <% } %>
+                        </div>
+                        
                     </section>
                 </div>
                 
