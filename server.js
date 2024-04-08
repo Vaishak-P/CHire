@@ -115,10 +115,11 @@ app.post('/LOGIN', (req, res) => {
                     setStudent(results[0])
                     //user = results[0];
                     // Parse JSON strings into JavaScript objects
-                    const softskillsArray = JSON.parse(student.softskills);
-                    const hardskillsArray = JSON.parse(student.hardskills);
-                    const profile = `/images/${student.photo}`;
-                    res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
+                    res.redirect('/student/dashboard')
+                    // const softskillsArray = JSON.parse(student.softskills);
+                    // const hardskillsArray = JSON.parse(student.hardskills);
+                    // const profile = `/images/${student.photo}`;
+                    // res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
                 });
                 break;
             case 'placementOfficer':

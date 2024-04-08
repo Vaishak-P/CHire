@@ -26,7 +26,7 @@ router.post('/setStudent', (req, res) => {
     res.send('User data set successfully');
 });
 
-router.get('/REGISTER/student',(req,res)=>{
+router.get('/REGISTER/student', (req, res) => {
     res.render('REGISTER/stud-reg-form/stud-reg-form')
 })
 
@@ -46,13 +46,13 @@ router.get('/institutes', (req, res) => {
             }
             // Send the list of institute names as a response
             res.json({ institutes: results });
-            
+
         }
     );
 });
 
 router.post('/register/student', (req, res) => {
-    const { name, email, phone, address1, address2, address3,country, state, district, institute, department, cgpa, softskills, hardskills, password, photo, ugyear, internships} = req.body;
+    const { name, email, phone, address1, address2, address3, country, state, district, institute, department, cgpa, backlog, softskills, hardskills, password, photo, ugyear, internships } = req.body;
     const softskillsString = JSON.stringify(softskills)
     const hardskillsString = JSON.stringify(hardskills)
 
@@ -69,7 +69,7 @@ router.post('/register/student', (req, res) => {
 
             // If email or phone already exists, send a warning message
             if (results.length > 0) {
-                res.render('REGISTER/stud-reg-form/stud-reg-form',{error:'Email or phone already exists'});
+                res.render('REGISTER/stud-reg-form/stud-reg-form', { error: 'Email or phone already exists' });
                 return;
             }
 
@@ -96,8 +96,8 @@ router.post('/register/student', (req, res) => {
 
                         // Insert into student table
                         mysqlConnection.query(
-                            'INSERT INTO student (name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, softskills, hardskills, password, photo, ugyear, internships, department) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?)',
-                            [name,email,phone,address1,address2,address3,country,state,district,institute,cgpa,softskillsString,hardskillsString,password,photo,ugyear,internships,department],
+                            'INSERT INTO student (name, email, phone, address1, address2, address3,country, state, district, institute, cgpa, backlog, softskills, hardskills, password, photo, ugyear, internships, department) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?)',
+                            [name, email, phone, address1, address2, address3, country, state, district, institute, cgpa, backlog, softskillsString, hardskillsString, password, photo, ugyear, internships, department],
                             (err, results) => {
                                 if (err) {
                                     console.error('Error inserting into student table: ', err);
@@ -129,39 +129,73 @@ router.post('/register/student', (req, res) => {
 });
 
 
-router.get('/student/dashboard',(req,res)=>{
+// router.get('/student/dashboard',(req,res)=>{
+//     const student = getStudent();
+//     //Parse JSON strings into JavaScript objects
+//     const softskillsArray = JSON.parse(student.softskills);
+//     const hardskillsArray = JSON.parse(student.hardskills);
+//     const profile = `/images/${student.photo}`
+//     res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
+// })
+
+router.get('/student/dashboard', async (req, res) => {
+    try {
+        const student = getStudent();
+        const softskillsArray = JSON.parse(student.softskills);
+        const hardskillsArray = JSON.parse(student.hardskills);
+        const profile = `/images/${student.photo}`
+
+        // Query to fetch matching jobs
+        const sql = `SELECT * FROM jobs WHERE institute = ? AND skill IN (?) AND cgpa < ? AND backlog > ?`;
+
+        // Execute the query
+        const jobs = await executeQuery(sql, [student.institute, hardskillsArray, student.cgpa, student.backlog]);
+
+        // Render the dashboard template with fetched data
+        //Parse JSON strings into JavaScript objects
+        res.render('std-dashboard/std-dashboard', { userName: student.name, cgpa: student.cgpa, backlog: student.backlog, test: student.mocktest_score, fluency: student.fluency_score, internships: student.internships, phn: student.phone, mail: student.email, address1: student.address1, address2: student.address2, address3: student.address3, total: student.total, hard: hardskillsArray, soft: softskillsArray, institute: student.institute, year: student.ugyear, profile: profile, jobs });
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        res.status(500).send('Error fetching jobs');
+    }
+});
+
+function executeQuery(sql, params) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query(sql, params, (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(results);
+        });
+    });
+}
+
+router.get('/student/cv', (req, res) => {
     const student = getStudent();
-    //Parse JSON strings into JavaScript objects
-    const softskillsArray = JSON.parse(student.softskills);
-    const hardskillsArray = JSON.parse(student.hardskills);
     const profile = `/images/${student.photo}`
-    res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
+    res.render("cv-gen/cv-gen", { profile: profile })
 })
 
-router.get('/student/cv',(req,res)=>{
-    const student = getStudent();
-    const profile = `/images/${student.photo}`
-    res.render("cv-gen/cv-gen",{profile:profile})
-})
-
-router.get('/cv-template',(req,res)=>{
+router.get('/cv-template', (req, res) => {
     res.render("cv-gen/cv-template")
 })
 
-router.get('/student/mocktest',(req,res)=>{
+router.get('/student/mocktest', (req, res) => {
     flag = "test"
     res.render("camera")
 })
 
-router.get('/student/mockinterview',(req,res)=>{
+router.get('/student/mockinterview', (req, res) => {
     flag = "interview"
     res.render("camera")
 })
 
-router.get('/fluency.html',(req,res)=>{
+router.get('/fluency.html', (req, res) => {
     const student = getStudent();
     const profile = `/images/${student.photo}`
-    res.render('MOCK INTERVIEW/fluency',{profile:profile})
+    res.render('MOCK INTERVIEW/fluency', { profile: profile })
 })
 
 const saveImage = async (imageData) => {
@@ -238,25 +272,25 @@ router.post('/save-image', async (req, res) => {
         console.log(match)
 
         if (match) {
-            if(flag==="test"){
-                flag=null
+            if (flag === "test") {
+                flag = null
                 //const student = getStudent();
                 const profile = `/images/${student.photo}`
-                res.render("std-test/std-test.ejs",{profile:profile} );
-            }else{
-                flag=null
+                res.render("std-test/std-test.ejs", { profile: profile });
+            } else {
+                flag = null
                 //const student = getStudent();
                 const profile = `/images/${student.photo}`
-                res.render('MOCK INTERVIEW/interview',{profile:profile})
+                res.render('MOCK INTERVIEW/interview', { profile: profile })
             }
         } else {
-            res.render("camera",{error:"Mismatch in the image"})
+            res.render("camera", { error: "Mismatch in the image" })
         }
 
         await deleteCapturedImage(`CHireMain/images/${filename}`);
     } catch (error) {
         console.error('Error performing face recognition:', error);
-        res.render("camera",{error:"No face detected"})
+        res.render("camera", { error: "No face detected" })
     }
 }
 );

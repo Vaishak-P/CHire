@@ -72,7 +72,7 @@
                         <div class="stud-aca-info">
                             <div class="info-top">
                                 <div class="aca-info-title">
-                                    <h5>Academic Info</h5>
+                                    <h5 style="color: white;">Academic Info</h5>
                                 </div>
                             </div>
                             <div class="infoFetchContainer">
@@ -101,6 +101,14 @@
                                     </div>
                                     <div class="value">
                                         <h6><%= cgpa %></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">
+                                        <h6>Number of backlogs</h6>
+                                    </div>
+                                    <div class="value">
+                                        <h6><%= locals.backlog %></h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -150,7 +158,7 @@
                         <div class="stud-per-info">
                             <div class="info-top">
                                 <div class="per-info-title">
-                                    <h5>Personal Info</h5>
+                                    <h5 style="color: white;">Personal Info</h5>
                                 </div>
                             </div>
                             <div class="infoFetchContainer">
@@ -189,31 +197,15 @@
             <!-- RIGHT SECTION OF PAGE  -->
             <section class="content">
                 <div class="rmenu">
-                    <!-- SEARCH  -->
-                    <div class="search-con">
-                        <h5>Search Jobs</h5>
-                        <div class="search">
-                            <input type="text" class="search-input" placeholder="Search...">
-                            <button type="button" class="search-icon">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
-                    </div>
                     <!-- MATCHING JOBS  -->
                     <div class="anno">
                         <div class="anno-top">
                             <h5>Matching Jobs</h5>
                         </div>
                         <div class="anno-list">
-                            <li><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, aspernatur.</a></li>
-                            <li><a href="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, laborum.</a></li>
-                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, doloribus.</a></li>
-                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic, tenetur?</a></li>
-                            <li><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, aspernatur.</a></li>
-                            <li><a href="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, laborum.</a></li>
-                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, doloribus.</a></li>
-                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, doloribus.</a></li>
-                            <li><a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic, tenetur?</a></li>
+                            <% jobs.forEach(job => { %>
+                                <li><a href=""><%= `${job.jobId} - ${job.company} - ${job.post}`  %></a></li>
+                            <% }); %>
                         </div>
                     </div>
                 </div>

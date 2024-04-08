@@ -153,7 +153,7 @@ router.get('/po/postjobs',(req,res)=>{
 
 router.post('/PO/postjob', (req, res) => {
     let po = getPo();
-    const { jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
+    const { jobId, companyName, jobPost, qualification,cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
     const institute = po.institute;
 
     // Check if a job with the same jobId already exists
@@ -172,10 +172,10 @@ router.post('/PO/postjob', (req, res) => {
         }
 
         // Prepare SQL statement to insert job details into the jobs table
-        const sql = "INSERT INTO jobs (jobId, company, post, qualification, type, salary, location, deadline, experience, description, approved, institute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO jobs (jobId, company, post, qualification, cgpa, backlog, skill, type, salary, location, deadline, experience, description, approved, institute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Execute the SQL statement
-        mysqlConnection.query(sql, [jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 1, institute], (err, result) => {
+        mysqlConnection.query(sql, [jobId, companyName, jobPost, qualification, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 1, institute], (err, result) => {
             if (err) {
                 console.error("Error inserting job:", err);
                 res.status(500).send("Error adding job");
