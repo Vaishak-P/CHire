@@ -293,6 +293,36 @@ router.post('/declineJob', (req, res) => {
       res.send('Job declined and deleted successfully.');
     });
 });
-  
+
+const fetchJob = (jobId) =>{
+    return new Promise((resolve, reject)=>{
+        const sql = "SELECT * FROM jobs WHERE jobId = ?";
+        mysqlConnection.query(sql,[jobId], (err,results) => {
+            if(err){
+                reject(err)
+            } else {
+                resolve(results[0])
+            }
+        })
+    })
+}
+
+router.get('/po/editJob/:jobId', async(req,res)=>{
+    const po = getPo()
+    const jobId = req.params.jobId
+    const job = await fetchJob(jobId)
+    console.log(job)
+    res.render('PO/po-approveJobs/poJobEdit/poJobEdit',{job,po})
+})
+
+router.post('/po/editJob',(req,res)=>{
+    const {jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, backlog, skill, cgpa} = req.body
+    const query = 'UPDATE jobs SET company = ?, post = ?, qualification = ?, type = ?, salary = ?, location = ?, deadline = ?, experience = ?, description = ?, backlog = ?, skill = ?, cgpa = ? WHERE jobId = ?';
+    mysqlConnection.query(query, [companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, backlog, skill, cgpa, jobId], (err, results) => {
+        if(err) throw err;
+        res.redirect('/po/approveJobs')
+    })
+      
+})
 
 module.exports = router

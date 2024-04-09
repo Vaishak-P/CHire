@@ -1,143 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CleverHiret</title>
-            <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
-            <link rel="stylesheet" href="poJobEdit.css">
-            <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
-            <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        </head>
-        <body>
-            <div class="topMenu">
-                <div class="cleverhire">
-                    <p><a href="/index.html">CleverHire</a></p>
-                </div>
-            
-            <!-- NAVIGATION -->
-                <nav>
-                    <div class="list">
-                        <a href="">Placement Officer: <%= userName %></a>
-                        <!-- <a href="">Home</a> -->
-                        <!-- <a href="">About US</a> -->
-                        <!-- <a href="">Listed Jobs</a> -->
-                        <!-- <a href="">Contact</a> -->
-                    </div>
-                    <div class="soc-icon">
-                        <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href=""><i class="fa-brands fa-facebook"></i></a>
-                        <a href=""><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href=""><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </nav>
-        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHiret</title>
+    <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
+    <link rel="stylesheet" href="/PO/po-approveJobs/poJobEdit/poJobEdit.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="topMenu">
+        <div class="cleverhire">
+            <p><a href="/index.html">CleverHire</a></p>
+        </div>
+    
+    <!-- NAVIGATION -->
+        <nav>
+            <div class="list">
+                <a href="">Placement Officer: <%= locals.po.name %></a>
             </div>
-            <div class="main-body">
-                <!-- LEFT SECTION OF PAGE  -->
-                <section class="lmenu">
-                    <div class="dp">
-                        <i class="fa-solid fa-user-graduate"></i>
-                    </div>
-                    <div class="lmenu-items-con">
-                        <!-- <div class="lmenu-items-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                             <i class="fa-solid fa-chart-line"></i>
-                            <i class="fa-solid fa-book-open-reader"></i>
-                            <i class="fa-solid fa-people-group"></i>
-        
-                        </div> -->
-                        <div class="lmenu-items">
-                            <li><a class="d" href="/po/dashboard">Dashboard</a></li>
-                            <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
-                            <li><a class="aj" href="/po/approveJobs">Approve Jobs</a></li>
-                            <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
-                            <li><a class="sl" href="/po/studentlist">Student List</a></li>
-                            <li><a class="l" href="/LOGOUT">Logout</a></li>
+            <div class="soc-icon">
+                <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </nav>
+
+    </div>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="lmenu-items-con">
+                <div class="lmenu-items">
+                    <li><a class="d" href="/po/dashboard">Dashboard</a></li>
+                    <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
+                    <li><a class="aj" href="/po/approveJobs">Approve Jobs</a></li>
+                    <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
+                    <li><a class="sl" href="/po/studentlist">Student List</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="cmenu">
+            <section class="content">
+                <form onsubmit="return onSubmit()" method="post" action="/PO/editJob">
+                    <h1>Edit Job Details</h1>
+                    <div class="formSection">
+                        <div class="formSection1">
+                            <label for="jobId">Job ID:</label>
+                            <input type="text" id="jobId" name="jobId" value="<%= job.jobId %>">
+                            <label for="companyName">Company Name:</label>
+                            <input type="text" id="companyName" name="companyName" value="<%= job.company %>" required>
+                            <label for="jobPost">Job Post:</label>
+                            <input type="text" id="jobPost" name="jobPost" value="<%= job.post %>" required>
+                            <label for="qualification">Qualification:</label>
+                            <input type="text" id="qualification" name="qualification" value="<%= job.qualification %>" required>
+                            <label for="cgpa">CGPA:</label>
+                            <input type="text" id="cgpa" name="cgpa" value="<%= job.cgpa %>" required>
+                            <label for="employmentType">Employment Type:</label>
+                            <select id="employmentType" name="employmentType">
+                                <option value="Full-time" <% if (job.type === 'Full-time') { %>selected<% } %>>Full-time</option>
+                                <option value="Part-time" <% if (job.type === 'Part-time') { %>selected<% } %>>Part-time</option>
+                                <option value="Contract" <% if (job.type === 'Contract') { %>selected<% } %>>Contract</option>
+                                <option value="Temporary" <% if (job.type === 'Temporary') { %>selected<% } %>>Temporary</option>
+                                <option value="Internship" <% if (job.type === 'Internship') { %>selected<% } %>>Internship</option>
+                                <option value="Freelance" <% if (job.type === 'Freelance') { %>selected<% } %>>Freelance</option>
+                            </select>
+                            <label for="backlog">Number of backlogs</label>
+                            <input type="text" name="backlog" id="backlog" value="<%= job.backlog %>" required>
+                        </div>
+                        <div class="formSection2">
+                            <label for="skill">Skills Required</label>
+                            <input type="text" name="skill" id="skill" value="<%= job.skill %>" required>
+                            <label for="salaryRange">Salary Range:</label>
+                            <input type="text" id="salaryRange" name="salaryRange" value="<%= job.salary %>">
+                            <label for="baseLocation">Base Location:</label>
+                            <input type="text" id="baseLocation" name="baseLocation" value="<%= job.location %>" required>
+
+                            <%
+                                // Define formattedDeadline here
+                                const deadlineDate = new Date(job.deadline);
+                                const formattedDeadline = deadlineDate.toISOString().split('T')[0];
+                            %>
+
+                            <label for="applicationDeadline">Application Deadline:</label>
+                            <input type="date" id="applicationDeadline" name="applicationDeadline" value="<%= formattedDeadline %>" required>
+
+                            <label for="experienceRequired">Experience Required:</label>
+                            <input type="text" id="experienceRequired" name="experienceRequired" value="<%= job.experience %>">
+
+                            <label for="jobDescription">Job Description:</label>
+                            <textarea id="jobDescription" name="jobDescription" required><%= job.description %></textarea>
+                        
                         </div>
                     </div>
-                </section>
-                <!-- CENTRE SECTION OF PAGE -->
-                <div class="cmenu">
-                    <section class="content">
-                        <form onsubmit="return onSubmit()" method="post" action="/PO/postjob">
-                            <h1>Edit Job Details</h1>
-                            <div class="formSection">
-                                <div class="formSection1">
-                                    <label for="jobId">Job ID:</label>
-                                    <input type="text" id="jobId" name="jobId" required>
-                                    <label for="companyName">Company Name:</label>
-                                    <input type="text" id="companyName" name="companyName" required>
-                                    <label for="jobPost">Job Post:</label>
-                                    <input type="text" id="jobPost" name="jobPost" required>
-                                    <label for="qualification">Qualification:</label>
-                                    <input type="text" id="qualification" name="qualification" required>
-                                
-                                    <label for="employmentType">Employment Type:</label>
-                                    <select id="employmentType" name="employmentType">
-                                        <option value="Full-time">Full-time</option>
-                                        <option value="Part-time">Part-time</option>
-                                        <option value="Contract">Contract</option>
-                                        <option value="Temporary">Temporary</option>
-                                        <option value="Internship">Internship</option>
-                                        <option value="Freelance">Freelance</option>
-                                    </select>
-                                
-                                    <label for="salaryRange">Salary Range:</label>
-                                    <input type="text" id="salaryRange" name="salaryRange">
-                                </div>
-                                <div class="formSection2">
-                                    <label for="baseLocation">Base Location:</label>
-                                    <input type="text" id="baseLocation" name="baseLocation" required>
+                    <div class="form-bottom">
+                        <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
+                        <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
+                        <div class="submit">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        
+        </div>
+        
+    </div>
 
-                                    <label for="applicationDeadline">Application Deadline:</label>
-                                    <input type="date" id="applicationDeadline" name="applicationDeadline" required>
-
-                                    <label for="experienceRequired">Experience Required:</label>
-                                    <input type="text" id="experienceRequired" name="experienceRequired">
-
-                                    <label for="jobDescription">Job Description:</label>
-                                    <textarea id="jobDescription" name="jobDescription" required></textarea>
-                                
-                                </div>
-                            </div>
-                            <div class="form-bottom">
-                                <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
-                                <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
-                                <div class="submit">
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </section>
-                
-                </div>
-                
-            </div>
-
-            <script>
-                function onSubmit() {
-                    // Get the application deadline input value
-                    var deadlineInput = document.getElementById("applicationDeadline").value;
-                    
-                    // Convert the input value to a Date object
-                    var deadlineDate = new Date(deadlineInput);
+    <script>
+        function onSubmit() {
+            // Get the application deadline input value
+            var deadlineInput = document.getElementById("applicationDeadline").value;
             
-                    // Get the current date
-                    var currentDate = new Date();
-            
-                    // Compare the deadline date with the current date
-                    if (deadlineDate < currentDate) {
-                        // If the deadline has passed, display an error message
-                        document.getElementById("errorMessage").innerText = "Application deadline has already passed.";
-                        return false; // Prevent form submission
-                    } else {
-                        // If the deadline is valid, clear any previous error message
-                        document.getElementById("errorMessage").innerText = "";
-                        return true; // Allow form submission
-                    }
-                }
-            </script>
-        </body>
+            // Convert the input value to a Date object
+            var deadlineDate = new Date(deadlineInput);
+
+            // Get the current date
+            var currentDate = new Date();
+
+            // Compare the deadline date with the current date
+            if (deadlineDate < currentDate) {
+                // If the deadline has passed, display an error message
+                document.getElementById("errorMessage").innerText = "Application deadline has already passed.";
+                return false; // Prevent form submission
+            } else {
+                // If the deadline is valid, clear any previous error message
+                document.getElementById("errorMessage").innerText = "";
+                return true; // Allow form submission
+            }
+        }
+    </script>
+</body>
 </html>

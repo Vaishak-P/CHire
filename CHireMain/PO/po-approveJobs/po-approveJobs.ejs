@@ -136,7 +136,7 @@
                                         <!-- Render other job details similarly -->
                                         <button onclick="approveJob(`<%= job.jobId %>`)">Approve</button>
                                         <button onclick="declineJob(`<%= job.jobId %>`)">Decline</button>
-                                        <button>Edit</button>
+                                        <button onclick="window.location.href='editJob/<%= job.jobId %>'">Edit</button>
                                     </div>
                                 <% }); %>
                             <% } %>
