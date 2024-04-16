@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="rc-studentList.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="body">
+    <div class="topMenu">
+        <div class="cleverhire">
+            <p><a href="/index.html">CleverHire</a></p>
+        </div>
+    
+    <!-- NAVIGATION -->
+        <nav>
+            <div class="list">
+                <!-- <a href="">Recruiting Company: <%= userName %></a> -->
+                <a href="">Recruiting Company: XYZ Technologies</a>
+                <!-- <a href="">Home</a> -->
+                <!-- <a href="">About US</a> -->
+                <!-- <a href="">Listed Jobs</a> -->
+                <!-- <a href="">Contact</a> -->
+            </div>
+            <div class="soc-icon">
+                <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </nav>
+
+    </div>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <img src="logo.png" alt="error">
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="/po/dashboard">Dashboard</a></li>
+                    <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
+                    <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
+                    <li><a class="sl" href="/po/appliedStudentList">Student List</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
+                </div>
+            </div>
+        </section>
+    <!-- CENTRE SECTION OF PAGE -->
+    <div class="cmenu">
+        <section class="content">
+            
+                <div class="filter">
+                    <form id="filter-form">
+                        <!-- <label for="branch">Select Branch:</label> -->
+                        <select id="yearOfStudy">     
+                            <option value="" disabled selected>Select year of Study</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select id="branch">
+                            <option selected disabled>Select Branch</option>
+                            <option value="cse">Computer Science & Engineering</option>
+                            <option value="ece">Electronics & Communication Engineering</option>
+                            <option value="mech">Mechanical Engineering</option>
+                            <option value="civil">Civil Engineering</option>
+                            <option value="eee">Electrical & Electronics Engineering</option>
+                            <option value="it">Information Technology</option>
+                        </select>
+                        <br>
+                        <!-- <label for="cgpa">Select CGPA Range:</label> -->
+                        <select id="cgpa">
+                          <option selected disabled>Select CGPA</option>
+                          <option value="0-5">0 - 5</option>
+                          <option value="5-7">5 - 7</option>
+                          <option value="7-9">7 - 9</option>
+                          <option value="9-10">9 - 10</option>
+                        </select>
+                        <select id="appliedJobs">
+                          <option selected disabled>Select Applied Job</option>
+                          <option value="">job1</option>
+                          <option value="">job2</option>
+                          <option value="">job3</option>
+                        </select>
+                        <br>
+                        <button type="submit">FILTER</button>
+                      </form>
+                      <div id="student-list">
+                        <!-- Display filtered student list here -->
+                      </div>
+                </div>
+                <div class="tableContainer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Name of Student</th>
+                        <th>Year of Study</th>
+                        <th>Branch</th>
+                        <th>Current CGPA</th>
+                        <th>Applied Jobs</th>
+                        <th>Application</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% students.forEach((student, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= student.name %></td>
+                        <td><%= student.ugyear %></td>
+                        <td><%= student.branch %></td>
+                        <td><%= student.cgpa %></td>
+                        <td><%= student.appliedjobs !== null ? JSON.parse(student.appliedjobs) : 'Null' %></td>
+                        <!-- Pass the index to the function -->
+                        <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= index %>)">View</button></td>
+                    </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- application form sent by student  -->
+            <div class="both-info" id="infoPopup">
+                <div class="closeButton" id="closeButton">
+                    <h4>x</h4>
+                </div>
+                <div class="stud-info">
+                    <!-- STUDENT PERSONAL INFO -->
+                    <div class="stud-per-info">
+                        <div class="info-top">
+                            <div class="per-info-title">
+                                <h5>Personal Info</h5>
+                            </div>
+                        </div>
+                        <div class="infoFetchContainer">
+                            <div class="namepic">
+                                <div class="name">
+                                    <h2 id="name">name</h2>
+                                </div>
+                                <div class="dp">
+                                    <img id="profile" src="" alt="dp">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <h6>Address</h6>
+                                </div>
+                                <div class="value">
+                                    <!-- FOR 3 ADDRESS LINE -->
+                                    <h6 id="address1"></h6>
+                                    <h6 id="address2"></h6>
+                                    <h6 id="address3"></h6>
+                                </div>
+                            </div>
+                            <div class="row" id="evenDiv">
+                                <div class="label">
+                                    <h6>email</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="email"></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <h6>phone</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="phone"></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- STUDENT ACADEMIC INFO -->
+                    <div class="stud-aca-info">
+                        <div class="info-top">
+                            <div class="aca-info-title">
+                                <h5>Academic Info</h5>
+                            </div>
+                        </div>
+                        <div class="infoFetchContainer">
+                            <div class="row">
+                                <div class="label">
+                                    <h6>Institute</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="institute"></h6>
+                                    <h6 id="district"></h6>
+                                    <h6 id="state"></h6>
+                                    <h6 id="country"></h6>
+                                </div>
+                            </div>
+                            <div class="row"  id="evenDiv">
+                                <div class="label">
+                                    <h6>Year of Study</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="ugyear"></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <h6>Current CGPA</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="cgpa"></h6>
+                                </div>
+                            </div>
+                            <div class="row" id="evenDiv">
+                                <div class="label">
+                                    <h6>mock test score</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="mocktest"></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <h6>mock interview score</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="fluency"></h6>
+                                </div>
+                            </div>
+                            <div class="row" id="evenDiv">
+                                <div class="label">
+                                    <h6>internships</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="internships"></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <h6>Soft Skills</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="softskills"></h6>
+                                </div>
+                            </div>
+                            <div class="row" id="evenDiv">
+                                <div class="label">
+                                    <h6>Hard Skills</h6>
+                                </div>
+                                <div class="value">
+                                    <h6 id="hardskills"></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div id="popupWrapper"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const viewButtons = document.querySelectorAll(".view-button");
+        const infoPopupDiv = document.getElementById("infoPopup");
+
+        viewButtons.forEach(function(viewButton, index) {
+            viewButton.addEventListener("click", function() {
+                console.log(index)
+                // Get the student details from the students array
+                var students = <%- JSON.stringify(students) %>;
+                var student = students[index];
+                var softskillsArray = JSON.parse(student.softskills);
+                var hardskillsArray = JSON.parse(student.hardskills);
+                var profile = `../../images/${student.photo}`;
+                // Populate the form fields with the student details
+                document.getElementById('profile').src = profile;
+                document.getElementById('name').innerText = student.name;
+                document.getElementById('address1').innerText = student.address1;
+                document.getElementById('address2').innerText = student.address2;
+                document.getElementById('address3').innerText = student.address3;
+                document.getElementById('email').innerText = student.email;
+                document.getElementById('phone').innerText = student.phone;
+                document.getElementById('institute').innerText = student.institute;
+                document.getElementById('district').innerText = student.district;
+                document.getElementById('state').innerText = student.state;
+                document.getElementById('country').innerText = student.country;
+                document.getElementById('ugyear').innerText = student.ugyear;
+                document.getElementById('cgpa').innerText = student.cgpa;
+                document.getElementById('mocktest').innerText = student.mocktest_score;
+                document.getElementById('fluency').innerText = student.fluency_score;
+                document.getElementById('internships').innerText = student.internships;
+                document.getElementById('softskills').innerText = softskillsArray;
+                document.getElementById('hardskills').innerText = hardskillsArray;
+                // Show the info popup
+                infoPopupDiv.style.display = "block";
+                popupWrapper.style.display = "block";
+            });
+        });
+
+        const closeButton = document.getElementById("closeButton");
+        closeButton.addEventListener("click", function() {
+            infoPopupDiv.style.display = "none";
+            popupWrapper.style.display = "none";
+        });
+    });
+</script>
+</body>
+</html>

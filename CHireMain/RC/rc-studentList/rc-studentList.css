@@ -1,0 +1,413 @@
+/* CSS IS COMMENTED WELL, SO YOU CAN EASILY FIND ELEMENTS AND PROPERTIES */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+}
+body{
+    font-family: poppins;
+    font-size: var(--h2);
+    background-color: #BFCFE7;
+        
+}
+:root{
+    --sec-color:#ffffff;
+    --bg-color:#BFCFE7;
+    --icon-color:#ffffff;
+    --pri-color:black;
+    --top-color:#575fd6;
+    --border-color:rgba(204, 204, 204, 0.5);
+    --h1:20px;
+    --h2:13px;
+}
+/* -------CleverHire heading------- */
+.topMenu{
+    position: fixed;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px ;
+
+}
+.cleverhire{
+    text-align: center;
+    background-color:var(--top-color);
+    font-weight: 900;
+    height: 6vh;
+    padding: 20px 0 50px 0;
+    font-size: 20px;
+}
+.cleverhire a{
+    text-decoration: none;
+    color:#F8EDFF;
+    
+}
+@keyframes ani-cleverhire{
+    0%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    30%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    50%{height: 100vh; padding-top: 50vh;font-size: 50px;}
+    100%{height: 6vh;}
+}
+.cleverhire:hover{
+    font-size: 20px;
+    color: var(--bg-color);
+    /* text-transform: uppercase; */
+    transition: color 700ms ease-in-out;
+    transition: font-weight 700ms ease-in-out;
+}
+
+
+/* -------navigation bar ------- */
+nav{
+    display: flex;
+    padding: 0px 40px 10px;
+    background-color:var(--top-color);
+    font-weight: lighter;
+}
+nav .list{
+    text-decoration: none;
+}
+nav .list a{
+    font-size: 15px;
+    padding: 0px 10px;
+    color:var(--bg-color);
+    text-decoration: none;
+    transition: all 500ms;
+}
+nav .list a:hover{
+    color: var(--sec-color);
+    padding: 5px;
+}
+nav .soc-icon{
+    position: absolute;
+    right: 20px;
+    /* left: 90%; */
+}
+nav i{
+    color:var(--bg-color);
+    padding-right: 20px;
+    
+}
+nav i:hover{
+    color: var(--sec-color);
+}
+
+/* ------- main body------- */
+main-body{
+    display: flex;
+}
+
+/* ------- left menu of pages------- */
+.lmenu .sl{
+    background-color: #bfcfe73b;
+    border:2px #3D3B40 ;
+    border-radius: 15px;
+    color:var(--bg-color);
+    padding: 5px 20px 5px 20px;
+    left: 50px;
+}
+/* .lmenu-items-con .fa-solid{
+    background-color: ;
+} */
+.lmenu{
+    background-color:  var(--pri-color);
+    width: 200px;
+    height:100vh;
+    padding: 10px 20px;
+    float: left;
+
+    /* ALERT */
+    top: 103px;
+    left: 0;
+    position: fixed;
+}
+/* .dp{
+    margin: 30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 2px solid #ccc;
+} */
+.dp img{
+    color: var(--bg-color);
+    font-size: 10px;
+    width: 130px;
+    height: 130px;
+    display: grid; place-items: center;
+    margin: 30px 0px;
+}
+.lmenu-items-icon i{
+    color: var(--bg-color);
+    font-size: 15px;
+    display: grid; place-items: center;
+    margin: 15px 5px;
+}
+.lmenu-items-con{
+    display: flex;
+}
+
+.lmenu-items li{
+    padding: 15px 0px 0 10px;
+    text-decoration: none;
+    list-style:none
+
+}
+.lmenu-items a:hover{
+    color:var(--sec-color);
+    border:var(--bg-color) 1px solid;
+    border-radius: 20px;
+}
+.lmenu-items a{
+    color: var(--bg-color);
+    /* background-color: rgb(19, 201, 95); */
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 1s;
+    padding: 5px 10px;
+
+}
+
+/* -------centre section of webpage ------- */
+.cmenu{
+    /* background-color: chartreuse; */
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    height: 100vh;
+    margin-left: 200px;
+    margin-bottom: 20px;
+}
+.content{
+    margin: 120px 0 20px 20px;
+}
+/* -----filter-------- */
+.filter form {
+    text-align: center;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Set form position to fixed */
+     /* Align form vertically at 50% from the top */
+    left: 50%; /* Align form horizontally at 50% from the left */
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Ensure form is above other content */
+    scale: 0.8;
+}
+
+.filter select, .filter button {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 2px var(--top-color);
+    border-radius:20px;
+    margin: 5px;
+  }
+  .filter select option{
+    font-size: 13px;
+  }
+  .filter button{
+    /* border: 2px solid var(--top-color); */
+    transition: all 0.5s;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .filter button:hover{
+    background-color: var(--pri-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--sec-color);
+  }
+
+  /* filter result style  */
+  .filter #student-list {
+    margin: 0 auto;
+    width: 50%;
+  }
+  
+  .filter .student {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+
+.tableContainer{
+    margin-top: 100px;
+}
+table{
+    background-color: var(--sec-color);
+    border-radius: 20px;
+    padding: 10px;
+    /* margin-top: 80px; */
+}
+thead th{
+    background-color: var(--top-color);
+    color: var(--sec-color);
+    box-shadow:0 0 10px var(--bg-color);
+    padding: 5px 20px;
+    border-radius: 15px;
+}
+tbody td{
+    border-radius: 20px;
+    padding: 5px 20px;
+}
+td:nth-child(even){
+    background-color: var(--border-color);
+}
+td:nth-child(odd){
+    /* background-color: var(--bg-color); */
+    border: 1px solid var(--border-color);
+}
+.buttonContainer{
+    padding: 0;
+}
+.view-button{
+    background-color:var(--sec-color);
+    border:5px #3D3B40 ;
+    border-radius: 20px;
+    padding:10px 30px;
+    /* color:var(--bg-color); */
+    font-weight: 500;
+    text-transform: uppercase;
+    width:100%;
+    height: 100%;
+    
+}
+.view-button:hover{
+    /* background-color: var(--pri-color); */
+    color: var(--top-color);
+    font-weight: 900;
+    /* box-shadow: 0 0 10px var(--bg-color); */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+/* --------INFO POPUP SECTION ---------*/
+#infoPopup{
+    display: none;
+    position: fixed; /* Ensures div stays in place when scrolling */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 800px;
+}
+/* to highlight popup box  from background */
+#popupWrapper {
+    position: fixed; /* Covers the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(5px);
+    display: flex; /* Used for centering the infoPopup div */
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+.both-info{
+    padding:10px;
+    background-color: var(--sec-color);
+    border:2px #3D3B40 ;
+    border-radius: 15px;
+    z-index: 1;
+}
+#closeButton {
+    /* Style your close button here */
+    position: relative;
+    /* padding: 5px; */
+    cursor: pointer; /* Indicate clickable behavior */
+    padding: 10px;
+}
+#closeButton h4{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 20px;
+  }
+#closeButton h4:hover{
+    color: red;
+  }
+.stud-info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 10px;
+
+}
+.stud-per-info, .stud-aca-info ,.namepic{
+    /* background-color: #575fd6; */
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--border-color);
+}
+.po-details{
+    background-color: var(--sec-color);
+}
+.info-top{
+    background-color: var(--top-color);
+    display: grid;
+    grid-template-columns:9fr 1fr;
+    border:2px #3D3B40 ;
+    border-radius: 30px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: var(--h2);
+    color: var(--sec-color);
+}
+.namepic{
+    display: grid; 
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+    /* position: relative; */
+    /* margin: 20px 40px; */
+    margin: 20px;
+    /* width: 90%; */
+}
+.namepic .name{
+    margin: 20px 0;
+    text-transform: uppercase;
+    color: var(--top-color);
+    float: left;
+    
+}
+.namepic .pic{
+    /* background-color: #575fd6; */
+    height: 80px;
+    width: 80px;
+    right: 10px;
+    /* position: absolute; */
+    z-index: 1;
+    border-radius: 50px;
+    border: 3px solid var(--top-color);
+    overflow: hidden;
+}
+.row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px 10px;
+}
+#evenDiv{
+    background-color: var(--border-color);
+    border-radius: 30px;
+}
+.row .label{
+    margin: 5px;
+    padding: 5px 0; 
+    font-size:medium ;
+    text-transform: capitalize;
+    /* border: 1px solid #3D3B40;
+    border-radius: 15px; */
+}
+.row .value{
+    margin: 5px;
+    padding: 5px 10px;
+    font-size:medium ;
+    border: 1px solid rgba(1,1,1,0.2);
+    border-radius: 15px;
+
+}
+.edit-button{
+    background-color:var(--pri-color);
+    border:5px #3D3B40 ;
+    border-radius: 20px;
+    padding:5px 10px;
+    color:var(--bg-color);
+}
