@@ -187,7 +187,7 @@ main-body{
      /* Align form vertically at 50% from the top */
     left: 50%; /* Align form horizontally at 50% from the left */
     transform: translate(-50%, -50%);
-    z-index: 999; /* Ensure form is above other content */
+    z-index: 2; /* Ensure form is above other content */
     scale: 0.8;
 }
 
@@ -256,7 +256,7 @@ td:nth-child(odd){
     padding: 0;
 }
 .view-button{
-    background-color:var(--sec-color);
+    /* background-color:var(--sec-color); */
     border:5px #3D3B40 ;
     border-radius: 20px;
     padding:10px 30px;
@@ -303,7 +303,7 @@ td:nth-child(odd){
     background-color: var(--sec-color);
     border:2px #3D3B40 ;
     border-radius: 15px;
-    z-index: 1;
+    z-index: 3;
 }
 #closeButton {
     /* Style your close button here */
