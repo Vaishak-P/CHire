@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>CleverHire</title>
+            <link rel="stylesheet" href="rcInfoEdit.css" type="text/css">
+            <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+            <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </head>
+        <body id="body">
+            <div class="topMenu">
+                <div class="cleverhire">
+                    <p><a href="/index.html">CleverHire</a></p>
+                </div>
+            
+            <!-- NAVIGATION -->
+                <nav>
+                    <div class="list">
+                        <a href="">Placement Officer: <%= po.name %> </a>
+                        <!-- <a href="">Home</a> -->
+                        <!-- <a href="">About US</a> -->
+                        <!-- <a href="">Listed Jobs</a> -->
+                        <!-- <a href="">Contact</a> -->
+                    </div>
+                    <div class="soc-icon">
+                        <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href=""><i class="fa-brands fa-facebook"></i></a>
+                        <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </nav>
+        
+            </div>
+            <div class="main-body">
+                <!-- LEFT SECTION OF PAGE  -->
+                <section class="lmenu">
+                    <div class="dp">
+                        <i class="fa-solid fa po-graduate"></i>
+                    </div>
+                    <div class="lmenu-items-con">
+                        <!-- <div class="lmenu-items-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                             <i class="fa-solid fa-chart-line"></i>
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <i class="fa-solid fa-people-group"></i>
+        
+                        </div> -->
+                        <div class="lmenu-items">
+                            <li><a class="d" href="/po/dashboard">Dashboard</a></li>
+                            <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
+                            <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
+                            <li><a class="l" href="/LOGOUT">Logout</a></li>
+                        </div>
+                    </div>
+                </section>
+                <!-- CENTRE SECTION OF PAGE -->
+                <div class="cmenu" id="cmenu">
+                    <section class="content">
+                        <!-- back navigation to dashboard  -->
+                        <div class="back">
+                           <a href="C:\Users\vaishak\Desktop\PROJECT_VK\CleverHire\CHireMain\RC\rc-dashboard\rc-dashboard.html"> <p> < Back to Dashboard</p></a>
+                        </div>
+                        <!-- FORM SECTION  -->
+                        <form onsubmit="onSubmit()" action="/edit/po" method="post">
+                            <h2>Edit your informations</h2>
+                            <div class="formSection">
+                
+                                <div class="formSection1">
+                                    <label for="name">Full Name:</label>
+                                    <input type="text" id="name" name="name" value="<%= po.name %>">
+                                    
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email" value="<%= po.email %>">
+                                    
+                                    <label for="phone">Phone Number:</label>
+                                    <input type="tel" id="tel" name="phone" value="<%= po.phone %>">
+                
+                                    <label for="country">Country</label>
+                                        <select name="country" id="country">
+                                            <option value="India" selected>India</option>
+                                        </select>
+                
+                                        <label for="state">State</label>
+                                        <select id="states" name="state">
+                                            <!-- <option value="" disabled selected>Select a state</option> -->
+                                            <option value="Kerala" <%= po.state === 'kerala' ? 'selected' : '' %>>Kerala</option>
+                                            <option value="Andaman and Nicobar Islands" <%= po.state === 'Andaman and Nicobar Islands' ? 'selected' : '' %>>Andaman and Nicobar Islands</option>
+                                            <option value="Andhra Pradesh" <%= po.state === 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh" <%= po.state === 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+                                            <option value="Assam" <%= po.state === 'Assam' ? 'selected' : '' %>>Assam</option>
+                                            <option value="Bihar" <%= po.state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
+                                            <option value="Chandigarh" <%= po.state === 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
+                                            <option value="Chhattisgarh" <%= po.state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+                                            <option value="Dadra and Nagar Haveli" <%= po.state === 'Dadra and Nagar Haveli' ? 'selected' : '' %>>Dadra and Nagar Haveli</option>
+                                            <option value="Daman and Diu" <%= po.state === 'Daman and Diu' ? 'selected' : '' %>>Daman and Diu</option>
+                                            <option value="Delhi" <%= po.state === 'Delhi' ? 'selected' : '' %>>Delhi</option>
+                                            <option value="Goa" <%= po.state === 'Goa' ? 'selected' : '' %>>Goa</option>
+                                            <option value="Gujarat" <%= po.state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
+                                            <option value="Haryana" <%= po.state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
+                                            <option value="Himachal Pradesh" <%= po.state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+                                            <option value="Jammu and Kashmir" <%= po.state === 'Jammu and Kashmir' ? 'selected' : '' %>>Jammu and Kashmir</option>
+                                            <option value="Jharkhand" <%= po.state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+                                            <option value="Karnataka" <%= po.state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
+                                            <option value="Ladakh" <%= po.state === 'Ladakh' ? 'selected' : '' %>>Ladakh</option>
+                                            <option value="Lakshadweep" <%= po.state === 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
+                                            <option value="Madhya Pradesh" <%= po.state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+                                            <option value="Maharashtra" <%= po.state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+                                            <option value="Manipur" <%= po.state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
+                                            <option value="Meghalaya" <%= po.state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+                                            <option value="Mizoram" <%= po.state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
+                                            <option value="Nagaland" <%= po.state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
+                                            <option value="Odisha" <%= po.state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
+                                            <option value="Puducherry" <%= po.state === 'Puducherry' ? 'selected' : '' %>>Puducherry</option>
+                                            <option value="Punjab" <%= po.state === 'Punjab' ? 'selected' : '' %>>Punjab</option>
+                                            <option value="Rajasthan" <%= po.state === 'Rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+                                            <option value="Sikkim" <%= po.state === 'Sikkim' ? 'selected' : '' %>>Sikkim</option>
+                                            <option value="Tamil Nadu" <%= po.state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+                                            <option value="Telangana" <%= po.state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
+                                            <option value="Tripura" <%= po.state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
+                                            <option value="Uttar Pradesh" <%= po.state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+                                            <option value="Uttarakhand" <%= po.state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+                                            <option value="West Bengal" <%= po.state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
+                                        </select>
+                
+                                        <label for="district">District</label>
+                                        <select id="districts" name="district">
+                                            <!-- <option value="" disabled selected>Select a district</option> -->
+                                            <option value="Alappuzha" <%= po.district === 'Alappuzha' ? 'selected' : '' %>>Alappuzha</option>
+                                            <option value="Ernakulam" <%= po.district === 'Ernakulam' ? 'selected' : '' %>>Ernakulam</option>
+                                            <option value="Idukki" <%= po.district === 'Idukki' ? 'selected' : '' %>>Idukki</option>
+                                            <option value="Kannur" <%= po.district === 'Kannur' ? 'selected' : '' %>>Kannur</option>
+                                            <option value="Kasaragod" <%= po.district === 'Kasaragod' ? 'selected' : '' %>>Kasaragod</option>
+                                            <option value="Kollam" <%= po.district === 'Kollam' ? 'selected' : '' %>>Kollam</option>
+                                            <option value="Kottayam" <%= po.district === 'Kottayam' ? 'selected' : '' %>>Kottayam</option>
+                                            <option value="Kozhikode" <%= po.district === 'Kozhikode' ? 'selected' : '' %>>Kozhikode</option>
+                                            <option value="Malappuram" <%= po.district === 'Malappuram' ? 'selected' : '' %>>Malappuram</option>
+                                            <option value="Palakkad" <%= po.district === 'Palakkad' ? 'selected' : '' %>>Palakkad</option>
+                                            <option value="Pathanamthitta" <%= po.district === 'Pathanamthitta' ? 'selected' : '' %>>Pathanamthitta</option>
+                                            <option value="Thiruvananthapuram" <%= po.district === 'Thiruvananthapuram' ? 'selected' : '' %>>Thiruvananthapuram</option>
+                                            <option value="Thrissur" <%= po.district === 'Thrissur' ? 'selected' : '' %>>Thrissur</option>
+                                            <option value="Wayanad" <%= po.district === 'Wayanad' ? 'selected' : '' %>>Wayanad</option>
+                                        </select>
+                                    <!-- <label for="photo">Upload Photo:</label>
+                                        <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*" required> -->
+                                    </div>
+                                    <div class="formSection2">
+                                        <label for="institute">Institute Name:</label>
+                                    <input type="text" id="institute" name="institute" value="<%= po.institute %>">
+                                    <label for="password">Password:</label>
+                                    <div class="passwordGroup">
+                                        <input type="password" id="passwordInput" placeholder="Enter Password" value="<%= po.password %>">
+                                        <span class="eye-icon">
+                                        <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                
+                                    <label for="confirmPassword">Confirm Password:</label>
+                                    <div class="passwordGroup">
+                                        <input name ="password" type="password" id="confirmPasswordInput" placeholder="Confirm Password" value="<%= po.password %>">
+                                        <span class="eye-icon">
+                                        <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                
+                                        
+                                        
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <h6 style="color: red;"><%= locals.error %></h6>
+                                <div class="submit">
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                
+            </div>
+
+            <script>
+       
+                // Capitalise input fields
+                function capitalizeInput() {
+                    var nameInput = document.getElementById('name');
+                    var instituteInput = document.getElementById('institute');
+        
+                    nameInput.value = capitalizeFirstLetterEachWord(nameInput.value);
+                    instituteInput.value = capitalizeFirstLetterEachWord(instituteInput.value);
+                }
+        
+                function capitalizeFirstLetterEachWord(str) {
+                    return str.replace(/\b\w+\b/g, function(word) {
+                        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                    });
+                }
+                function onSubmit(){
+                    capitalizeInput();
+                }
+                // PASSWORD TOGGLE EYE ICON
+                const eyeIcons = document.querySelectorAll('.eye-icon');
+                const passwordInputs = document.querySelectorAll('input[type="password"]');
+        
+                eyeIcons.forEach(icon => {
+                    icon.addEventListener('click', function() {
+                        const passwordInput = this.previousElementSibling;
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        // Toggle icon based on password visibility
+                        this.querySelector('i').classList.toggle('fa-eye');
+                        this.querySelector('i').classList.toggle('fa-eye-slash');
+                    });
+                });
+                //
+            </script>
+        </body>
+</html>
