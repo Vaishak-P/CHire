@@ -46,7 +46,6 @@ app.get('/LOGOUT',(req,res)=>{
 })
 
 //For storing student details
-let user = {};
 let student = {}
 let po = {}
 let comp = {}
@@ -113,13 +112,8 @@ app.post('/LOGIN', (req, res) => {
                         return;
                     }
                     setStudent(results[0])
-                    //user = results[0];
                     // Parse JSON strings into JavaScript objects
                     res.redirect('/student/dashboard')
-                    // const softskillsArray = JSON.parse(student.softskills);
-                    // const hardskillsArray = JSON.parse(student.hardskills);
-                    // const profile = `/images/${student.photo}`;
-                    // res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
                 });
                 break;
             case 'placementOfficer':
@@ -136,8 +130,16 @@ app.post('/LOGIN', (req, res) => {
                 });
                 break;
             case 'company':
+                mysqlConnection.query('SELECT * FROM company WHERE email = ?', email,(err, results)=>{
+                    if (err) {
+                        console.error('Error executing query: ', err);
+                        res.status(500).send('Internal Server Error');
+                        return;
+                    }
+                    setComp(results[0])
                 // Redirect to company HR dashboard
-                res.redirect('/company-hr/dashboard');
+                res.redirect('/comp/dashboard');
+                });
                 break;
             default:
                 // Handle unknown designation

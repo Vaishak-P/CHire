@@ -10,6 +10,13 @@ const mysqlConnection = mysql.createConnection({
     database: 'cleverhire'
 });
 
+const { setComp, getComp } = require('../server');
+
+router.post('/setComp', (req, res) => {
+    setPo(req.body.userData); // Set the user data received from the request body
+    res.send('User data set successfully');
+});
+
 router.get('/REGISTER/company',(req,res)=>{
     res.render('REGISTER/comp-reg-form/comp-reg-form')
 })
@@ -90,5 +97,9 @@ router.post('/register/company', (req, res) => {
     );
 });
 
+router.get('/comp/dashboard',(req,res)=>{
+    let comp = getComp()
+    res.render('RC/rc-dashboard/rc-dashboard',{comp})
+})
 
 module.exports = router

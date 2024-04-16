@@ -6,7 +6,7 @@
             <title>CleverHiret</title>
             <!-- ALERT -->
             <!-- <link rel="stylesheet" href="/PO/po-dashboard/po-dashboard.css"> -->
-            <link rel="stylesheet" href="rc-dashboard.css">
+            <link rel="stylesheet" href="/RC/rc-dashboard/rc-dashboard.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,8 +20,8 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <!-- <a href="">Recruiting Company: <%= userName %></a> -->
-                        <a href="">Recruiting Company: XYZ Technologies</a>
+                        <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
+                        <a href="">Recruiting Company: <%= locals.comp.name %></a>
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -51,9 +51,9 @@
         
                         </div> -->
                         <div class="lmenu-items">
-                            <li><a class="d" href="/po/dashboard">Dashboard</a></li>
-                            <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
-                            <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
+                            <li><a class="d" href="/comp/dashboard">Dashboard</a></li>
+                            <li><a class="pnj" href="/comp/postjobs">Post New Job</a></li>
+                            <li><a class="lj" href="/comp/listedjobs">Listed Jobs</a></li>
                             <li><a class="l" href="/LOGOUT">Logout</a></li>
                         </div>
                     </div>
@@ -65,13 +65,12 @@
                         <div class="row1">
                             <div class="welcomeDashboard">
                                 <div class="name">
-                                    <!-- <h1>Welcome <%= userName %></h1> -->
-                                    <h1>Welcome XYZ Technologies</h1>
+                                    <h1>Welcome <%= locals.comp.name %></h1>
                                 </div>
                                 <div class="po">
                                     <!-- ALERT OPTIONAL -->
                                     <!-- <h2>Innovating Solutions for Tomorrow's Challenges</h2> -->
-                                    <!-- <h2>Recruiting Company,<%= tagline %></h2> -->
+                                    <!-- <h2>Recruiting Company,<%= locals.tagline %></h2> -->
                                 </div>
                             </div>
                         </div>
@@ -95,14 +94,10 @@
                                         </div>
                                         <div class="value">
                                             <!-- FOR 3 ADDRESS LINE -->
-                                            <h6>XYZ Technologies</h6>
-                                            <h6>Infopark Kochi</h6>
-                                            <h6>Kakkanad</h6>
-                                            <h6>Kochi</h6>
-                                            <!-- <h6><%= locals.userName %></h6>
-                                            <h6><%= locals.address1 %></h6>
-                                            <h6><%= locals.address2 %></h6>
-                                            <h6><%= locals.address3 %></h6> -->
+                                            <h6><%= locals.comp.name %></h6>
+                                            <h6><%= locals.comp.address1 %></h6>
+                                            <h6><%= locals.comp.address2 %></h6>
+                                            <h6><%= locals.comp.address3 %></h6>
     
                                             <!-- reg formil 3 adress line nd -->
                                         </div>
@@ -112,8 +107,7 @@
                                             <h6>Company Email</h6>
                                         </div>
                                         <div class="value">
-                                            <h6>xyztech@gmail.com</h6>
-                                            <!-- <h6><%= locals.compmail %></h6> -->
+                                            <h6><%= locals.comp.email %></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -123,8 +117,7 @@
                                             <h6>Company Website</h6>
                                         </div>
                                         <div class="value">
-                                            <h6>www.xyztechnologies.in</h6>
-                                            <!-- <h6><%= locals.site %></h6> -->
+                                            <h6><%= locals.comp.url %></h6>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -132,12 +125,9 @@
                                             <h6>Point of contact</h6>
                                         </div>
                                         <div class="value">
-                                            <h6>Praveen S</h6>
-                                            <h6>praveensreedhar@gmail.com</h6>
-                                            <h6>9446101019</h6>
-                                            <!-- <h6><%= locals.assistantName %></h6>
-                                            <h6><%= locals.assistantMail %></h6>
-                                            <h6><%= locals.assistantPhone %></h6> -->
+                                            <h6><%= locals.comp.contactName %></h6>
+                                            <h6><%= locals.comp.contactEmail %></h6>
+                                            <h6><%= locals.comp.phone %></h6>
                                         </div>
                                     </div>
                                 </div>
