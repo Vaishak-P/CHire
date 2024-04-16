@@ -121,9 +121,11 @@ main-body{
     left: 0;
     position: fixed;
 }
-.dp i{
+.dp img{
     color: var(--bg-color);
-    font-size: 50px;
+    font-size: 10px;
+    width: 130px;
+    height: 130px;
     display: grid; place-items: center;
     margin: 30px 0px;
 }
