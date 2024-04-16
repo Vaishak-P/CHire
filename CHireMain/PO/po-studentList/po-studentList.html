@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHiret</title>
-    <link rel="stylesheet" href="/PO/po-studentList/po-studentList.css">
-    <!-- <link rel="stylesheet" href="po-studentList.css"> -->
+    <!-- <link rel="stylesheet" href="/PO/po-studentList/po-studentList.css"> -->
+    <link rel="stylesheet" href="po-studentList.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -48,8 +48,50 @@
     <!-- CENTRE SECTION OF PAGE -->
     <div class="cmenu">
         <section class="content">
-            <div class="tableContainer">
-                <table>
+            
+                <div class="filter">
+                    <form id="filter-form">
+                        <!-- <label for="branch">Select Branch:</label> -->
+                        <select id="yearOfStudy">     
+                            <option value="" disabled selected>Select year of Study</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select id="branch">
+                            <option selected disabled>Select Branch</option>
+                            <option value="cse">Computer Science & Engineering</option>
+                            <option value="ece">Electronics & Communication Engineering</option>
+                            <option value="mech">Mechanical Engineering</option>
+                            <option value="civil">Civil Engineering</option>
+                            <option value="eee">Electrical & Electronics Engineering</option>
+                            <option value="it">Information Technology</option>
+                        </select>
+                        <br>
+                        <!-- <label for="cgpa">Select CGPA Range:</label> -->
+                        <select id="cgpa">
+                          <option selected disabled>Select CGPA</option>
+                          <option value="0-5">0 - 5</option>
+                          <option value="5-7">5 - 7</option>
+                          <option value="7-9">7 - 9</option>
+                          <option value="9-10">9 - 10</option>
+                        </select>
+                        <select id="appliedJobs">
+                          <option selected disabled>Select Applied Job</option>
+                          <option value="">job1</option>
+                          <option value="">job2</option>
+                          <option value="">job3</option>
+                        </select>
+                        <br>
+                        <button type="submit">FILTER</button>
+                      </form>
+                      <div id="student-list">
+                        <!-- Display filtered student list here -->
+                      </div>
+                </div>
+                <div class="tableContainer">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Sl.No</th>
@@ -62,7 +104,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% students.forEach((student, index) => { %>
+                    <!-- <% students.forEach((student, index) => { %> -->
                     <tr>
                         <td><%= index + 1 %></td>
                         <td><%= student.name %></td>
@@ -73,10 +115,11 @@
                         <!-- Pass the index to the function -->
                         <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= index %>)">View</button></td>
                     </tr>
-                    <% }); %>
+                    <!-- <% }); %> -->
                     </tbody>
                 </table>
             </div>
+
             <!-- application form sent by student  -->
             <div class="both-info" id="infoPopup">
                 <div class="closeButton" id="closeButton">

@@ -19,7 +19,7 @@ body{
     --top-color:#575fd6;
     --border-color:rgba(204, 204, 204, 0.5);
     --h1:20px;
-    --h2:15px;
+    --h2:13px;
 }
 /* -------CleverHire heading------- */
 .topMenu{
@@ -176,17 +176,70 @@ main-body{
 .content{
     margin: 120px 0 20px 20px;
 }
+/* -----filter-------- */
+.filter form {
+    text-align: center;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Set form position to fixed */
+     /* Align form vertically at 50% from the top */
+    left: 50%; /* Align form horizontally at 50% from the left */
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Ensure form is above other content */
+    scale: 0.8;
+}
+
+.filter select, .filter button {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 2px var(--top-color);
+    border-radius:20px;
+    margin: 5px;
+  }
+  .filter select option{
+    font-size: 13px;
+  }
+  .filter button{
+    /* border: 2px solid var(--top-color); */
+    transition: all 0.5s;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .filter button:hover{
+    background-color: var(--pri-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--sec-color);
+  }
+
+  /* filter result style  */
+  .filter #student-list {
+    margin: 0 auto;
+    width: 50%;
+  }
+  
+  .filter .student {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+
+.tableContainer{
+    margin-top: 100px;
+}
 table{
     background-color: var(--sec-color);
     border-radius: 20px;
-    padding: 20px;
+    padding: 10px;
+    /* margin-top: 80px; */
 }
 thead th{
     background-color: var(--top-color);
     color: var(--sec-color);
     box-shadow:0 0 10px var(--bg-color);
-    padding: 10px 20px;
-    border-radius: 20px;
+    padding: 5px 20px;
+    border-radius: 15px;
 }
 tbody td{
     border-radius: 20px;
@@ -215,9 +268,10 @@ td:nth-child(odd){
     
 }
 .view-button:hover{
-    background-color: var(--pri-color);
-    color: var(--bg-color);
-    box-shadow: 0 0 10px var(--bg-color);
+    /* background-color: var(--pri-color); */
+    color: var(--top-color);
+    font-weight: 900;
+    /* box-shadow: 0 0 10px var(--bg-color); */
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
@@ -333,7 +387,7 @@ td:nth-child(odd){
 .row .label{
     margin: 5px;
     padding: 5px 0; 
-    font-size:large ;
+    font-size:medium ;
     text-transform: capitalize;
     /* border: 1px solid #3D3B40;
     border-radius: 15px; */
@@ -341,7 +395,7 @@ td:nth-child(odd){
 .row .value{
     margin: 5px;
     padding: 5px 10px;
-    font-size:large ;
+    font-size:medium ;
     border: 1px solid rgba(1,1,1,0.2);
     border-radius: 15px;
 
