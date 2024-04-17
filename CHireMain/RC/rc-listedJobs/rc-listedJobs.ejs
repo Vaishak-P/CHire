@@ -4,8 +4,8 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHire</title>
-            <!-- <link rel="stylesheet" href="/PO/po-listedJobs/po-listedJobs.css"> -->
-            <link rel="stylesheet" href="po-listedJobs.css">
+            <!-- <link rel="stylesheet" href="po-listedJobs.css"> -->
+            <link rel="stylesheet" href="/RC/rc-listedJobs/rc-listedJobs.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,8 +19,8 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <!-- <a href="">Recruiting Company: <%= userName %></a> -->
-                        <a href="">Recruiting Company: XYZ Technologies</a>
+                        <a href="">Recruiting Company: <%= locals.comp.name %></a>
+                        <!-- <a href="">Recruiting Company: XYZ Technologies</a> -->
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -77,7 +77,7 @@
                                                 <h6 id="companyName">Company name</h6>
                                             </div>
                                             <div class="value">
-                                                <h6 id="companyName">: <%= job.company %></h6>
+                                                <h6 id="companyName">: </h6>
                                             </div>
                                         </div> -->
                                         <div class="row">

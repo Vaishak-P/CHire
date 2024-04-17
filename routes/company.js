@@ -177,12 +177,36 @@ router.post('/comp/postjob', async (req, res) => {
     }
 });
 
+// Define a function to fetch listed jobs from the database
+const fetchListedJobs = (company) => {
+    return new Promise((resolve, reject) => {
+        // Prepare SQL statement to select jobs where approved is 1
+        const sql = "SELECT * FROM jobs WHERE company = ?";
 
+        // Execute the SQL statement
+        mysqlConnection.query(sql,[company], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
 
-
-// router.get('/comp/listedjobs',(req,res)=>{
-//     res.render('RC/rc-listedJobs/rc-listedJobs')
-// })
+// Define a route to handle requests for fetching listed jobs
+router.get('/comp/listedjobs', async (req, res) => {
+    comp = getComp()
+    try {
+        company = comp.name
+        // Fetch listed jobs using async/await
+        const jobs = await fetchListedJobs(company);
+        res.render('RC/rc-listedJobs/rc-listedJobs', { jobs,comp });
+    } catch (error) {
+        console.error('Error fetching listed jobs:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // router.get('/comp/appliedStudentList',(req,res)=>{
 //     res.render('RC/rc-studentList/rc-studentList')
