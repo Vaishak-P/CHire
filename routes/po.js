@@ -221,17 +221,62 @@ router.get('/po/listedjobs', async (req, res) => {
 
 
 router.get('/po/studentlist', async (req, res) => {
-    po = getPo()
     try {
-      // Query database for students belonging to the institute
-      const institute = po.institute;
-      const students = await getStudentsByInstitute(institute);
-      res.render('PO/po-studentList/po-studentList', {po,students }); // Pass students data to the view
+        
+        // Fetch PO details
+        const po = getPo();
+        const institute = po.institute;
+
+        // Fetch students belonging to the institute
+        const students = await getStudentsByInstitute(institute);
+        
+        res.render('PO/po-studentList/po-studentList', { po, students }); // Pass students data and approved jobs data to the view
     } catch (error) {
-      console.error('Error fetching students:', error);
-      res.status(500).send('Error fetching students');
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
+
+
+router.post('/filterStudents',(req,res)=>{
+    let po = getPo()
+    let institute = po.institute
+    const { yearOfStudy, branch, cgpa } = req.body;
+    console.log(cgpa)
+
+    // Construct SQL query based on selected options
+    let query = 'SELECT * FROM student WHERE institute = ? ';
+    const queryParams = [institute];
+
+    if (yearOfStudy) {
+      query += ' AND ugyear = ?';
+      queryParams.push(yearOfStudy);
+    }
+    if (branch) {
+      query += ' AND department = ?';
+      queryParams.push(branch);
+    }
+    if (cgpa) {
+      let minCgpa,maxCgpa
+      const [min, max] = cgpa.split('-');
+      minCgpa = parseFloat(min);
+      maxCgpa = parseFloat(max);
+      query += ' AND cgpa >= ? AND cgpa <= ?';
+      queryParams.push(minCgpa, maxCgpa);
+    }
+
+    // Execute the SQL query
+    mysqlConnection.query(query, queryParams, (err, results) => {
+        console.log(query)
+        console.log(queryParams)
+      if (err) {
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: 'An error occurred while fetching data.' });
+      } else {
+        res.json(results);
+      }
+    });
+})  
   
 // Function to get students by institute from the database
 async function getStudentsByInstitute(institute) {

@@ -4,8 +4,8 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHire</title>
-            <!-- <link rel="stylesheet" href="/PO/po-postJobs/po-postJobs.css"> -->
-            <link rel="stylesheet" href="rc-postJobs.css">
+            <link rel="stylesheet" href="/PO/po-postJobs/po-postJobs.css">
+            <!-- <link rel="stylesheet" href="rc-postJobs.css"> -->
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,8 +19,8 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <!-- <a href="">Recruiting Company: <%= userName %></a> -->
-                        <a href="">Recruiting Company: XYZ Technologies</a>
+                        <a href="">Recruiting Company: <%= locals.comp.name %></a>
+                        <!-- <a href="">Recruiting Company: XYZ Technologies</a> -->
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -50,10 +50,10 @@
         
                         </div> -->
                         <div class="lmenu-items">
-                            <li><a class="d" href="/po/dashboard">Dashboard</a></li>
-                            <li><a class="pnj" href="/po/postjobs">Post New Job</a></li>
-                            <li><a class="lj" href="/po/listedjobs">Listed Jobs</a></li>
-                            <li><a class="sl" href="/po/appliedStudentList">Student List</a></li>
+                            <li><a class="d" href="/comp/dashboard">Dashboard</a></li>
+                            <li><a class="pnj" href="/comp/postjobs">Post New Job</a></li>
+                            <li><a class="lj" href="/comp/listedjobs">Listed Jobs</a></li>
+                            <li><a class="sl" href="/comp/appliedStudentList">Student List</a></li>
                             <li><a class="l" href="/LOGOUT">Logout</a></li>
                         </div>
                     </div>
@@ -61,18 +61,26 @@
                 <!-- CENTRE SECTION OF PAGE -->
                 <div class="cmenu">
                     <section class="content">
-                        <form onsubmit="return onSubmit()" method="post" action="/PO/postjob">
+                        <form onsubmit="return onSubmit()" method="post" action="/comp/postjob">
                             <h1>Add a new job</h1>
+                            <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
                             <div class="formSection">
                                 <div class="formSection1">
                                     <label for="jobId">Job ID:</label>
                                     <input type="text" id="jobId" name="jobId" required>
-                                    <label for="companyName">Company Name:</label>
-                                    <input type="text" id="companyName" name="companyName" required>
+                                    <!-- <label for="companyName">Company Name:</label>
+                                    <input type="text" id="companyName" name="companyName" required> -->
                                     <label for="jobPost">Job Post:</label>
                                     <input type="text" id="jobPost" name="jobPost" required>
                                     <label for="qualification">Qualification:</label>
                                     <input type="text" id="qualification" name="qualification" required>
+                                    <label for="institute">Institute:</label>
+                                    <select name="institute" id="institute" required>
+                                        <option disabled selected>Select Institute</option>
+                                        <% institutes.forEach((institute, index) => { %>
+                                            <option value="<%= institute %>"><%= institute %></option>
+                                        <% }); %>
+                                    </select>
                                     <label for="cgpa">CGPA:</label>
                                     <input type="text" id="cgpa" name="cgpa" required>
                                 
@@ -109,7 +117,6 @@
                             </div>
                             <div class="form-bottom">
                                 <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
-                                <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
                                 <div class="submit">
                                     <button type="submit">Submit</button>
                                 </div>
