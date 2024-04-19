@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHiret</title>
-    <!-- <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css"> -->
-    <link rel="stylesheet" href="/PO/po-approveJobs/poJobEdit/poJobEdit.css">
+    <link rel="stylesheet" href="\PO\po-approveJobs\poJobEdit\poJobEdit.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -50,6 +49,9 @@
         <!-- CENTRE SECTION OF PAGE -->
         <div class="cmenu">
             <section class="content">
+                <div class="back">
+                    <a href=""> <p> < </p></a>
+                 </div>
                 <form onsubmit="return onSubmit()" method="post" action="/PO/editJob">
                     <h1>Edit Job Details</h1>
                     <div class="formSection">
@@ -96,7 +98,7 @@
                             <label for="experienceRequired">Experience Required:</label>
                             <input type="text" id="experienceRequired" name="experienceRequired" value="<%= job.experience %>">
 
-                            <label for="jobDescription">Job Description:</label>
+                            <label for="jobDescription">Job Description:</label> <br>
                             <textarea id="jobDescription" name="jobDescription" required><%= job.description %></textarea>
                         
                         </div>
