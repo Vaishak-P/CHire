@@ -102,6 +102,49 @@ router.get('/comp/dashboard',(req,res)=>{
     res.render('RC/rc-dashboard/rc-dashboard',{comp})
 })
 
+router.get('/comp/edit',(req,res)=>{
+    let comp =getComp()
+    res.render('RC/rc-dashboard/rcInfoEdit/rcInfoEdit',{comp})
+})
+
+// Route to handle form submission and update user's data
+router.post('/edit/comp', (req, res) => {
+    let comp = getComp();
+    const userId = comp.id;
+    const { companyName, email, contactName, phone, contactEmail, companyUrl, address1, address2, address3, state, district, password } = req.body;
+    const query = 'UPDATE company SET name = ?, email = ?, contactName = ?, phone = ?, contactEmail = ?, url = ?, address1 = ?, address2 = ?, address3 = ?, state = ?, district = ?, password = ? WHERE id = ?';
+  
+    mysqlConnection.query(query, [companyName, email, contactName, phone, contactEmail, companyUrl, address1, address2, address3, state, district, password, userId], (err, results) => {
+      if (err) {
+        console.error('Error updating user:', err);
+        res.status(500).send('Error updating user');
+        return;
+      }
+        // Commit transaction if everything is successful
+        mysqlConnection.commit((err) => {
+            if (err) {
+                console.error('Error committing transaction: ', err);
+                mysqlConnection.rollback(() => {
+                    res.status(500).send('Internal Server Error');
+                });
+                return;
+            }
+        })
+        // Updation successful
+        mysqlConnection.query('SELECT * FROM company WHERE id = ?', [userId],(err, results)=>{
+            if (err) {
+                console.error('Error executing query: ', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+            setComp(results[0])
+            comp = getComp()
+            res.render('RC/rc-dashboard/rc-dashboard',{comp})
+        });
+        
+    });
+});
+
 // Function to fetch the institute list asynchronously
 async function getInstituteList() {
     return new Promise((resolve, reject) => {
@@ -132,6 +175,7 @@ router.get('/comp/postjobs', async (req, res) => {
 
 router.post('/comp/postjob', async (req, res) => {
     try {
+        console.log(req.body)
         let comp = getComp();
         const { jobId, jobPost, qualification, institute, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
         const companyName = comp.name;
@@ -167,7 +211,7 @@ router.post('/comp/postjob', async (req, res) => {
                     console.error("Error inserting job:", err);
                     res.status(500).send("Error adding job");
                 } else {
-                    res.redirect('/comp/postjobs'); // Redirect to the page showing posted jobs
+                    res.redirect('/comp/listedjobs'); // Redirect to the page showing posted jobs
                 }
             });
         });
@@ -208,8 +252,85 @@ router.get('/comp/listedjobs', async (req, res) => {
     }
 });
 
-// router.get('/comp/appliedStudentList',(req,res)=>{
-//     res.render('RC/rc-studentList/rc-studentList')
+// Function to get students whose applied job matches the company's name
+const getStudents = async (company) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM student WHERE JSON_CONTAINS(appliedJobs, ?)';
+        mysqlConnection.query(query, [JSON.stringify(company)], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
+
+router.get('/comp/appliedStudentList', async (req, res) => {
+    try {
+        
+        // Fetch PO details
+        const comp = getComp();
+        const company = comp.name;
+
+        // Fetch students belonging to the institute
+        const students = await getStudents([company]);
+        let instituteList = await getInstituteList(); // Fetching institute list asynchronously
+        // Extracting institute names from the result array
+        const institutes = instituteList.map(row => row.institute);
+        
+        res.render('RC/rc-studentList/rc-studentList', { comp, students, institutes }); // Pass students data and approved jobs data to the view
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.post('/comp/filterStudents',(req,res)=>{
+    let comp = getComp()
+    let company = comp.name
+    const institutes = req.body;
+    const institute = Object.keys(institutes)[0];
+
+    // Convert company to JSON array with a single element
+     const companyJSON = JSON.stringify([company]);
+
+     // Construct SQL query based on selected options
+     let query = 'SELECT * FROM student WHERE institute = ? AND JSON_CONTAINS(appliedJobs, ?)';
+    // Execute the SQL query
+    mysqlConnection.query(query, [institute,companyJSON], (err, results) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: 'An error occurred while fetching data.' });
+      } else {
+        res.json(results);
+      }
+    });
+})
+
+// router.post('/comp/filterStudents',async(req,res)=>{
+//     let comp = getComp()
+//     let company  = comp.name
+//     let institute = req.body.institute
+//     console.log(req.body)
+//     // Convert company to JSON array with a single element
+//     const companyJSON = JSON.stringify([company]);
+
+//     // Construct SQL query based on selected options
+//     let query = 'SELECT * FROM student WHERE institute = ? AND JSON_CONTAINS(appliedJobs, ?)';
+
+//     // Execute the SQL query
+//     mysqlConnection.query(query, [institute,companyJSON], (err, results) => {
+//         console.log(query,institute,companyJSON)
+//       if (err) {
+//         console.error('Error executing query:', err);
+//         res.status(500).json({ error: 'An error occurred while fetching data.' });
+//       } else {
+//         console.log(results)
+//         res.send('filtered successfully')
+//       }
+//     });
 // })
 
 module.exports = router

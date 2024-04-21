@@ -172,7 +172,7 @@ main-body{
     margin: 120px 0 20px 20px;
 }
 /* back navigation to dashboard  */
-.back p{
+.back button{
     background-color: var(--sec-color);
     padding: 5px 20px;
     width: fit-content;
