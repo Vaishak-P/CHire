@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="\TESTS\Programming Skills\Programming Skills.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
+    </div>
+
+<!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
+            <a href="">Student: <%= userName %></a>
+            <!-- <a href="">Home</a> -->
+            <!-- <a href="">About US</a> -->
+            <!-- <a href="">Listed Jobs</a> -->
+            <!-- <a href="">Contact</a> -->
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="">Dashboard</a></li>
+                    <li><a class="mt" href="">Mock Test</a></li>
+                    <li><a class="mi" href="">Mock Interview</a></li>
+                    <li><a class="resume" href="">Create Resume</a></li>
+                    <li><a class="l" href="">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="blur-overlay"></div>
+        <section class="right-box">
+                <div class="examLayout">
+                    <div class="currentQn">
+    
+                        <div class="leftLayer">
+                            <div class="time-qn">
+                                <div class="currentQnNumber" >
+                                    <i class="fa-solid fa-question"></i>
+                                    <h1 id="currentQuestionNumber">1</h1>
+                                </div>
+                                <div class="time">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <div class="timeRemaining" >
+                                        <div class="text-countdown" id="countdown">GO</div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                           
+                        </div>
+                        <div class="middleLayer" id="middleLayer">
+                            <div class="qnLayer">
+                                <h4 id="questionText"></h4>
+                            </div>
+                            <div class="optionLayer">
+                                <button id="option1">Option 1</button>
+                                <button id="option2">Option 2</button>
+                                <button id="option3">Option 3</button>
+                                <button id="option4">Option 4</button>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="buttonSection">
+                        <div class="buttons">
+    
+                            <div class="prevQn">
+                                <button id="prevButton" class="disabled" onclick="prevQuestion()">PREVIOUS</button>
+                            </div>
+                            <div class="nextQn">
+                                <button id="nextButton" >NEXT</button>
+                            </div>
+                            <div class="endExm">
+                                <button id="endButton">END EXAM</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <div id="infoPopup" style="display: none;">
+            <p class="closeButton"><b>X</b></p>
+            <h2>TEST ENDED</h2>
+            <div class="infoFetchContainer">
+                <div class="row">
+                    <div class="label">
+                        <h6>Your Score</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="currentScoreBox">5</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. questions attended</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="attendedQuestionsBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of correct answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="correctAnswersBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of wrong answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="wrongAnswersBox"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popupWrapper"></div>
+    </div>
+    <script>
+        // QUESTIONS AS ARRAY OF OBJECTS
+        const questions = [
+  {
+    "question": "What will be the output of the following Python code?",
+    "code": `
+    def func(x, y=1):
+        return x * y
+
+    print(func(3))
+    `,
+    "options": ["A) 3" , "B) 4" ,"C) 6", "D) Error"],
+    "correctOption": 2
+  },
+  {
+    "question": "What does the following Python code snippet do?",
+    "code": `
+    my_list = [1, 2, 3, 4, 5]
+    print(my_list[::-1])
+    `,
+    "options": ["A) Reverses the list","B) Prints every alternate element of the 	list", "C) Prints the list in reverse order", "D) Raises an error"],
+    "correctOption": 2
+  },
+  {
+    "question": "Which of the following is not a valid Python data structure?",
+    "options": ["A) List","B) Tuple","C) Dictionary","D) Set"],
+    "correctOption": 3
+  },
+  {
+    "question": "What will be the output of the following Java code?",
+    "code": `
+    int x = 5;
+    System.out.println(x++);
+    `,
+    "options": ["A) 5","B) 6","C) 4","D) Error"],
+    "correctOption": 0
+  },
+  {
+    "question": "What does the 'else' keyword signify in Python's exception handling?",
+    "options": ["A) It is used to catch exceptions", "B) It is 		executed when an  	exception occurs", "C) It is executed if no exception occurs","D) It is used to define custom exceptions"],
+    "correctOption": 2
+  },
+  {
+    "question": "What is the output of the following Python code?",
+    "code": `
+    x = 10
+    def func():
+        global x
+        x += 5
+        return x
+
+    print(func())
+    `,
+    "options": ["A) 15","B) 10","C) 20","D) Error"],
+    "correctOption": 2
+  },
+  {
+    "question": "What does the 'append()' function do in Python lists?",
+    "options": ["A) Adds an element to the beginning of the list", "B) Adds an element to the end of the list", "C) Removes an element from the list", "D) Sorts the list in ascending order"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which of the following is a correct way to open a file in Python for reading?",
+    "options": ["A) file = open('example.txt', 'r')", "B) file = open('example.txt', 'w')", "C) file = open('example.txt', 'a')", "D) file = open('example.txt', 'x')"],
+    "correctOption": 0
+  },
+  {
+    "question": "What is the purpose of the 'break' statement in Python loops?",
+    "options": ["A)To terminate the loop immediately", "B)To skip the current iteration and continue to the next one", "C)To return a value from the loop", "D)To define a conditional exit point for the loop"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which of the following is not a valid data type in Python?",
+    "options": ["A)int", "B)string", "C)char", "D)float"],
+    "correctOption": 2
+  },
+  {
+    "question": "What is the output of the following JavaScript code?",
+    "code": `
+    console.log(typeof []);
+    `,
+    "options": [ "A)array", "B)object", "C)undefined", "D)string"],
+    "correctOption": 1
+  },
+  {
+    "question": "What does the 'push()' function do in JavaScript arrays?",
+    "options": ["A)Removes the last element from the array", "B)Adds an element to the beginning of the array", "C)Adds an element to the end of the array", "D)Sorts the array in ascending order"],
+    "correctOption": 2
+  },
+  {
+    "question": "In Java, what is the default value of an uninitialized int variable?",
+    "options": ["A)0", "B)null", "C)undefined", "D)The variable must be initialized before use"],
+    "correctOption": 0
+  },
+  {
+    "question": "What is the purpose of the 'super' keyword in Java?",
+    "options": ["A)To call the superclass constructor", "B)To access the superclass's fields and methods", "C)To indicate that a method is overridden", "D)To create an instance of the superclass"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which of the following is not a valid way to declare a JavaScript variable?",
+    "options": ["A)var x = 5;", "B)let x = 5;", "C)const x = 5;", "D)variable x = 5;"
+    ],
+    "correctOption": 3
+  },
+  {
+    "question": "What is the purpose of the 'finally' block in Java exception handling?",
+    "options": ["A)To catch exceptions", "B)To execute a block of code regardless of whether an exception is thrown or not", "C)To specify the exceptions that a method can throw", "D)To define custom exception classes"],
+    "correctOption": 1
+  },
+  {
+    "question": "What is the time complexity of searching in a binary search tree (BST) in the worst-case scenario?",
+    "options": ["A)O(1)", "B)O(log n)", "C)O(n)", "D)O(n^2)"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which sorting algorithm has the worst-case time complexity of O(n^2)?",
+    "options": ["A)Quick Sort", "B)Merge Sort", "C)Bubble Sort", "D)Insertion Sort"],
+    "correctOption": 2
+  },
+  {
+    "question": "What is the output of the following SQL query: SELECT COUNT(*) FROM table_name;?",
+    "options": [ "A)Total number of columns in the table", "B)Total number of rows in the table", "C)Total number of records in the table", "D)Total number of unique values in the table"],
+    "correctOption": 2
+  },
+  {
+    "question": "What is the output of the following C code snippet?",
+    "code": `
+    int x = 5;
+    printf("%d", x++);
+    `,
+    "options": ["A)5", "B)6", "C)4", "D)Error"],
+    "correctOption": 0
+  }
+];
+
+        // Function to display a question and options
+        function displayQuestion(question) {
+            document.getElementById("questionText").textContent = question.question;
+            for (let i = 0; i < question.options.length; i++) {
+                document.getElementById(`option${i + 1}`).textContent = question.options[i];
+            }
+        }
+
+        // SELECT 10 RANDOM QUESTIONS
+        questions.sort(() => Math.random() - 0.5);
+        const selectedQuestions = questions.slice(0, 10);
+
+        // Track the current question index
+        let currentIndex = 0;
+        let currentScore=0;
+        let qnAttended=0;
+        let rightAnswers=0;
+        let wrongAnswers=0;
+        function checkAnswer(questionIndex, selectedOptionIndex) {
+            if(currentIndex<10){
+                if (selectedOptionIndex === questions[questionIndex].correctOption) {
+                    // alert("Correct!");
+                    currentScore++;
+                    rightAnswers++;
+
+                } else {
+                    wrongAnswers++;
+                    // alert("Incorrect. The correct answer is: " + questions[questionIndex].options[questions[questionIndex].correctOption]);
+                }
+                    currentIndex++;
+                    if(currentIndex<10){
+                        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+                    }
+                    qnAttended++;
+                    displayQuestion(selectedQuestions[currentIndex]);   
+                    updateButtons();
+            }
+        }
+
+        //CHECKING CLICKED OPTION IS CORRECT OR NOT
+        document.getElementById("option1").addEventListener("click", function() {
+            checkAnswer(0, 0);
+        });
+        document.getElementById("option2").addEventListener("click", function() {
+            checkAnswer(0, 1);
+        });
+        document.getElementById("option3").addEventListener("click", function() {
+            checkAnswer(0, 2);
+        });
+        document.getElementById("option4").addEventListener("click", function() {
+            checkAnswer(0, 3);
+        });
+       
+        // COUNTDOWN SECTION 
+        let timeInSeconds = 10*60;
+        // let timeInSeconds = 10;
+        function updateCountdown() {
+          const minutes = Math.floor(timeInSeconds / 60);
+          const seconds = timeInSeconds % 60;
+          document.getElementById('countdown').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          timeInSeconds--;
+      
+          if (timeInSeconds < 0) {
+            showResult();
+          }
+
+        //   TO SHOW RESULTS AFTER FINAL QUESTION 
+          if(currentIndex==10){
+                showResult();
+                console.log(currentIndex);
+          }
+        }
+
+        // TO END EXAM BY CLICKING END  BUTTON
+        document.getElementById("endButton").addEventListener("click",showResult);
+
+        // TO SHOW END RESULT 
+        function showResult(){
+            clearInterval(interval);
+            document.getElementById('countdown').textContent = '0:00';
+            const infoPopupDiv = document.getElementById("infoPopup");
+            const currentScoreBox=document.getElementById("currentScoreBox");
+            const attendedQuestionsBox=document.getElementById("attendedQuestionsBox");
+            const correctAnswersBox=document.getElementById("correctAnswersBox");
+            const wrongAnswersBox=document.getElementById("wrongAnswersBox");
+            infoPopupDiv.style.display = "block"; // Change display from none to block
+            popupWrapper.style.display = "block";
+            currentScoreBox.textContent=currentScore+'/'+10;
+            attendedQuestionsBox.textContent=qnAttended;
+            correctAnswersBox.textContent=rightAnswers;
+            wrongAnswersBox.textContent=wrongAnswers;
+            // endExam();
+        }
+        const interval = setInterval(updateCountdown, 1000);
+
+        // TO SHOW DASHBOARD PAGE AFTER ENDING EXAM
+        const closeButton = document.querySelector('.closeButton');
+        closeButton.addEventListener('click', endExam);
+
+        function endExam() {
+            window.location.href = "std-dashboard.ejs";
+            // setTimeout(() => {
+            //      // Replace with your results page URL
+            // }, 5000); // Delay in milliseconds ( 5second here)
+        }
+
+
+        // Function to update button states
+        function updateButtons() {
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === selectedQuestions.length - 1;
+        }
+
+        // Event listeners for next and previous buttons
+        const nextButton = document.getElementById("nextButton");
+        const prevButton = document.getElementById("prevButton");
+
+        nextButton.addEventListener("click", () => {
+        currentIndex++;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+    });
+    
+    prevButton.addEventListener("click", () => {
+        currentIndex--;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+        });
+        // Initially display the first question
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+
+     </script>
+    
+</body>
+</html>

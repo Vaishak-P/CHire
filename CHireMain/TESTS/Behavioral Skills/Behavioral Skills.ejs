@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="\TESTS\Programming Skills\Behavioral Skills.css">
+    <!-- <link rel="stylesheet" href="Behavioral Skills.css"> -->
+    <link rel="stylesheet" href="Verbal Ability.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
+    </div>
+
+<!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
+            <a href="">Student: <%= userName %></a>
+            <!-- <a href="">Home</a> -->
+            <!-- <a href="">About US</a> -->
+            <!-- <a href="">Listed Jobs</a> -->
+            <!-- <a href="">Contact</a> -->
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="">Dashboard</a></li>
+                    <li><a class="mt" href="">Mock Test</a></li>
+                    <li><a class="mi" href="">Mock Interview</a></li>
+                    <li><a class="resume" href="">Create Resume</a></li>
+                    <li><a class="l" href="">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="blur-overlay"></div>
+        <section class="right-box">
+                <div class="examLayout">
+                    <div class="currentQn">
+    
+                        <div class="leftLayer">
+                            <div class="time-qn">
+                                <div class="currentQnNumber" >
+                                    <i class="fa-solid fa-question"></i>
+                                    <h1 id="currentQuestionNumber">1</h1>
+                                </div>
+                                <div class="time">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <div class="timeRemaining" >
+                                        <div class="text-countdown" id="countdown">GO</div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                           
+                        </div>
+                        <div class="middleLayer" id="middleLayer">
+                            <div class="qnLayer">
+                                <h4 id="questionText"></h4>
+                            </div>
+                            <div class="optionLayer">
+                                <button id="option1">Option 1</button>
+                                <button id="option2">Option 2</button>
+                                <button id="option3">Option 3</button>
+                                <button id="option4">Option 4</button>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="buttonSection">
+                        <div class="buttons">
+    
+                            <div class="prevQn">
+                                <button id="prevButton" class="disabled" onclick="prevQuestion()">PREVIOUS</button>
+                            </div>
+                            <div class="nextQn">
+                                <button id="nextButton" >NEXT</button>
+                            </div>
+                            <div class="endExm">
+                                <button id="endButton">END EXAM</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <div id="infoPopup" style="display: none;">
+            <p class="closeButton"><b>X</b></p>
+            <h2>TEST ENDED</h2>
+            <div class="infoFetchContainer">
+                <div class="row">
+                    <div class="label">
+                        <h6>Your Score</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="currentScoreBox">5</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. questions attended</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="attendedQuestionsBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of correct answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="correctAnswersBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of wrong answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="wrongAnswersBox"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popupWrapper"></div>
+    </div>
+    <script>
+        // QUESTIONS AS ARRAY OF OBJECTS
+        const questions = [
+  {
+    "question": "You're leading a team project, and one team member consistently misses deadlines. How do you address this issue?",
+    "options": ["A) Talk to the team member privately to understand the reason for missing deadlines and offer support.", "B) Assign easier tasks to the team member to ensure they can meet deadlines.", "C) Criticize the team member in front of the entire team to motivate them to do better.", "D) Ignore the missed deadlines and hope the situation improves on its own."],
+    "correctOption": 0
+  },
+  {
+    "question": "During a meeting, a team member disagrees with your approach and suggests an alternative. How do you respond?",
+    "options": ["A) Listen to their suggestion with an open mind and evaluate its merits.","B) Immediately dismiss their suggestion and proceed with your approach.","C) Agree with their suggestion without considering its implications.", "D) Confront the team member and demand they accept your approach."
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "You're working on a group project, and one member is not contributing their fair share of work. How do you handle this situation?",
+    "options": ["A) Discuss the issue with the group member privately and offer assistance or redistribution of tasks.", "B) Complain about the team member to the project supervisor without discussing it with them first.", "C) Ignore the issue and do their work for them to avoid conflict.", "D) Publicly shame the team member during the next team meeting."],
+    "correctOption": 2
+  },
+  {
+    "question": "Your team is facing a tight deadline, and tensions are high. How do you keep morale up and ensure everyone stays focused?",
+    "options": ["A) Acknowledge the stress but emphasize the importance of working together and staying positive.", "B) Assign blame for the tight deadline to certain team members to motivate them to work harder.", "C) Ignore the stress and hope it resolves itself before the deadline.", "D) Threaten consequences for anyone who doesn't meet the deadline to increase motivation."],
+    "correctOption": 3
+  },
+  {
+    "question": "You receive negative feedback from a colleague about your work style. How do you respond?",
+    "options": ["A) Thank them for their feedback and ask for specific examples to understand how you can improve.", "B) Dismiss their feedback and criticize their own work style.", "C) Become defensive and argue that your work style is effective.","D) Ignore the feedback and avoid further interaction with the colleague."],
+    "correctOption": 0
+  },
+  {
+    "question": "You're leading a team meeting, and one team member is dominating the discussion, leaving others feeling marginalized. How do you handle this situation?",
+    "options": ["A) Intervene respectfully to ensure everyone has a chance to contribute.", "B) Ignore the behavior and hope others will speak up on their own.", "C) Confront the team member publicly to assert your authority.", "D) End the meeting early to avoid further conflict."],
+    "correctOption": 2
+  },
+  {
+    "question": "A team member is consistently negative and resistant to change. How do you address this behavior?",
+    "options": ["A) Have a private conversation to understand their concerns and offer support.", "B) Criticize the team member in front of the team to motivate them to be more positive.", "C) Exclude the team member from future projects to avoid their negativity.", "D) Ignore the behavior and hope it improves over time."],
+    "correctOption": 1
+  },
+  {
+    "question": "You notice a team member struggling with their workload but not asking for help. How do you approach them?",
+    "options": ["A) Offer assistance in a supportive and non-judgmental manner.", "B) Ignore the issue and assume they can handle it on their own.", "C) Publicly criticize the team member for not keeping up with their work.", "D) Report the team member to their supervisor for failing to meet expectations."],
+    "correctOption": 0
+  },
+  {
+    "question": "You disagree with a decision made by your team leader. How do you express your disagreement?",
+    "options": ["A) Express your concerns respectfully and suggest alternative solutions.", "B) Complain to other team members about the decision without addressing it directly.", "C) Challenge the team leader's authority and refuse to follow the decision.", "D) Accept the decision without question to avoid conflict."],
+    "correctOption": 3
+  },
+  {
+    "question": "Your team is assigned a challenging project with a tight deadline. How do you motivate them to succeed?",
+    "options": ["A) Set clear goals and provide support and encouragement throughout the project.","B) Threaten consequences for failure to meet the deadline.", "C) Micromanage every aspect of the project to ensure success.","D) Ignore the project and hope the team can figure it out on their own."],
+    "correctOption": 0
+  },
+  {
+    "question": "A team member consistently takes credit for others' work. How do you address this behavior?",
+    "options": ["A) Have a private conversation to address the issue and emphasize the importance of giving credit where it's due.", "B) Publicly shame the team member to deter them from continuing the behavior.", "C) Ignore the behavior and hope it stops on its own.","D) Take credit for their work to even the score."],
+    "correctOption": 1
+  },
+  {
+    "question": "During a team meeting, there's a disagreement between two team members. How do you facilitate resolution?",
+    "options": ["A) Listen to both sides and help them find common ground through open communication.","B) Take sides and impose your own solution to end the disagreement quickly.","C) Ignore the disagreement and move on to the next agenda item.", "D) Escalate the issue to upper management to handle."
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "If all Stips are Rips, and some Rips are Pips, then:",
+    "options": ["A) Some Stips are Pips", "B) No Stips are Pips", "C) Some Stips are not Pips", "D) All of the above"],
+    "correctOption": 0
+  },
+  {
+    "question": "Your team is undergoing a major restructuring. How do you ensure open communication and address concerns?",
+    "options": ["A) Hold regular team meetings to provide updates and encourage feedback.", "B) Keep the restructuring plans confidential to avoid causing panic.", "C) Inform only key team members about the changes to prevent resistance.", "D) Ignore concerns and proceed with the restructuring as planned."],
+    "correctOption": 0
+  },
+  {
+    "question": "During a meeting, a team member disagrees with your approach and suggests an alternative. How do you respond?",
+    "options": ["A) Listen to their suggestion with an open mind and evaluate its merits.", "B) Immediately dismiss their suggestion and proceed with your approach.", "C) Agree with their suggestion without considering its implications.", "D) Confront the team member and demand they accept your approach."],
+    "correctOption": 1
+  },
+  {
+    "question": "You disagree with a decision made by your team leader. How do you express your disagreement?",
+    "options": ["A) Express your concerns respectfully and suggest alternative solutions.","B) Complain to other team members about the decision without addressing it directly.", "C) Challenge the team leader's authority and refuse to follow the decision.", "D) Accept the decision without question to avoid conflict."],
+    "correctOption": 2
+  },
+  {
+    "question": "A team member consistently takes credit for others' work. How do you address this behavior?",
+    "options": ["A) Have a private conversation to address the issue and emphasize the importance of giving credit where it's due.", "B) Publicly shame the team member to deter them from continuing the behavior.", "C) Ignore the behavior and hope it stops on its own.", "D) Take credit for their work to even the score."],
+    "correctOption": 1
+  },
+  {
+    "question": "A team member consistently arrives late to work. How do you address this behavior?",
+    "options": [ "A) Have a private conversation to discuss punctuality expectations.", "B) Publicly shame the team member to deter tardiness.", "C) Ignore the behavior and hope it improves.", "D) Implement stricter consequences for tardiness."],
+    "correctOption": 3
+  },
+  {
+    "question": "You receive feedback that your leadership style is too authoritarian. How do you adapt?",
+    "options": ["A) Seek feedback from team members and adjust your approach accordingly.", "B) Disregard the feedback and continue with your current leadership style.", "C) Micromanage team members to assert control.", "D) Ignore the feedback and hope the issue resolves itself."],
+    "correctOption": 0
+  },
+  {
+    "question": "Your team is experiencing conflicts due to personality clashes. How do you resolve these conflicts?",
+    "options": ["A) Facilitate open discussions to address underlying issues.", "B) Ignore the conflicts and hope they resolve themselves.", "C) Punish team members involved in conflicts.","D) Replace team members to eliminate conflicts."],
+    "correctOption": 0
+  }
+];
+
+        // Function to display a question and options
+        function displayQuestion(question) {
+            document.getElementById("questionText").textContent = question.question;
+            for (let i = 0; i < question.options.length; i++) {
+                document.getElementById(`option${i + 1}`).textContent = question.options[i];
+            }
+        }
+
+        // SELECT 10 RANDOM QUESTIONS
+        questions.sort(() => Math.random() - 0.5);
+        const selectedQuestions = questions.slice(0, 10);
+
+        // Track the current question index
+        let currentIndex = 0;
+        let currentScore=0;
+        let qnAttended=0;
+        let rightAnswers=0;
+        let wrongAnswers=0;
+        function checkAnswer(questionIndex, selectedOptionIndex) {
+            if(currentIndex<10){
+                if (selectedOptionIndex === questions[questionIndex].correctOption) {
+                    // alert("Correct!");
+                    currentScore++;
+                    rightAnswers++;
+
+                } else {
+                    wrongAnswers++;
+                    // alert("Incorrect. The correct answer is: " + questions[questionIndex].options[questions[questionIndex].correctOption]);
+                }
+                    currentIndex++;
+                    if(currentIndex<10){
+                        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+                    }
+                    qnAttended++;
+                    displayQuestion(selectedQuestions[currentIndex]);   
+                    updateButtons();
+            }
+        }
+
+        //CHECKING CLICKED OPTION IS CORRECT OR NOT
+        document.getElementById("option1").addEventListener("click", function() {
+            checkAnswer(0, 0);
+        });
+        document.getElementById("option2").addEventListener("click", function() {
+            checkAnswer(0, 1);
+        });
+        document.getElementById("option3").addEventListener("click", function() {
+            checkAnswer(0, 2);
+        });
+        document.getElementById("option4").addEventListener("click", function() {
+            checkAnswer(0, 3);
+        });
+       
+        // COUNTDOWN SECTION 
+        let timeInSeconds = 10*60;
+        // let timeInSeconds = 10;
+        function updateCountdown() {
+          const minutes = Math.floor(timeInSeconds / 60);
+          const seconds = timeInSeconds % 60;
+          document.getElementById('countdown').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          timeInSeconds--;
+      
+          if (timeInSeconds < 0) {
+            showResult();
+          }
+
+        //   TO SHOW RESULTS AFTER FINAL QUESTION 
+          if(currentIndex==10){
+                showResult();
+                console.log(currentIndex);
+          }
+        }
+
+        // TO END EXAM BY CLICKING END  BUTTON
+        document.getElementById("endButton").addEventListener("click",showResult);
+
+        // TO SHOW END RESULT 
+        function showResult(){
+            clearInterval(interval);
+            document.getElementById('countdown').textContent = '0:00';
+            const infoPopupDiv = document.getElementById("infoPopup");
+            const currentScoreBox=document.getElementById("currentScoreBox");
+            const attendedQuestionsBox=document.getElementById("attendedQuestionsBox");
+            const correctAnswersBox=document.getElementById("correctAnswersBox");
+            const wrongAnswersBox=document.getElementById("wrongAnswersBox");
+            infoPopupDiv.style.display = "block"; // Change display from none to block
+            popupWrapper.style.display = "block";
+            currentScoreBox.textContent=currentScore+'/'+10;
+            attendedQuestionsBox.textContent=qnAttended;
+            correctAnswersBox.textContent=rightAnswers;
+            wrongAnswersBox.textContent=wrongAnswers;
+            // endExam();
+        }
+        const interval = setInterval(updateCountdown, 1000);
+
+        // TO SHOW DASHBOARD PAGE AFTER ENDING EXAM
+        const closeButton = document.querySelector('.closeButton');
+        closeButton.addEventListener('click', endExam);
+
+        function endExam() {
+            window.location.href = "std-dashboard.ejs";
+            // setTimeout(() => {
+            //      // Replace with your results page URL
+            // }, 5000); // Delay in milliseconds ( 5second here)
+        }
+
+
+        // Function to update button states
+        function updateButtons() {
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === selectedQuestions.length - 1;
+        }
+
+        // Event listeners for next and previous buttons
+        const nextButton = document.getElementById("nextButton");
+        const prevButton = document.getElementById("prevButton");
+
+        nextButton.addEventListener("click", () => {
+        currentIndex++;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+    });
+    
+    prevButton.addEventListener("click", () => {
+        currentIndex--;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+        });
+        // Initially display the first question
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+
+     </script>
+    
+</body>
+</html>

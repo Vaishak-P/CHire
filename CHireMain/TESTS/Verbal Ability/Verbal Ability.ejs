@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="\TESTS\Programming Skills\Verbal Ability.css">
+    <link rel="stylesheet" href="Verbal Ability.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
+    </div>
+
+<!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
+            <a href="">Student: <%= userName %></a>
+            <!-- <a href="">Home</a> -->
+            <!-- <a href="">About US</a> -->
+            <!-- <a href="">Listed Jobs</a> -->
+            <!-- <a href="">Contact</a> -->
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="">Dashboard</a></li>
+                    <li><a class="mt" href="">Mock Test</a></li>
+                    <li><a class="mi" href="">Mock Interview</a></li>
+                    <li><a class="resume" href="">Create Resume</a></li>
+                    <li><a class="l" href="">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="blur-overlay"></div>
+        <section class="right-box">
+                <div class="examLayout">
+                    <div class="currentQn">
+    
+                        <div class="leftLayer">
+                            <div class="time-qn">
+                                <div class="currentQnNumber" >
+                                    <i class="fa-solid fa-question"></i>
+                                    <h1 id="currentQuestionNumber">1</h1>
+                                </div>
+                                <div class="time">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <div class="timeRemaining" >
+                                        <div class="text-countdown" id="countdown">GO</div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                           
+                        </div>
+                        <div class="middleLayer" id="middleLayer">
+                            <div class="qnLayer">
+                                <h4 id="questionText"></h4>
+                            </div>
+                            <div class="optionLayer">
+                                <button id="option1">Option 1</button>
+                                <button id="option2">Option 2</button>
+                                <button id="option3">Option 3</button>
+                                <button id="option4">Option 4</button>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="buttonSection">
+                        <div class="buttons">
+    
+                            <div class="prevQn">
+                                <button id="prevButton" class="disabled" onclick="prevQuestion()">PREVIOUS</button>
+                            </div>
+                            <div class="nextQn">
+                                <button id="nextButton" >NEXT</button>
+                            </div>
+                            <div class="endExm">
+                                <button id="endButton">END EXAM</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <div id="infoPopup" style="display: none;">
+            <p class="closeButton"><b>X</b></p>
+            <h2>TEST ENDED</h2>
+            <div class="infoFetchContainer">
+                <div class="row">
+                    <div class="label">
+                        <h6>Your Score</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="currentScoreBox">5</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. questions attended</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="attendedQuestionsBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of correct answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="correctAnswersBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of wrong answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="wrongAnswersBox"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popupWrapper"></div>
+    </div>
+    <script>
+        // QUESTIONS AS ARRAY OF OBJECTS
+        const questions = [
+  {
+    "question": "Choose the correct synonym for 'Extravagant':",
+    "options": ["A) Frugal", "B) Wasteful", "C) Modest", "D) Economical"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which of the following sentences is grammatically correct?",
+    "options": [
+      "A) Each of the boys has done their homework.",
+      "B) Each of the boys has done his homework.",
+      "C) Each of the boys has done there homework.",
+      "D) Each of the boys has done they're homework."
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Identify the antonym of 'Abundant':",
+    "options": ["A) Sparse", "B) Plentiful", "C) Ample", "D) Overflowing"],
+    "correctOption": 0
+  },
+  {
+    "question": "Choose the correct form of the verb to complete the sentence: She _______ to the store yesterday.",
+    "options": ["A) Go", "B) Gone", "C) Went", "D) Goes"],
+    "correctOption": 2
+  },
+  {
+    "question": "In which sentence is the word 'insidious' used correctly?",
+    "options": [
+      "A) The insidious sun rose above the horizon.",
+      "B) He had an insidious idea to improve sales.",
+      "C) She experienced an insidious feeling of happiness.",
+      "D) The insidious cat purred softly."
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Choose the correctly spelled word:",
+    "options": ["A) Mischeif", "B) Mischief", "C) Mischiev", "D) Mischif"],
+    "correctOption": 1
+  },
+  {
+    "question": "Identify the main theme of the following passage: 'The Importance of Environmental Conservation'",
+    "options": [
+      "A) The history of environmental activism",
+      "B) The benefits of technology in environmental protection",
+      "C) The necessity of preserving natural resources",
+      "D) The role of governments in pollution control"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "Choose the word that best completes the analogy: Tree is to leaf as flower is to ________.",
+    "options": ["A) Stem", "B) Petal", "C) Root", "D) Branch"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which sentence is an example of a compound sentence?",
+    "options": [
+      "A) She walked to the store and bought some groceries.",
+      "B) The cat meowed loudly when it saw the dog.",
+      "C) I enjoy reading books by the fireplace.",
+      "D) I like swimming, but I don't enjoy running."
+    ],
+    "correctOption": 3
+  },
+  {
+    "question": "Choose the correct plural form of 'child':",
+    "options": ["A) Childs", "B) Childes", "C) Childs'", "D) Children"],
+    "correctOption": 3
+  },
+  {
+    "question": "Which of the following sentences is an example of an oxymoron?",
+    "options": [
+      "A) The sun shone brightly on the snowy landscape.",
+      "B) The jumbo shrimp was delicious.",
+      "C) The deafening silence filled the room.",
+      "D) The bitter taste of sweet chocolate lingered."
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "Choose the correct meaning of the idiom: 'Bite the bullet'",
+    "options": [
+      "A) To chew on a bullet",
+      "B) To accept something difficult or unpleasant",
+      "C) To dodge responsibility",
+      "D) To bite someone in anger"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Which sentence uses the word 'aplomb' correctly?",
+    "options": [
+      "A) She displayed aplomb as she clumsily danced across the stage.",
+      "B) He spoke with aplomb, confidently answering every question.",
+      "C) The teacher watched the students with aplomb.",
+      "D) The cat walked with aplomb, its tail held high."
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Identify the incorrect sentence:",
+    "options": [
+      "A) I'm going to the store, would you like anything?",
+      "B) Its raining heavily outside.",
+      "C) She took her dog for a walk.",
+      "D) We went to the park after school."
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Choose the word that best completes the sentence: 'The movie was ______, I couldn't stop laughing.'",
+    "options": ["A) Hilarious", "B) Boring", "C) Sad", "D) Scary"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which of the following sentences contains a dangling modifier?",
+    "options": [
+      "A) After finishing the book, the TV was turned off.",
+      "B) Walking down the street, the trees were beautiful.",
+      "C) Running quickly, the ball was caught by the player.",
+      "D) Having studied hard, the test was easy for him."
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Choose the correct synonym for 'Eloquent':",
+    "options": ["A) Fluent", "B) Confident", "C) Talkative", "D) Quiet"],
+    "correctOption": 0
+  },
+  {
+    "question": "Identify the word that does not belong to the group:",
+    "options": ["A) Cat", "B) Dog", "C) Bird", "D) Table"],
+    "correctOption": 3
+  },
+  {
+    "question": "Choose the correct spelling:",
+    "options": ["A) Dilemma", "B) Delimma", "C) Dilemna", "D) Dilemmaa"],
+    "correctOption": 0
+  }
+];
+        // Function to display a question and options
+        function displayQuestion(question) {
+            document.getElementById("questionText").textContent = question.question;
+            for (let i = 0; i < question.options.length; i++) {
+                document.getElementById(`option${i + 1}`).textContent = question.options[i];
+            }
+        }
+
+        // SELECT 10 RANDOM QUESTIONS
+        questions.sort(() => Math.random() - 0.5);
+        const selectedQuestions = questions.slice(0, 10);
+
+        // Track the current question index
+        let currentIndex = 0;
+        let currentScore=0;
+        let qnAttended=0;
+        let rightAnswers=0;
+        let wrongAnswers=0;
+        function checkAnswer(questionIndex, selectedOptionIndex) {
+            if(currentIndex<10){
+                if (selectedOptionIndex === questions[questionIndex].correctOption) {
+                    // alert("Correct!");
+                    currentScore++;
+                    rightAnswers++;
+
+                } else {
+                    wrongAnswers++;
+                    // alert("Incorrect. The correct answer is: " + questions[questionIndex].options[questions[questionIndex].correctOption]);
+                }
+                    currentIndex++;
+                    if(currentIndex<10){
+                        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+                    }
+                    qnAttended++;
+                    displayQuestion(selectedQuestions[currentIndex]);   
+                    updateButtons();
+            }
+        }
+
+        //CHECKING CLICKED OPTION IS CORRECT OR NOT
+        document.getElementById("option1").addEventListener("click", function() {
+            checkAnswer(0, 0);
+        });
+        document.getElementById("option2").addEventListener("click", function() {
+            checkAnswer(0, 1);
+        });
+        document.getElementById("option3").addEventListener("click", function() {
+            checkAnswer(0, 2);
+        });
+        document.getElementById("option4").addEventListener("click", function() {
+            checkAnswer(0, 3);
+        });
+       
+        // COUNTDOWN SECTION 
+        let timeInSeconds = 10*60;
+        // let timeInSeconds = 10;
+        function updateCountdown() {
+          const minutes = Math.floor(timeInSeconds / 60);
+          const seconds = timeInSeconds % 60;
+          document.getElementById('countdown').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          timeInSeconds--;
+      
+          if (timeInSeconds < 0) {
+            showResult();
+          }
+
+        //   TO SHOW RESULTS AFTER FINAL QUESTION 
+          if(currentIndex==10){
+                showResult();
+                console.log(currentIndex);
+          }
+        }
+
+        // TO END EXAM BY CLICKING END  BUTTON
+        document.getElementById("endButton").addEventListener("click",showResult);
+
+        // TO SHOW END RESULT 
+        function showResult(){
+            clearInterval(interval);
+            document.getElementById('countdown').textContent = '0:00';
+            const infoPopupDiv = document.getElementById("infoPopup");
+            const currentScoreBox=document.getElementById("currentScoreBox");
+            const attendedQuestionsBox=document.getElementById("attendedQuestionsBox");
+            const correctAnswersBox=document.getElementById("correctAnswersBox");
+            const wrongAnswersBox=document.getElementById("wrongAnswersBox");
+            infoPopupDiv.style.display = "block"; // Change display from none to block
+            popupWrapper.style.display = "block";
+            currentScoreBox.textContent=currentScore+'/'+10;
+            attendedQuestionsBox.textContent=qnAttended;
+            correctAnswersBox.textContent=rightAnswers;
+            wrongAnswersBox.textContent=wrongAnswers;
+            // endExam();
+        }
+        const interval = setInterval(updateCountdown, 1000);
+
+        // TO SHOW DASHBOARD PAGE AFTER ENDING EXAM
+        const closeButton = document.querySelector('.closeButton');
+        closeButton.addEventListener('click', endExam);
+
+        function endExam() {
+            window.location.href = "std-dashboard.ejs";
+            // setTimeout(() => {
+            //      // Replace with your results page URL
+            // }, 5000); // Delay in milliseconds ( 5second here)
+        }
+
+
+        // Function to update button states
+        function updateButtons() {
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === selectedQuestions.length - 1;
+        }
+
+        // Event listeners for next and previous buttons
+        const nextButton = document.getElementById("nextButton");
+        const prevButton = document.getElementById("prevButton");
+
+        nextButton.addEventListener("click", () => {
+        currentIndex++;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+    });
+    
+    prevButton.addEventListener("click", () => {
+        currentIndex--;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+        });
+        // Initially display the first question
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+
+     </script>
+    
+</body>
+</html>

@@ -1,0 +1,488 @@
+/* CSS IS COMMENTED WELL, SO YOU CAN EASILY FIND ELEMENTS AND PROPERTIES */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+}
+body{
+    font-family: poppins;
+    background-color: #BFCFE7;
+    z-index: 1;
+}
+:root{
+    --sec-color:#ffffff;
+    --bg-color:#BFCFE7;
+    --icon-color:#ffffff;
+    --pri-color:black;
+    --top-color:#575fd6;
+    --border-color:rgba(204, 204, 204, 0.5);
+    --h1:20px;
+    --h2:15px;
+}
+/* -------CleverHire heading------- */
+.cleverhire{
+    text-align: center;
+    background-color:var(--top-color);
+    font-weight: 900;
+    height: 6vh;
+    padding: 20px 0 50px 0;
+    font-size: 20px;
+    /* animation-name:ani-cleverhire;
+    animation-duration: 2s;
+    animation-iteration-count: 1; */
+    /* animation-delay: 1s; */
+}
+.cleverhire a{
+    text-decoration: none;
+    color:#F8EDFF;
+    
+}
+/* @keyframes ani-cleverhire{
+    0%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    30%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    50%{height: 100vh; padding-top: 50vh;font-size: 50px;}
+    100%{height: 6vh;}
+} */
+.cleverhire:hover{
+    color: var(--bg-color);
+    /* text-transform: uppercase; */
+    transition: font-weight 700ms ease-in-out;
+}
+/* -------navigation bar ------- */
+nav{
+    display: flex;
+    padding: 0px 40px 10px;
+    background-color:var(--top-color);
+    /* font-weight: 800; */
+    font-weight: lighter;
+}
+nav .list{
+    /* display: flex; */
+    text-decoration: none;
+}
+nav .list a{
+    font-size: 15px;
+    padding: 0px 10px;
+    color:var(--bg-color);
+    text-decoration: none;
+    transition: color 500ms;
+    /* transition: border 4s; */
+}
+nav .list a:hover{
+    color: var(--sec-color);
+    border:var(--bg-color) 1px solid;
+    border-radius: 20px;
+}
+nav .soc-icon{
+    position: absolute;
+    right: 20px;
+    /* left: 90%; */
+}
+nav i{
+    color:var(--bg-color);
+    padding-right: 20px;
+    
+}
+nav i:hover{
+    color: var(--sec-color);
+}
+
+/* ------- main body------- */
+main-body{
+    display: flex;
+}
+
+/* ------- left menu of pages------- */
+.lmenu .mt{
+    background-color: #bfcfe73b;
+    border:2px #3D3B40 ;
+    border-radius: 15px;
+    color:var(--bg-color);
+    padding: 5px 20px 5px 20px;
+    /* margin: 5% 5%; */
+    left: 50px;
+}
+/* .lmenu-items-con .fa-solid{
+    background-color: ;
+} */
+.lmenu{
+    background-color:  var(--pri-color);
+    width: 200px;
+    height:100vh;
+    padding: 10px 20px;
+    float: left;
+}
+.dp i{
+    color: var(--bg-color);
+    font-size: 50px;
+    display: grid; place-items: center;
+    margin: 30px 0px;
+}
+.lmenu-items-icon i{
+    color: var(--bg-color);
+    font-size: 15px;
+    display: grid; place-items: center;
+    margin: 15px 5px;
+}
+.lmenu-items-con{
+    /* background-color: rgb(215, 255, 71); */
+    /* margin-top: 30px; */
+    display: flex;
+}
+
+.lmenu-items li{
+    padding: 15px 0px 0 10px;
+    text-decoration: none;
+    list-style:none
+
+}
+.lmenu-items a{
+    color: var(--bg-color);
+    /* background-color: rgb(19, 201, 95); */
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 1s;
+    padding: 5px 10px;
+    transition: border 1s;
+    
+}
+.lmenu-items a:hover{
+    color:var(--sec-color);
+    /* color: var(--sec-color); */
+    border:var(--bg-color) 1px solid;
+    border-radius: 20px;
+}
+
+/* -------centre section of webpage ------- */
+.blur-overlay {
+    /* Cover the entire viewport */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.right-box{
+    display: flex;
+    
+}
+/* .background{
+    width: 100vw;
+    height: 100vh;
+    background-color: #3D3B40;
+    position: absolute;
+} */
+.right-box .examLayout{
+    display: grid;
+    grid-template-columns: 1fr 0.3fr;
+    background-color: #f0f0f0;
+    margin: 20px;
+    border-radius: 20px;
+    z-index: 3;
+    pointer-events: auto;
+}
+.currentQn{
+    border-radius: 20px;
+    display: flex;
+    margin: 20px;
+}
+
+/* container for time and questionNumber */
+.leftLayer{
+    display: flex;
+    align-items: center;
+}
+
+.leftLayer .time-qn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --------CURRENT QUESTION NUMBER BUTTON -------- */
+.leftLayer .currentQnNumber{
+    width: 200px;
+    height: 90px;
+    
+    border: var(--top-color) 5px solid;
+    border-radius: 90px;
+    display: flex;
+    align-items: center;
+    color: var(--top-color);
+    margin: 30px;
+    font-size: 40px;
+}
+.currentQnNumber h1{
+    margin-left: 50px;
+    font-size: 40px;
+}
+.currentQnNumber i{
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    width: 85px;
+    background-color: var(--top-color);
+    border-radius: 100%;
+    margin-left: 105px;
+    color: var(--sec-color);
+    position: absolute;
+    opacity: 1;
+    /* animation: fadeInOut 0.5s infinite alternate; */
+    padding: 5px 15px;
+}
+/* -------- REMAINING TIME BUTTON-------- */
+.leftLayer .time{
+    width: 200px;
+    height: 90px;
+    border: var(--top-color) 5px solid;
+    border-radius: 90px;
+    display: flex;
+    align-items: center;
+}
+.time i{
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding-left: 18px;
+    height: 90px;
+    width: 90px;
+    background-color: var(--top-color);
+    border-radius: 90px;
+    color: var(--sec-color);
+    position: absolute;
+    opacity: 1;
+    animation: fadeInOut 0.5s infinite alternate;
+    /* padding: 5px; */
+}
+/* --------REMAINING TIME TEXT -------- */
+.time .text-countdown{
+    margin-left: 35px;
+    font-size: 30px;
+    cursor:default;
+} 
+
+.timeRemaining{
+    color: var(--top-color);
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 70px;
+    animation: fadeInOut 0.5s infinite alternate;
+}
+/* --------FADE ANIMATION -------- */
+@keyframes fadeInOut{
+    0%{
+        color: var(--bg-color);
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+/* to decrease button visibility as it is disabled  */
+button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+/* ------------MIDDLE SECTION---------------- */
+.middleLayer{
+    padding-top: 10px;
+    /* margin: 0 30px; */
+    
+    /* border: 2px solid var(--border-color); */
+    box-shadow: 0 0 10px var(--border-color);
+    border-radius: 20px;
+    width: 500px;
+}
+.qnLayer, .optionLayer{
+    margin: 20px ;
+    font-size: 20px;
+}
+/* --------MCQ OPTIONS -------- */
+.optionLayer{
+    display:grid;
+    text-align: center;
+    
+}
+.optionLayer button{
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px 20px ;
+    border: 2px solid var(--top-color);
+    border-radius: 20px;
+    transition: all 0.5s;
+    box-shadow: var(--top-color) 0px 0px 10px;
+}
+.optionLayer button:hover{
+    background-color: var(--top-color);
+    color: var(--sec-color);
+
+}
+
+/* --------RIGHT SECTION -------- */
+.buttonSection{
+    /* background-color: #575fd6; */
+    border-radius: 20px;
+    padding: 30px;
+    /* margin-left: 20px; */
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+/* --------PREVIOUS, NEXT AND END EXAM BUTTON -------- */
+.buttonSection button{
+    background-color:var(--top-color);
+    border-radius: 30px;
+    border: 1px solid var(--bg-color);
+    box-shadow: var(--bg-color) 0px 0px 10px;
+    /* display: block; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: var(--sec-color);
+    font-weight: 900;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 0px 10px 30px 0;
+    width: 200px;
+    justify-content: center;
+    place-content: center;
+}
+#endButton{
+    color: var(--pri-color);
+    background-color: var(--sec-color);
+    border: 3px solid var(--pri-color);
+    margin-bottom: 0;
+}
+.buttonSection button:hover,#endButton:hover {
+    background-color: var(--pri-color);
+    color: var(--bg-color);
+}
+/* --------INFO POPUP SECTION ---------*/
+#infoPopup{
+    /* display: none; */
+    position: fixed; /* Ensures div stays in place when scrolling */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 500px;
+    z-index: 5;
+
+    background-color: var(--sec-color);
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px var(--top-color);
+}
+
+/* Close button  */
+#infoPopup p{
+    position: absolute;
+    float: right;
+    right: 10px;
+    top: 10px;
+    scale: 70%;
+    padding: 2px 10px;
+    border: 2px solid var(--top-color);
+    border-radius: 30px;
+    width: fit-content;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+#infoPopup p:hover{
+    color: var(--sec-color);
+    background-color: var(--top-color);
+    transition: all 0.5s;
+}
+#infoPopup h2{
+    text-align: center;
+    color: var(--top-color);
+    font-weight: 900;
+}
+/* to highlight popup box  from background */
+#popupWrapper {
+    position: fixed; /* Covers the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(5px);
+    display: flex; /* Used for centering the infoPopup div */
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 4;
+  }
+  /* row - value datas  */
+.infoFetchContainer{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 0 0 10px var(--border-color);
+}
+
+/* inside the fetch-container  */
+.row{
+    display: grid;
+    grid-template-columns: 1fr 0.4fr;
+}
+.row .label{
+    margin: 10px 5px;
+    padding: 5px 0; 
+    font-size:large ;
+    text-transform: capitalize;
+    /* border: 1px solid #3D3B40;
+    border-radius: 15px; */
+}
+.row .value{
+    margin: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    display: flex; /* Used for centering the infoPopup div */
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+
+}
+#currentScoreBox{
+    color: var(--top-color);
+    font-size: 20px;
+    animation-name:tada;
+  animation-duration: 1s;
+  animation-iteration-count:1;
+}
+@keyframes tada {
+    0% {
+      transform: scale3d(1, 1, 1);
+    }
+    10%, 20% {
+      transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+      color: var(--pri-color);
+    }
+    30%, 50%, 70%, 90% {
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+    40%, 60%, 80% {
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+    100% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+#correctAnswersBox{
+    color: green;
+}
+#wrongAnswersBox{
+    color: red;
+}

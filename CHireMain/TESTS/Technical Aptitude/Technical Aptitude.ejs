@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="\TESTS\Technical Aptitude\Technical Aptitude.css.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
+    </div>
+
+<!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
+            <a href="">Student: <%= userName %></a>
+            <!-- <a href="">Home</a> -->
+            <!-- <a href="">About US</a> -->
+            <!-- <a href="">Listed Jobs</a> -->
+            <!-- <a href="">Contact</a> -->
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
+
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="">Dashboard</a></li>
+                    <li><a class="mt" href="">Mock Test</a></li>
+                    <li><a class="mi" href="">Mock Interview</a></li>
+                    <li><a class="resume" href="">Create Resume</a></li>
+                    <li><a class="l" href="">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="blur-overlay"></div>
+        <section class="right-box">
+                <div class="examLayout">
+                    <div class="currentQn">
+    
+                        <div class="leftLayer">
+                            <div class="time-qn">
+                                <div class="currentQnNumber" >
+                                    <i class="fa-solid fa-question"></i>
+                                    <h1 id="currentQuestionNumber">1</h1>
+                                </div>
+                                <div class="time">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <div class="timeRemaining" >
+                                        <div class="text-countdown" id="countdown">GO</div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                           
+                        </div>
+                        <div class="middleLayer" id="middleLayer">
+                            <div class="qnLayer">
+                                <h4 id="questionText"></h4>
+                            </div>
+                            <div class="optionLayer">
+                                <button id="option1">Option 1</button>
+                                <button id="option2">Option 2</button>
+                                <button id="option3">Option 3</button>
+                                <button id="option4">Option 4</button>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="buttonSection">
+                        <div class="buttons">
+    
+                            <div class="prevQn">
+                                <button id="prevButton" class="disabled" onclick="prevQuestion()">PREVIOUS</button>
+                            </div>
+                            <div class="nextQn">
+                                <button id="nextButton" >NEXT</button>
+                            </div>
+                            <div class="endExm">
+                                <button id="endButton">END EXAM</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <div id="infoPopup" style="display: none;">
+            <p class="closeButton"><b>X</b></p>
+            <h2>TEST ENDED</h2>
+            <div class="infoFetchContainer">
+                <div class="row">
+                    <div class="label">
+                        <h6>Your Score</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="currentScoreBox">5</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. questions attended</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="attendedQuestionsBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of correct answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="correctAnswersBox"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">
+                        <h6>No. of wrong answers</h6>
+                    </div>
+                    <div class="value">
+                        <h6 id="wrongAnswersBox"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popupWrapper"></div>
+    </div>
+    <script>
+        // QUESTIONS AS ARRAY OF OBJECTS
+        const questions = [
+  {
+    "question": "What does CPU stand for?",
+    "options": ["A) Central Processing Unit", "B) Computer Processing Unit", "C) Central Program Unit", "D) Central Power Unit"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which of the following is not a programming language?",
+    "options": ["A) Java", "B) HTML", "C) SQL", "D) JPEG"],
+    "correctOption": 3
+  },
+  {
+    "question": "What is the binary equivalent of the decimal number 10?",
+    "options": ["A) 1001", "B) 1010", "C) 1100", "D) 1111"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which data structure operates on a last-in, first-out (LIFO) basis?",
+    "options": ["A) Queue", "B) Stack", "C) Linked List", "D) Tree"],
+    "correctOption": 1
+  },
+  {
+    "question": "What does HTML stand for?",
+    "options": ["A) Hyper Text Markup Language", "B) High Tech Modern Language", "C) Hyperlinks and Text Markup Language", "D) Home Tool Markup Language"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which protocol is used for secure communication over a computer network?",
+    "options": ["A) FTP", "B) HTTP", "C) HTTPS", "D) SMTP"],
+    "correctOption": 2
+  },
+  {
+    "question": "In object-oriented programming, what is encapsulation?",
+    "options": ["A) The process of hiding the implementation details of an object", "B) The process of exposing the implementation details of an object", "C) The process of creating multiple instances of an object", "D) The process of inheriting properties from a parent class"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which sorting algorithm has the best worst-case time complexity?",
+    "options": ["A) Quick Sort", "B) Bubble Sort", "C) Merge Sort", "D) Insertion Sort"],
+    "correctOption": 2
+  },
+  {
+    "question": "What does SQL stand for?",
+    "options": ["A) Structured Query Language", "B) Sequential Query Language", "C) Scripted Query Language", "D) System Query Language"],
+    "correctOption": 0
+  },
+  {
+    "question": "Which of the following is not a type of network topology?",
+    "options": ["A) Ring", "B) Mesh", "C) Cylinder", "D) Star"],
+    "correctOption": 2
+  },
+  {
+    "question": "What does URL stand for?",
+    "options": ["A) Universal Resource Language", "B) Uniform Resource Locator", "C) Unified Resource Language", "D) Unique Resource Locator"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which of the following is not a primary color model used in digital imaging?",
+    "options": ["A) RGB", "B) CMYK", "C) HSV", "D) YUV"],
+    "correctOption": 2
+  },
+  {
+    "question": "What is the maximum value that can be represented with 8 bits?",
+    "options": ["A) 128", "B) 255", "C) 512", "D) 1024"],
+    "correctOption": 1
+  },
+  {
+    "question": "Which protocol is used for sending and receiving emails?",
+    "options": ["A) FTP", "B) HTTP", "C) SMTP", "D) UDP"],
+    "correctOption": 2
+  },
+  {
+    "question": "Which of the following is a key feature of agile software development?",
+    "options": ["A) Extensive upfront planning", "B) Fixed requirements", "C) Emphasis on documentation", "D) Iterative and incremental development"],
+    "correctOption": 3
+  },
+  {
+    "question": "What is the purpose of a firewall in computer networks?",
+    "options": ["A) To prevent unauthorized physical access to a network", "B) To filter incoming and outgoing network traffic", "C) To encrypt data transmitted over a network", "D) To provide physical connectivity between network devices"],
+    "correctOption": 1
+  },
+  {
+    "question": "What is the default file extension for a Python source code file?",
+    "options": ["A) .pyt", "B) .pyc", "C) .py", "D) .pyx"],
+    "correctOption": 2
+  },
+  {
+    "question": "What does HTML5 introduce for embedding multimedia content?",
+    "options": ["A) <embed> element", "B) <media> element", "C) <multimedia> element", "D) <video> and <audio> elements"],
+    "correctOption": 3
+  },
+  {
+    "question": "Which of the following is a function of an operating system?",
+    "options": ["A) Managing hardware resources", "B) Creating web pages", "C) Compiling source code", "D) Designing databases"],
+    "correctOption": 0
+  },
+  {
+    "question": "What is the purpose of a DNS server?",
+    "options": ["A) To store website content", "B) To translate domain names to IP addresses", "C) To encrypt network traffic", "D) To provide email services"],
+    "correctOption": 1
+  }
+]
+
+        // Function to display a question and options
+        function displayQuestion(question) {
+            document.getElementById("questionText").textContent = question.question;
+            for (let i = 0; i < question.options.length; i++) {
+                document.getElementById(`option${i + 1}`).textContent = question.options[i];
+            }
+        }
+
+        // SELECT 10 RANDOM QUESTIONS
+        questions.sort(() => Math.random() - 0.5);
+        const selectedQuestions = questions.slice(0, 10);
+
+        // Track the current question index
+        let currentIndex = 0;
+        let currentScore=0;
+        let qnAttended=0;
+        let rightAnswers=0;
+        let wrongAnswers=0;
+        function checkAnswer(questionIndex, selectedOptionIndex) {
+            if(currentIndex<10){
+                if (selectedOptionIndex === questions[questionIndex].correctOption) {
+                    // alert("Correct!");
+                    currentScore++;
+                    rightAnswers++;
+
+                } else {
+                    wrongAnswers++;
+                    // alert("Incorrect. The correct answer is: " + questions[questionIndex].options[questions[questionIndex].correctOption]);
+                }
+                    currentIndex++;
+                    if(currentIndex<10){
+                        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+                    }
+                    qnAttended++;
+                    displayQuestion(selectedQuestions[currentIndex]);   
+                    updateButtons();
+            }
+        }
+
+        //CHECKING CLICKED OPTION IS CORRECT OR NOT
+        document.getElementById("option1").addEventListener("click", function() {
+            checkAnswer(0, 0);
+        });
+        document.getElementById("option2").addEventListener("click", function() {
+            checkAnswer(0, 1);
+        });
+        document.getElementById("option3").addEventListener("click", function() {
+            checkAnswer(0, 2);
+        });
+        document.getElementById("option4").addEventListener("click", function() {
+            checkAnswer(0, 3);
+        });
+       
+        // COUNTDOWN SECTION 
+        let timeInSeconds = 10*60;
+        // let timeInSeconds = 10;
+        function updateCountdown() {
+          const minutes = Math.floor(timeInSeconds / 60);
+          const seconds = timeInSeconds % 60;
+          document.getElementById('countdown').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          timeInSeconds--;
+      
+          if (timeInSeconds < 0) {
+            showResult();
+          }
+
+        //   TO SHOW RESULTS AFTER FINAL QUESTION 
+          if(currentIndex==10){
+                showResult();
+                console.log(currentIndex);
+          }
+        }
+
+        // TO END EXAM BY CLICKING END  BUTTON
+        document.getElementById("endButton").addEventListener("click",showResult);
+
+        // TO SHOW END RESULT 
+        function showResult(){
+            clearInterval(interval);
+            document.getElementById('countdown').textContent = '0:00';
+            const infoPopupDiv = document.getElementById("infoPopup");
+            const currentScoreBox=document.getElementById("currentScoreBox");
+            const attendedQuestionsBox=document.getElementById("attendedQuestionsBox");
+            const correctAnswersBox=document.getElementById("correctAnswersBox");
+            const wrongAnswersBox=document.getElementById("wrongAnswersBox");
+            infoPopupDiv.style.display = "block"; // Change display from none to block
+            popupWrapper.style.display = "block";
+            currentScoreBox.textContent=currentScore+'/'+10;
+            attendedQuestionsBox.textContent=qnAttended;
+            correctAnswersBox.textContent=rightAnswers;
+            wrongAnswersBox.textContent=wrongAnswers;
+            // endExam();
+        }
+        const interval = setInterval(updateCountdown, 1000);
+
+        // TO SHOW DASHBOARD PAGE AFTER ENDING EXAM
+        const closeButton = document.querySelector('.closeButton');
+        closeButton.addEventListener('click', endExam);
+
+        function endExam() {
+            window.location.href = "std-dashboard.ejs";
+            // setTimeout(() => {
+            //      // Replace with your results page URL
+            // }, 5000); // Delay in milliseconds ( 5second here)
+        }
+
+
+        // Function to update button states
+        function updateButtons() {
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === selectedQuestions.length - 1;
+        }
+
+        // Event listeners for next and previous buttons
+        const nextButton = document.getElementById("nextButton");
+        const prevButton = document.getElementById("prevButton");
+
+        nextButton.addEventListener("click", () => {
+        currentIndex++;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+    });
+    
+    prevButton.addEventListener("click", () => {
+        currentIndex--;
+        document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+        });
+        // Initially display the first question
+        displayQuestion(selectedQuestions[currentIndex]);
+        updateButtons();
+
+     </script>
+    
+</body>
+</html>
