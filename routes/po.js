@@ -99,17 +99,20 @@ router.post('/register/po', (req, res) => {
 
 router.get('/po/dashboard',(req,res)=>{
     let po = getPo();
-    res.render('PO/po-dashboard/po-dashboard',{userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
+    const profile = `/images/${po.photo}`
+    res.render('PO/po-dashboard/po-dashboard',{profile, userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
 })
 
 router.get('/PO/edit',(req,res)=>{
     let po = getPo();
-    res.render('PO/po-dashboard/poInfoEdit/poInfoEdit',{po})
+    const profile = `/images/${po.photo}`
+    res.render('PO/po-dashboard/poInfoEdit/poInfoEdit',{profile, po})
 })
 
 // Route to handle form submission and update user's data
 router.post('/edit/po', (req, res) => {
     let po = getPo();
+    const profile = `/images/${po.photo}`
     const userId = po.id;
     const { name, email, phone, state, district, institute, password } = req.body;
     const query = 'UPDATE placement_officer SET name = ?, email = ?, phone = ?, state = ?, district = ?, institute = ?, password = ? WHERE id = ?';
@@ -140,7 +143,7 @@ router.post('/edit/po', (req, res) => {
             //setUser(results[0])
             setPo(results[0])
             //user = results[0]
-            res.render('PO/po-dashboard/po-dashboard',{userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
+            res.render('PO/po-dashboard/po-dashboard',{profile, userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
         });
         
     });
@@ -148,11 +151,13 @@ router.post('/edit/po', (req, res) => {
 
 router.get('/po/postjobs',(req,res)=>{
     po = getPo()
-    res.render('PO/po-postJobs/po-postJobs',{po})
+    const profile = `/images/${po.photo}`
+    res.render('PO/po-postJobs/po-postJobs',{profile, po})
 })
 
 router.post('/PO/postjob', (req, res) => {
     let po = getPo();
+    const profile = `/images/${po.photo}`
     const { jobId, companyName, jobPost, qualification,cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
     const institute = po.institute;
 
@@ -167,7 +172,7 @@ router.post('/PO/postjob', (req, res) => {
         
         // If a job with the same jobId exists, return an error
         if (rows.length > 0) {
-            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists",po})
+            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists",po,profile})
             return;
         }
 
@@ -180,7 +185,7 @@ router.post('/PO/postjob', (req, res) => {
                 console.error("Error inserting job:", err);
                 res.status(500).send("Error adding job");
             } else {
-                res.render('PO/po-postJobs/po-postJobs',{po})
+                res.render('PO/po-postJobs/po-postJobs',{po,profile})
             }
         });
     });
@@ -206,13 +211,14 @@ const fetchListedJobs = (institute) => {
 // Define a route to handle requests for fetching listed jobs
 router.get('/po/listedjobs', async (req, res) => {
     po = getPo()
+    const profile = `/images/${po.photo}`
     try {
         institute = po.institute
         // Fetch listed jobs using async/await
         const jobs = await fetchListedJobs(institute);
 
         // Render the HTML template with the fetched jobs data
-        res.render('PO/po-listedJobs/po-listedJobs', { jobs,po });
+        res.render('PO/po-listedJobs/po-listedJobs', { jobs,po,profile });
     } catch (error) {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
@@ -225,12 +231,13 @@ router.get('/po/studentlist', async (req, res) => {
         
         // Fetch PO details
         const po = getPo();
+        const profile = `/images/${po.photo}`
         const institute = po.institute;
 
         // Fetch students belonging to the institute
         const students = await getStudentsByInstitute(institute);
         
-        res.render('PO/po-studentList/po-studentList', { po, students }); // Pass students data and approved jobs data to the view
+        res.render('PO/po-studentList/po-studentList', { po, students, profile }); // Pass students data and approved jobs data to the view
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
@@ -307,10 +314,11 @@ const fetchPendingJobs = (institute) =>{
 
 router.get('/po/approveJobs', async (req,res)=>{
     po = getPo()
+    const profile = `/images/${po.photo}`
     try{
         institute = po.institute
         const jobs = await fetchPendingJobs(institute);
-        res.render('PO/po-approveJobs/po-approveJobs',{jobs,po})
+        res.render('PO/po-approveJobs/po-approveJobs',{jobs,po,profile})
     }catch(error){
         console.error("Error fetching listed jobs : ", error);
         res.status(500).send('Internal Server Error');
@@ -354,10 +362,11 @@ const fetchJob = (jobId) =>{
 
 router.get('/po/editJob/:jobId', async(req,res)=>{
     const po = getPo()
+    const profile = `/images/${po.photo}`
     const jobId = req.params.jobId
     const job = await fetchJob(jobId)
     console.log(job)
-    res.render('PO/po-approveJobs/poJobEdit/poJobEdit',{job,po})
+    res.render('PO/po-approveJobs/poJobEdit/poJobEdit',{job,po,profile})
 })
 
 router.post('/po/editJob',(req,res)=>{

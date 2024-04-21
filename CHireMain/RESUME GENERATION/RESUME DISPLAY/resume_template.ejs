@@ -7,7 +7,7 @@
     <!-- <link rel="stylesheet" href="resume_template.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
-    <title>CV</title>
+    <title>Resume</title>
 </head>
 <body>
     <div id="header">
@@ -23,7 +23,7 @@
             <div id="cv-left">
                 <div id="section">
                     <h2>profile</h2>
-                    <p>A motivated and detail-oriented technical student currently pursuing B.Tech with a passion for [mention your area of interest or specialization]. Equipped with strong academic background in [mention relevant courses or subjects you've excelled in, e.g., programming languages, algorithms, etc.], I am eager to apply my theoretical knowledge to real-world challenges.</p>
+                    <p>A motivated and detail-oriented technical student currently pursuing B.Tech with a passion for <%= student.department %>. Equipped with strong academic background in <%= skill1 %> & <%= skill2 %>, I am eager to apply my theoretical knowledge to real-world challenges.</p>
                 </div>
                 <div id="section" >
                     <h2>projects and experiences</h2>
@@ -104,14 +104,6 @@
                         <% }); %>
                     </ul>
                 </div>
-                <!-- <div id="section">
-                    <h2>Languages</h2>
-                    <ul>
-                        <li>English</li>
-                        <li>Malayalam(native)</li>
-                        <li>Tamil</li>
-                    </ul>
-                </div> -->
                 <div id="section">
                     <h2>hobbies and interests</h2>
                     <ul>
@@ -124,7 +116,7 @@
                     <h2>Contact</h2>
                     <div class="contact-icons">
                         <i class="fa-solid fa-envelope"></i>
-                        <p><%= student.mail %></p>
+                        <p><%= student.email %></p>
                 </div>
                 <div class="contact-icons">
                     <i class="fa-solid fa-phone"></i>
@@ -137,8 +129,10 @@
                 </div>
                 <!-- PORTFOLIO WEBSITE LINK -->
                 <div class="contact-icons">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <p><%= locals.details.portfolio %></p>
+                    <% if (details.portfolio) { %>
+                        <i class="fa-solid fa-user-tie"></i>
+                        <p><%= locals.details.portfolio %></p>
+                    <% } %>
                 </div>
                 <div class="contact-icons">
                     <i class="fa-solid fa-location-dot"></i>

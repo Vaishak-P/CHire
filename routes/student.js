@@ -191,11 +191,14 @@ router.post('/resume/form',(req,res)=>{
     const profile = `/images/${student.photo}`
     const softskillsArray = JSON.parse(student.softskills);
     const hardskillsArray = JSON.parse(student.hardskills);
+    const skill1 = hardskillsArray[0]
+    const skill2 = hardskillsArray[1]
     console.log(softskillsArray, hardskillsArray)
+    console.log(skill1,skill2)
     hobbies = details.hobbies
     res.render('RESUME GENERATION/RESUME DISPLAY/resume_show',{student,profile})
     router.get('/resume_template.html',(req,res)=>{
-        res.render('RESUME GENERATION/RESUME DISPLAY/resume_template',{student,profile, softskillsArray, hardskillsArray, hobbies: hobbies, details})
+        res.render('RESUME GENERATION/RESUME DISPLAY/resume_template',{student,profile, softskillsArray, hardskillsArray, hobbies: hobbies, details, skill1, skill2})
     })
 })
 

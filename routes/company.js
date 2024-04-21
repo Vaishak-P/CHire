@@ -99,17 +99,20 @@ router.post('/register/company', (req, res) => {
 
 router.get('/comp/dashboard',(req,res)=>{
     let comp = getComp()
-    res.render('RC/rc-dashboard/rc-dashboard',{comp})
+    const profile = `/images/${comp.photo}`
+    res.render('RC/rc-dashboard/rc-dashboard',{comp,profile})
 })
 
 router.get('/comp/edit',(req,res)=>{
     let comp =getComp()
-    res.render('RC/rc-dashboard/rcInfoEdit/rcInfoEdit',{comp})
+    const profile = `/images/${comp.photo}`
+    res.render('RC/rc-dashboard/rcInfoEdit/rcInfoEdit',{comp,profile})
 })
 
 // Route to handle form submission and update user's data
 router.post('/edit/comp', (req, res) => {
     let comp = getComp();
+    const profile = `/images/${comp.photo}`
     const userId = comp.id;
     const { companyName, email, contactName, phone, contactEmail, companyUrl, address1, address2, address3, state, district, password } = req.body;
     const query = 'UPDATE company SET name = ?, email = ?, contactName = ?, phone = ?, contactEmail = ?, url = ?, address1 = ?, address2 = ?, address3 = ?, state = ?, district = ?, password = ? WHERE id = ?';
@@ -139,7 +142,7 @@ router.post('/edit/comp', (req, res) => {
             }
             setComp(results[0])
             comp = getComp()
-            res.render('RC/rc-dashboard/rc-dashboard',{comp})
+            res.render('RC/rc-dashboard/rc-dashboard',{comp,profile})
         });
         
     });
@@ -162,10 +165,11 @@ async function getInstituteList() {
 router.get('/comp/postjobs', async (req, res) => {
     try {
         let comp = getComp();
+        const profile = `/images/${comp.photo}`
         let instituteList = await getInstituteList(); // Fetching institute list asynchronously
         // Extracting institute names from the result array
         const institutes = instituteList.map(row => row.institute);
-        res.render('RC/rc-postJobs/rc-postJobs', { comp, institutes });
+        res.render('RC/rc-postJobs/rc-postJobs', { comp, institutes, profile });
     } catch (error) {
         // Handle error
         console.error("Error fetching institute list:", error);
@@ -175,8 +179,8 @@ router.get('/comp/postjobs', async (req, res) => {
 
 router.post('/comp/postjob', async (req, res) => {
     try {
-        console.log(req.body)
         let comp = getComp();
+        const profile = `/images/${comp.photo}`
         const { jobId, jobPost, qualification, institute, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
         const companyName = comp.name;
 
@@ -198,7 +202,7 @@ router.post('/comp/postjob', async (req, res) => {
                 // Extract institute names from the result array
                 const institutes = instituteList.map(row => row.institute);
 
-                res.render('RC/rc-postJobs/rc-postJobs', { error:'Job with the same jobId already exists', comp, institutes });
+                res.render('RC/rc-postJobs/rc-postJobs', { error:'Job with the same jobId already exists', comp, institutes, profile });
                 return;
             }
 
@@ -241,11 +245,12 @@ const fetchListedJobs = (company) => {
 // Define a route to handle requests for fetching listed jobs
 router.get('/comp/listedjobs', async (req, res) => {
     comp = getComp()
+    const profile = `/images/${comp.photo}`
     try {
         company = comp.name
         // Fetch listed jobs using async/await
         const jobs = await fetchListedJobs(company);
-        res.render('RC/rc-listedJobs/rc-listedJobs', { jobs,comp });
+        res.render('RC/rc-listedJobs/rc-listedJobs', { jobs,comp,profile });
     } catch (error) {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
@@ -272,6 +277,7 @@ router.get('/comp/appliedStudentList', async (req, res) => {
         
         // Fetch PO details
         const comp = getComp();
+        const profile = `/images/${comp.photo}`
         const company = comp.name;
 
         // Fetch students belonging to the institute
@@ -280,7 +286,7 @@ router.get('/comp/appliedStudentList', async (req, res) => {
         // Extracting institute names from the result array
         const institutes = instituteList.map(row => row.institute);
         
-        res.render('RC/rc-studentList/rc-studentList', { comp, students, institutes }); // Pass students data and approved jobs data to the view
+        res.render('RC/rc-studentList/rc-studentList', { profile, comp, students, institutes }); // Pass students data and approved jobs data to the view
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
@@ -308,29 +314,5 @@ router.post('/comp/filterStudents',(req,res)=>{
       }
     });
 })
-
-// router.post('/comp/filterStudents',async(req,res)=>{
-//     let comp = getComp()
-//     let company  = comp.name
-//     let institute = req.body.institute
-//     console.log(req.body)
-//     // Convert company to JSON array with a single element
-//     const companyJSON = JSON.stringify([company]);
-
-//     // Construct SQL query based on selected options
-//     let query = 'SELECT * FROM student WHERE institute = ? AND JSON_CONTAINS(appliedJobs, ?)';
-
-//     // Execute the SQL query
-//     mysqlConnection.query(query, [institute,companyJSON], (err, results) => {
-//         console.log(query,institute,companyJSON)
-//       if (err) {
-//         console.error('Error executing query:', err);
-//         res.status(500).json({ error: 'An error occurred while fetching data.' });
-//       } else {
-//         console.log(results)
-//         res.send('filtered successfully')
-//       }
-//     });
-// })
 
 module.exports = router

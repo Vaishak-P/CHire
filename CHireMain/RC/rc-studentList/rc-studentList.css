@@ -121,21 +121,17 @@ main-body{
     left: 0;
     position: fixed;
 }
-/* .dp{
+.dp{
     margin: 30px;
-    width: 100px;
+    width: 100px; /* Adjust width and height to set the size of the circle */
     height: 100px;
-    border-radius: 50%; 
-    overflow: hidden; 
+    border-radius: 50%; /* Make it circular */
+    overflow: hidden; /* Clip the content to the circle */
     border: 2px solid #ccc;
-} */
-.dp img{
-    color: var(--bg-color);
-    font-size: 10px;
-    width: 130px;
-    height: 130px;
-    display: grid; place-items: center;
-    margin: 30px 0px;
+}.dp img{
+    width: 100%; /* Make the image fill the container */
+    height: 100%;
+    object-fit: cover;
 }
 .lmenu-items-icon i{
     color: var(--bg-color);
