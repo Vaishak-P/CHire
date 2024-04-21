@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resume_template.css">
+    <link rel="stylesheet" href="\RESUME GENERATION\RESUME DISPLAY\resume_template.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <title>CV</title>
 </head>
 <body>
     <div id="header">
-        <img src="download.png" alt="Your Photo">
+        <img src="<%= locals.profile %>" alt="Your Photo">
         <div id="cv-head">
-            <h1>akshay</h1>
-            <h2>Technical Student</h2>
+            <h1><%= student.name %></h1>
+            <!-- <h2>Technical Student</h2> -->
         </div>
     </div>
    
@@ -22,7 +22,7 @@
             <div id="cv-left">
                 <div id="section">
                     <h2>profile</h2>
-                    <p>A motivated and detail-oriented technical student currently pursuing [your degree program] with a passion for [mention your area of interest or specialization]. Equipped with strong academic background in [mention relevant courses or subjects you've excelled in, e.g., programming languages, algorithms, etc.], I am eager to apply my theoretical knowledge to real-world challenges.</p>
+                    <p>A motivated and detail-oriented technical student currently pursuing B.Tech with a passion for [mention your area of interest or specialization]. Equipped with strong academic background in [mention relevant courses or subjects you've excelled in, e.g., programming languages, algorithms, etc.], I am eager to apply my theoretical knowledge to real-world challenges.</p>
                 </div>
                 <div id="section" >
                     <h2>projects and experiences</h2>
@@ -31,19 +31,19 @@
                     </ul> -->
                     <ul>
                         <li class="project-li">
-                            <h5>heading1</h5>
-                            <p>description</p>
+                            <h5><%= details.project1 %></h5>
+                            <p><%= details.despro1 %></p>
                         </li>
                         <li class="project-li">
-                            <h5>heading2</h5>
-                            <p>description</p>
+                            <h5><%= locals.details.project2 %></h5>
+                            <p><%= locals.details.despro2 %></p>
                         </li>
                     </ul>
                 </div>
                 <div id="section">
-                    <h2>achievements</h2>
+                    <h2>Achievements</h2>
                     <ul>
-                        <li>Obtained first position for project presentation held @iit Madrass</li>
+                        <li><%= details.Achievements %></li>
                     </ul>
                 </div>
                 <!-- <div id="section">
@@ -55,16 +55,16 @@
                     <h2>educational info</h2>
                     <ul>
                         <li>
-                            <h5>Bachelor of Information Technology : 2020-24 :70%</h5>
-                            <p>Government Engineering College Idukki</p>
+                            <h5>Bachelor of Information Technology : 2020-24 :<%= student.cgpa %>%</h5>
+                            <p><%= student.institute %></p>
                         </li>
                         <li>
-                            <h5>HSE: 2018-20  :  95%</h5>
-                            <p>SOHSS Areekode</p>
+                            <h5>HSE: <%= details.hseyear %>  :  <%= details.hseper %>%</h5>
+                            <p><%= details.hseinstitute %></p>
                         </li>
                         <li>
-                            <h5>SSLC: 2017-18 : 95%</h5>
-                            <p>SOHSS Areekode</p>
+                            <h5>SSLC: <%= details.sslcyear %> : <%= details.sslcper %>%</h5>
+                            <p><%= details.sslcinstitute %></p>
                         </li>
                 </div>
 
@@ -90,21 +90,17 @@
                 <div id="section">
                     <h2>Technical Skills</h2>
                     <ul>
-                        <li>python</li>
-                        <li>Java</li>
-                        <li>C</li>
-                        <li>C++</li>
-                        <li>Web app development</li>
-                        <li>Mobile app development</li>
+                        <% hardskillsArray.forEach(item => { %>
+                            <li><%= item %></li>
+                        <% }); %>
                     </ul>
                 </div>
                 <div id="section">
                     <h2>soft skills</h2>
                     <ul>
-                        <li>Leadership</li>
-                        <li>Adaptability</li>
-                        <li>Good communication</li>
-                        <li>Team Work</li>
+                        <% softskillsArray.forEach(item => { %>
+                            <li><%= item %></li>
+                        <% }); %>
                     </ul>
                 </div>
                 <!-- <div id="section">
@@ -118,34 +114,36 @@
                 <div id="section">
                     <h2>hobbies and interests</h2>
                     <ul>
-                        <li>Reading</li>
-                        <li>Listening to music</li>
-                        <li>Dancing</li>
+                        <% hobbies.forEach(item => { %>
+                            <li><%= item %></li>
+                        <% }); %>
                     </ul>
                 </div>
                 <div class="contact">
                     <h2>Contact</h2>
                     <div class="contact-icons">
                         <i class="fa-solid fa-envelope"></i>
-                        <p>your.email@example.com</p>
+                        <p><%= student.mail %></p>
                 </div>
                 <div class="contact-icons">
                     <i class="fa-solid fa-phone"></i>
-                    <p>+1 (123) 456-7890</p>
+                    <p><%= student.phone %></p>
                 </div>
                 <!-- LINKEDIN -->
                 <div class="contact-icons">
                     <i class="fa-brands fa-linkedin-in"></i>
-                    <p>linkedin.com/in/yourname</p>
+                    <p><%= details.linkedin %></p>
                 </div>
                 <!-- PORTFOLIO WEBSITE LINK -->
                 <div class="contact-icons">
                     <i class="fa-solid fa-user-tie"></i>
-                    <p>yourportfolio.com</p>
+                    <p><%= locals.details.portfolio %></p>
                 </div>
                 <div class="contact-icons">
                     <i class="fa-solid fa-user-tie"></i>
-                    <p>Puthusseri(H),maithra(po) Areekode</p>
+                    <p><%= student.address1 %></p>
+                    <p><%= student.address2 %></p>
+                <p><%= student.address3 %></p>
                 </div>
         </div>
     </div>

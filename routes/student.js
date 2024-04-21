@@ -128,16 +128,6 @@ router.post('/register/student', (req, res) => {
     );
 });
 
-
-// router.get('/student/dashboard',(req,res)=>{
-//     const student = getStudent();
-//     //Parse JSON strings into JavaScript objects
-//     const softskillsArray = JSON.parse(student.softskills);
-//     const hardskillsArray = JSON.parse(student.hardskills);
-//     const profile = `/images/${student.photo}`
-//     res.render('std-dashboard/std-dashboard', {userName:student.name,cgpa:student.cgpa,test:student.mocktest_score,fluency:student.fluency_score,internships:student.internships,phn:student.phone,mail:student.email,address1:student.address1,address2:student.address2,address3:student.address3,total:student.total,hard:hardskillsArray,soft:softskillsArray,institute:student.institute,year:student.ugyear,profile:profile });
-// })
-
 router.get('/student/dashboard', async (req, res) => {
     try {
         const student = getStudent();
@@ -172,14 +162,41 @@ function executeQuery(sql, params) {
     });
 }
 
-router.get('/student/cv', (req, res) => {
+router.get('/student/resume', (req, res) => {
     const student = getStudent();
     const profile = `/images/${student.photo}`
-    res.render("cv-gen/cv-gen", { profile: profile })
+    res.render("RESUME GENERATION/RESUME INTRODUCTION/resume_ntroduction", { student, profile })
 })
 
-router.get('/cv-template', (req, res) => {
-    res.render("cv-gen/cv-template")
+// router.get('/resume',(req,res)=>{
+//     const student = getStudent();
+//     const profile = `/images/${student.photo}`
+//     res.render('RESUME GENERATION/RESUME DISPLAY/resume_show',{student,profile})
+//     router.get('/resume_template.html',(req,res)=>{
+//         res.render('RESUME GENERATION/RESUME DISPLAY/resume_template',{student})
+//     })
+// })
+
+router.get('/resume/form',(req,res)=>{
+    const student = getStudent()
+    const profile = `/images/${student.photo}`
+    res.render("RESUME GENERATION/RESUME FORM/resume_form",{student, profile})
+})
+
+router.post('/resume/form',(req,res)=>{
+    console.log(req.body)
+    const details = req.body
+    // const {project1, despro1, project2, despro2, project3, despro3, project4, despro4, Achievements, sslcinstitute, sslcyear, sslcper, hseinstitute, hseyear, hseper, hobbies, linkedin, portfolio} = req.body
+    const student = getStudent()
+    const profile = `/images/${student.photo}`
+    const softskillsArray = JSON.parse(student.softskills);
+    const hardskillsArray = JSON.parse(student.hardskills);
+    console.log(softskillsArray, hardskillsArray)
+    hobbies = details.hobbies
+    res.render('RESUME GENERATION/RESUME DISPLAY/resume_show',{student,profile})
+    router.get('/resume_template.html',(req,res)=>{
+        res.render('RESUME GENERATION/RESUME DISPLAY/resume_template',{student,profile, softskillsArray, hardskillsArray, hobbies: hobbies, details})
+    })
 })
 
 router.get('/student/mocktest', (req, res) => {

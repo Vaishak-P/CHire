@@ -5,8 +5,8 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHiret</title>
             <!-- ALERT -->
-            <link rel="stylesheet" href="resume_show.css">
-            <!-- <link rel="stylesheet" href="\CV GENERATION\CV_introduction\RESUME FORM\resume_form.css"> -->
+            <!-- <link rel="stylesheet" href="resume_show.css"> -->
+            <link rel="stylesheet" href="\RESUME GENERATION\RESUME DISPLAY\resume_show.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,8 +20,7 @@
             <!-- NAVIGATION -->
                 <nav>
                     <div class="list">
-                        <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
-                        <a href="">Student: <%= userName %></a>
+                        <a href="">Student: <%= student.name %></a>
                         <!-- <a href="">Home</a> -->
                         <!-- <a href="">About US</a> -->
                         <!-- <a href="">Listed Jobs</a> -->
@@ -40,7 +39,7 @@
                 <!-- LEFT SECTION OF PAGE  -->
                 <section class="lmenu">
                     <div class="dp">
-                        <img src="logo.png" alt="error">
+                        <img src="<%= locals.profile %>" alt="error">
                     </div>
                     <div class="lmenu-items-con">
                         <!-- <div class="lmenu-items-icon">
@@ -54,7 +53,7 @@
                             <li><a class="d" href="/student/dashboard">Dashboard</a></li>
                             <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
                             <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
-                            <li><a class="cv" href="/student/cv">CV Generation</a></li>
+                            <li><a class="cv" href="/student/resume">Create Resume</a></li>
                             <li><a class="l" href="/LOGOUT">Logout</a></li>
                         </div>
                     </div>
@@ -75,7 +74,7 @@
                     <button id="printButton" onclick="printIframe()">Print</button>
                 </div>
                 <div class="resume-template">
-                    <iframe id="myIframe" src="resume_template.html" width="100%" height="100%" frameborder="0"></iframe>
+                    <iframe id="myIframe" src="/resume_template.html" width="100%" height="100%" frameborder="0"></iframe>
                 </div>
                 
             </div>
