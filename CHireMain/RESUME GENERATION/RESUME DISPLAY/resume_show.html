@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>CleverHiret</title>
+            <!-- ALERT -->
+            <link rel="stylesheet" href="resume_show.css">
+            <!-- <link rel="stylesheet" href="\CV GENERATION\CV_introduction\RESUME FORM\resume_form.css"> -->
+            <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+            <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </head>
+        <body id="body">
+            <div class="topMenu">
+                <div class="cleverhire">
+                    <p><a href="/index.html">CleverHire</a></p>
+                </div>
+            
+            <!-- NAVIGATION -->
+                <nav>
+                    <div class="list">
+                        <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
+                        <a href="">Student: <%= userName %></a>
+                        <!-- <a href="">Home</a> -->
+                        <!-- <a href="">About US</a> -->
+                        <!-- <a href="">Listed Jobs</a> -->
+                        <!-- <a href="">Contact</a> -->
+                    </div>
+                    <div class="soc-icon">
+                        <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href=""><i class="fa-brands fa-facebook"></i></a>
+                        <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </nav>
+        
+            </div>
+            <div class="main-body">
+                <!-- LEFT SECTION OF PAGE  -->
+                <section class="lmenu">
+                    <div class="dp">
+                        <img src="logo.png" alt="error">
+                    </div>
+                    <div class="lmenu-items-con">
+                        <!-- <div class="lmenu-items-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                             <i class="fa-solid fa-chart-line"></i>
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <i class="fa-solid fa-people-group"></i>
+        
+                        </div> -->
+                        <div class="lmenu-items">
+                            <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                            <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
+                            <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
+                            <li><a class="cv" href="/student/cv">CV Generation</a></li>
+                            <li><a class="l" href="/LOGOUT">Logout</a></li>
+                        </div>
+                    </div>
+                </section>
+        <!-- CENTRE SECTION OF PAGE -->
+       <!-- <div class="cmenu">
+            <section class="content">
+                <div class="container"> -->
+                    <!-- <div class="back">
+                        <a href=""> <p> < </p></a>
+                     </div> -->
+                    <!-- CENTRE SECTION OF PAGE -->
+       <div class="cmenu">
+        <div class="content">
+            <div class="resume-display-box">
+                <div class="resume-display-box-top">
+                    <h1>Your Resume</h1>
+                    <button id="printButton" onclick="printIframe()">Print</button>
+                </div>
+                <div class="resume-template">
+                    <iframe id="myIframe" src="resume_template.html" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        function printIframe() {
+            var iframe = document.getElementById('myIframe');
+            if (iframe) {
+                iframe.contentWindow.print();
+            }
+        }
+    </script>
+            </section>
+       </div>
+       
+</body>
+</html>
