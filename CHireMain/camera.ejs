@@ -3,43 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <title>Live Camera</title>
     <style>
-        #video-container {
-            width: 300px;
-            height: 300px;
-            border: 1px solid black;
-            margin-bottom: 20px;
-            position: relative;
+        /* CSS IS COMMENTED WELL, SO YOU CAN EASILY FIND ELEMENTS AND PROPERTIES */
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins',sans-serif;
+            box-sizing: border-box;
         }
-        #video-container video,
-        #video-container canvas,
-        #video-container img {
+        body{
+            font-family: poppins;
+            font-size: var(--h2);
+            background-color:var(--sec-color);
+                
+        }
+        :root{
+            --sec-color:#ffffff;
+            --bg-color:#BFCFE7;
+            --icon-color:#ffffff;
+            --pri-color:black;
+            --top-color:#575fd6;
+            --border-color:rgba(204, 204, 204, 0.5);
+            --h1:20px;
+            --h2:15px;
+        }
+        
+        
+        .content{
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            
+        }
+        
+        .head-camera{
+            /* background-color: var(--top-color); */
+            padding: 30px 30px 0px 30px;
+            border-radius: 40px;
+            box-shadow: 0 0 20px var(--border-color);
+        }
+        h1{
+            text-align: center;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            /* color: var(--sec-color); */
+            /* background-color: var(--top-color); */
+            /* width:max-content; */
+            
+        }
+        h1 span{
+            color: var(--top-color);
+        }
+        #warningMsg{
+            color: #575fd6;
+            display: none;
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--border-color);
+            animation: fadeToGrey 0.5s ease-in-out forwards infinite;
+        }
+        @keyframes fadeToGrey {
+            0% {
+                opacity: 1;
+                color: black; /* Start from black */
+            }
+            100% {
+                opacity: 0.7; /* Fade to a medium grey */
+                color: var(--top-color); /* You can adjust the target grey color here */
+            }
+        }
+        #video-container {
+            width: 500px;
+            height: 300px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px var(--border-color);
+            z-index:5
+        }
+        #video-container h5{
+            text-align: center;
+            
+        }
+        .btnContainer{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #capture-btn, #back{
+            border-radius: 20px;
+            border: 1px solid var(--bg-color);
+            box-shadow: var(--border-color) 0px 0px 10px;
+            /* display: block; */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            /* align-items: center; */
+            padding: 10px 15px;
+            margin: 0px 0 30px 0;
+            width: 200px;
+            text-align: center;
+            margin: 20px 10px;
+        }
+        #capture-btn {
+            background-color:var(--top-color);
+            color: var(--sec-color);
+        }
+        #capture-btn:hover ,#back:hover{
+            background-color: var(--pri-color);
+            color: var(--bg-color);
+            box-shadow: var(--top-color) 0px 0px 10px;
+        }
+        #back{
+            background-color: var(--sec-color);
+        }
+        .loader {
+            display: inline-flex;
+            gap: 10px;
+        }
+        .loader:before,.loader:after {
+            content: "";
+            height: 20px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background:radial-gradient(farthest-side,#000 95%,#0000) 35% 35%/6px 6px no-repeat#fff;
+            border: 2px solid black;
+            transform: scaleX(var(--s,1)) rotate(0deg);
+            animation: l6 1s infinite linear;
+        }
+        .loader:after {
+            --s: -1;
+            animation-delay:-0.1s;
+        }
+        @keyframes l6 {
+            100% {transform:scaleX(var(--s,1)) rotate(360deg);}
         }
     </style>
 </head>
 <body>
-    <h1>Live Camera</h1>
     
-    <div id="video-container">
-        <video id="video" autoplay playsinline></video>
-        <canvas id="canvas" style="display: none;"></canvas>
-        <h5 style="color: red;"><%= locals.error %></h5>
-        <img id="captured-image" src="" style="display: none;">
+    <div class="content">
+        <div class="head-camera">
+            <div class="heading">
+                <div class="loader"></div>
+                <h1>please <span>wait</span></h1>
+                <h2 id="warningMsg">Keep your face straight</h2>
+            </div>
+            <div id="video-container">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <h5 style="color: red;"><%= locals.error %></h5>
+                <img id="captured-image" src="" style="display: none;">
+            </div>
+            
+            <!-- Form for submitting the captured image -->
+        </div>
+        <form id="image-form" method="post" action="/save-image">
+            <input type="hidden" name="imageData" id="image-data">
+            <div class="btnContainer">
+                <button id="back">Go Back</button>
+                <button type="submit" id="capture-btn">Capture</button>
+            </div>
+        </form>
     </div>
-    
-    <!-- Form for submitting the captured image -->
-    <form id="image-form" method="post" action="/save-image">
-        <input type="hidden" name="imageData" id="image-data">
-        <button type="submit" id="capture-btn">Capture</button>
-    </form>
 
     <script>
+        // display the message after seconds 
+        function addFaceStraightDiv() {
+            const warning= document.getElementById('warningMsg');
+            setTimeout(() => {
+                warning.style.display='block';
+            }, 3000);
+        }
+        // Call the function to add the div
+        addFaceStraightDiv();
+
         // Get video stream from user's camera
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
@@ -71,6 +214,9 @@
             // Submit the form
             imageForm.submit();
         });
+
+        
+
     </script>
 </body>
 </html>
