@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleverHiret</title>
+    <title>CleverHire</title>
     <link rel="stylesheet" href="/std-dashboard/std-dashboard.css" type="text/css">
-    <!-- <link rel="stylesheet" href="std-dashboard.css"> -->
+    <link rel="stylesheet" href="std-dashboard.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,10 +19,11 @@
     <!-- NAVIGATION -->
         <nav>
             <div class="list">
-                <a href="">Home</a>
-                <a href="">About US</a>
-                <a href="">Listed Jobs</a>
-                <a href="">Contact</a>
+                <a href="">Student: <%= student.name %></a>
+                <!-- <a href="">Home</a> -->
+                <!-- <a href="">About US</a> -->
+                <!-- <a href="">Listed Jobs</a> -->
+                <!-- <a href="">Contact</a> -->
             </div>
             <div class="soc-icon">
                 <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
@@ -43,6 +44,7 @@
             <div class="lmenu-items-con">
                 <div class="lmenu-items">
                     <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                    <li><a class="ei" href="/student/editinfo">Edit Info</a></li>
                     <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
                     <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
                     <li><a class="cv" href="/student/resume">Create Resume</a></li>
@@ -56,141 +58,26 @@
                 <div class="dashboard" id="dashboard">
                     <div class="dash-top">
                         <div class="stud-title">
-                            <div class="stud-name">Welcome <%= userName %> </div>
+                            <h1 class="welcome">Welcome </h1>
+                            <h1 class="stud-name"><%= userName %> </h1>
                         </div>
                         <div class="score">
                            <h1><%= total %></h1>
                         </div>
-                        <div class="myChart">
+                        <!-- <div class="myChart">
                             
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="both-info">
                     <div class="stud-info">
-                        <!-- STUDENT ACADEMIC INFO -->
-                        <div class="stud-aca-info">
-                            <div class="info-top">
-                                <div class="aca-info-title">
-                                    <h5 style="color: white;">Academic Info</h5>
-                                </div>
-                            </div>
-                            <div class="infoFetchContainer">
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Institute</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.institute %></h6>
-                                        <h6><%= locals.district %></h6>
-                                        <h6><%= locals.state %></h6>
-                                        <h6><%= locals.country %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Year of Study</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.year %></h6>
-                                    </div>
-                                
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Current CGPA</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= cgpa %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Number of backlogs</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.backlog %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>mock test score</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= test %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>mock interview score</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= fluency %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>internships</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= internships %></h6>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Soft Skills</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.soft %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Hard Skills</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.hard %></h6>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="info-top">
+                            <h5 id="heading">Matching Jobs</h5>
                         </div>
-                        <!-- STUDENT PERSONAL INFO -->
-                        <div class="stud-per-info">
-                            <div class="info-top">
-                                <div class="per-info-title">
-                                    <h5 style="color: white;">Personal Info</h5>
-                                </div>
-                            </div>
-                            <div class="infoFetchContainer">
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Address</h6>
-                                    </div>
-                                    <div class="value">
-                                        <!-- FOR 3 ADDRESS LINE -->
-                                        <h6><%= address1 %></h6>
-                                        <h6><%= address2 %></h6>
-                                        <h6><%= address3 %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>email</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= mail %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>phone</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= phn %></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="match-job-list">
+                            <% jobs.forEach(job => { %>
+                                <li><a href=""><%= `${job.jobId} - ${job.company} - ${job.post}`  %></a></li>
+                            <% }); %>
                     </div>
                 </div>
             </section>
@@ -199,15 +86,133 @@
                 <div class="rmenu">
                     <!-- MATCHING JOBS  -->
                     <div class="anno">
-                        <div class="anno-top">
-                            <h5>Matching Jobs</h5>
-                        </div>
-                        <div class="anno-list">
-                            <% jobs.forEach(job => { %>
-                                <li><a href=""><%= `${job.jobId} - ${job.company} - ${job.post}`  %></a></li>
-                            <% }); %>
+                        
+                            <div class="stud-info">
+                                <div class="info-top">
+                                    <div class="aca-info-title">
+                                        <h5 id="heading">Academic Info</h5>
+                                    </div>
+                                </div>
+                                <div class="infoFetchContainer">
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Institute</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.institute %></h6>
+                                            <h6><%= locals.district %></h6>
+                                            <h6><%= locals.state %></h6>
+                                            <h6><%= locals.country %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Year of Study</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.year %></h6>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Current CGPA</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= cgpa %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Number of backlogs</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.backlog %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>mock test score</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= test %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>mock interview score</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= fluency %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>internships</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= internships %></h6>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Soft Skills</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.soft %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Hard Skills</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.hard %></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- STUDENT PERSONAL INFO -->
+                            <div class="stud-info">
+                                <div class="info-top">
+                                    <div class="per-info-title">
+                                        <h5 id="heading">Personal Info</h5>
+                                    </div>
+                                </div>
+                                <div class="infoFetchContainer">
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Address</h6>
+                                        </div>
+                                        <div class="value">
+                                            <!-- FOR 3 ADDRESS LINE -->
+                                            <h6><%= address1 %></h6>
+                                            <h6><%= address2 %></h6>
+                                            <h6><%= address3 %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>email</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= mail %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>phone</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= phn %></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
             </section>
         </div>
