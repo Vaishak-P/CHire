@@ -5,7 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHire</title>
             <link rel="stylesheet" href="\std-dashboard\stdInfoEdit\stdInfoEdit.css">
-            <link rel="stylesheet" href="stdInfoEdit.css">
+            <!-- <link rel="stylesheet" href="stdInfoEdit.css"> -->
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -63,42 +63,42 @@
                 <div class="cmenu" id="cmenu">
                     <section class="content">
                         <!-- FORM SECTION  -->
-                        <form onsubmit="onSubmit()" action="/edit/po" method="post">
+                        <form onsubmit="onSubmit()" action="/edit/student" method="post">
                             <!-- BACK BUTTON -->
                             <div class="back">
-                                <a onclick="window.location.href='/student/resume'"> <p> < </p></a>
+                                <a onclick="window.location.href='/student/dashboard'"> <p> < </p></a>
                             </div>
                             <h2>Edit your informations</h2>
                             <div class="formSection">
                                 <div class="formSection1">
                                     <label for="name">Full Name:</label>
-                                    <input type="text" id="name" name="name" required>
-                        
-                                    <label for="dob">Date of Birth:</label>
-                                    <input type="date" id="dob" name="dob" required>
+                                    <input type="text" id="name" name="name" value="<%= student.name %>">
                         
                                     <label for="phone">Phone Number:</label>
-                                    <input type="tel" id="tel" name="phone">
+                                    <input type="tel" id="tel" name="phone" value="<%= student.phone %>">
                         
                                     <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email" required>
+                                    <input type="email" id="email" name="email" value="<%= student.email %>">
                                     <label for="address">Address Line 1:</label>
-                                    <input type="text" id="address1" name="address1" required>
+                                    <input type="text" id="address1" name="address1" value="<%= student.address1 %>">
                                     <label for="address">Address Line 2:</label>
-                                    <input type="text" id="address2" name="address2" required>
+                                    <input type="text" id="address2" name="address2" value="<%= student.address2 %>">
                                     <label for="address">Address Line 3:</label>
-                                    <input type="text" id="address3" name="address3">
+                                    <input type="text" id="address3" name="address3" value="<%= student.address3 %>">
 
                                     <label for="country">Country</label>
                                     <select name="country" id="country">
                                         <option value="India" selected>India</option>
                                     </select>
-
+                                
+                                </div>
+                                <div class="formSection2">
+                                    
                                     <label for="state">State</label>
                                     <select id="states" name="state">
                                         <!-- <option value="" disabled selected>Select a state</option> -->
                                         <option value="Kerala" selected>Kerala</option>
-                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                        <!-- <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                                         <option value="Andhra Pradesh">Andhra Pradesh</option>
                                         <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                                         <option value="Assam">Assam</option>
@@ -133,39 +133,33 @@
                                         <option value="Tripura">Tripura</option>
                                         <option value="Uttar Pradesh">Uttar Pradesh</option>
                                         <option value="Uttarakhand">Uttarakhand</option>
-                                        <option value="West Bengal">West Bengal</option>
+                                        <option value="West Bengal">West Bengal</option> -->
                                     </select>
 
                                     <label for="district">District</label>
                                     <select id="districts" name="district">
-                                        <option value="" disabled selected>Select a district</option>
-                                        <option value="Alappuzha">Alappuzha</option>
-                                        <option value="Ernakulam">Ernakulam</option>
-                                        <option value="Idukki">Idukki</option>
-                                        <option value="Kannur">Kannur</option>
-                                        <option value="Kasaragod">Kasaragod</option>
-                                        <option value="Kollam">Kollam</option>
-                                        <option value="Kottayam">Kottayam</option>
-                                        <option value="Kozhikode">Kozhikode</option>
-                                        <option value="Malappuram">Malappuram</option>
-                                        <option value="Palakkad">Palakkad</option>
-                                        <option value="Pathanamthitta">Pathanamthitta</option>
-                                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                                        <option value="Thrissur">Thrissur</option>
-                                        <option value="Wayanad">Wayanad</option>
+                                        <option value="Alappuzha" <%= student.district === 'Alappuzha' ? 'selected' : '' %>>Alappuzha</option>
+                                            <option value="Ernakulam" <%= student.district === 'Ernakulam' ? 'selected' : '' %>>Ernakulam</option>
+                                            <option value="Idukki" <%= student.district === 'Idukki' ? 'selected' : '' %>>Idukki</option>
+                                            <option value="Kannur" <%= student.district === 'Kannur' ? 'selected' : '' %>>Kannur</option>
+                                            <option value="Kasaragod" <%= student.district === 'Kasaragod' ? 'selected' : '' %>>Kasaragod</option>
+                                            <option value="Kollam" <%= student.district === 'Kollam' ? 'selected' : '' %>>Kollam</option>
+                                            <option value="Kottayam" <%= student.district === 'Kottayam' ? 'selected' : '' %>>Kottayam</option>
+                                            <option value="Kozhikode" <%= student.district === 'Kozhikode' ? 'selected' : '' %>>Kozhikode</option>
+                                            <option value="Malappuram" <%= student.district === 'Malappuram' ? 'selected' : '' %>>Malappuram</option>
+                                            <option value="Palakkad" <%= student.district === 'Palakkad' ? 'selected' : '' %>>Palakkad</option>
+                                            <option value="Pathanamthitta" <%= student.district === 'Pathanamthitta' ? 'selected' : '' %>>Pathanamthitta</option>
+                                            <option value="Thiruvananthapuram" <%= student.district === 'Thiruvananthapuram' ? 'selected' : '' %>>Thiruvananthapuram</option>
+                                            <option value="Thrissur" <%= student.district === 'Thrissur' ? 'selected' : '' %>>Thrissur</option>
+                                            <option value="Wayanad" <%= student.district === 'Wayanad' ? 'selected' : '' %>>Wayanad</option>
                                     </select>
 
-                                    <label for="photo">Upload Photo:</label>
-                                    <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*">
-                                
-                                </div>
-                                <div class="formSection2">
-                                    <label for="college">Educational Institute</label>
+                                    <!-- <label for="college">Educational Institute</label>
                                     <select id="college" name="institute">
                                         <option value="" disabled selected>Select your institute</option>
-                                    </select>
+                                    </select> -->
                                     
-                                    <label for="college">Department</label>
+                                    <!-- <label for="college">Department</label>
                                     <select id="department" name="department">
                                         <option value="" disabled selected>Select Department</option>
                                         <option value="Computer Science & Engineering">Computer Science & Engineering</option>
@@ -174,37 +168,39 @@
                                         <option value="Civil Engineering">Civil Engineering</option>
                                         <option value="Electrical & Electronics Engineering">Electrical & Electronics Engineering</option>
                                         <option value="Information Technology">Information Technology</option>
-                                    </select>
+                                    </select> -->
 
                                     <label for="cgpa">CGPA:</label>
-                                    <input type="text" id="cgpa" name="cgpa" placeholder="Enter your current CGPA" required>
+                                    <input type="text" id="cgpa" name="cgpa" placeholder="Enter your current CGPA" value="<%= student.cgpa %>">
 
                                     <label for="backlog">Number of backlogs</label>
-                                    <input type="text" name="backlog" id="backlog" required>
+                                    <input type="text" name="backlog" id="backlog" value="<%= student.backlog %>">
 
                                     <label for="ugyear">Year of study:</label>
                                     <select name="ugyear" id="ugyear">
-                                        <option value="" disabled selected>Select your year</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
+                                        <option value="1" <%= student.ugyear === 1 ? 'selected' : '' %>>1</option>
+                                        <option value="2" <%= student.ugyear === 2 ? 'selected' : '' %>>2</option>
+                                        <option value="3" <%= student.ugyear === 3 ? 'selected' : '' %>>3</option>
+                                        <option value="4" <%= student.ugyear === 4 ? 'selected' : '' %>>4</option>
                                     </select>
-
+<!-- 
                                     <label for="internships">Internships:</label>
-                                    <input type="text" id="internships" name="internships" placeholder="Type the name of the companies">
+                                    <input type="text" id="internships" name="internships" placeholder="Type the name of the companies"> -->
 
-                                    <label for="softskills">Soft Skills:</label>
+                                    <!-- <label for="softskills">Soft Skills:</label>
                                     <input type="text" id="softSkillsInput" placeholder="Type a skill and press Enter">
                                     <div id="softSkillsContainer" class="skills-container"></div>
                         
                                     <label for="hardSkills">Hard Skills:</label>
                                     <input type="text" id="hardSkillsInput" placeholder="Type a skill and press Enter">
-                                    <div id="hardSkillsContainer" class="skills-container"></div>
+                                    <div id="hardSkillsContainer" class="skills-container"></div> -->
+
+                                    <!-- <label for="photo">Upload Photo:</label>
+                                    <input type="file" class="abc" id="photoUpload" name="photo" accept="image/*"> -->
 
                                     <label for="password">Password:</label>
                                     <div class="passwordGroup">
-                                        <input type="password" id="passwordInput" placeholder="Enter Password">
+                                        <input type="password" id="passwordInput" value="<%= student.password %>" placeholder="Enter Password">
                                         <span class="eye-icon">
                                         <i class="fas fa-eye"></i>
                                         </span>
@@ -212,7 +208,7 @@
 
                                     <label for="confirmPassword">Confirm Password:</label>
                                     <div class="passwordGroup">
-                                        <input name="password" type="password" id="confirmPasswordInput" placeholder="Confirm Password">
+                                        <input name="password" type="password" id="confirmPasswordInput" value="<%= student.password %>" placeholder="Confirm Password">
                                         <span class="eye-icon">
                                         <i class="fas fa-eye"></i>
                                         </span>

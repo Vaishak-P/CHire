@@ -162,6 +162,49 @@ function executeQuery(sql, params) {
     });
 }
 
+router.get('/student/editinfo',(req,res)=>{
+    const student = getStudent()
+    const profile = `/images/${student.photo}`
+    res.render('std-dashboard/stdInfoEdit/stdInfoEdit',{student,profile})
+})
+
+router.post('/edit/student', (req, res) => {
+    let student = getStudent();
+    const profile = `/images/${student.photo}`
+    const userId = student.idstudent;
+    const { name, email, phone, address1, address2, address3, state, district, cgpa, backlog, ugyear, password } = req.body;
+    const query = 'UPDATE student SET name = ?, email = ?, phone = ?, address1 = ?, address2 = ?, address3 = ?, state = ?, district = ?, cgpa = ?, backlog = ?, ugyear = ?, password = ? WHERE idstudent = ?';
+  
+    mysqlConnection.query(query, [name, email, phone, address1, address2, address3,  state, district, cgpa, backlog, ugyear, password, userId], (err, results) => {
+      if (err) {
+        console.error('Error updating user:', err);
+        res.status(500).send('Error updating user');
+        return;
+      }
+        // Commit transaction if everything is successful
+        mysqlConnection.commit((err) => {
+            if (err) {
+                console.error('Error committing transaction: ', err);
+                mysqlConnection.rollback(() => {
+                    res.status(500).send('Internal Server Error');
+                });
+                return;
+            }
+        })
+        // Registration successful
+        mysqlConnection.query('SELECT * FROM student WHERE idstudent = ?', [userId],(err, results)=>{
+            if (err) {
+                console.error('Error executing query: ', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+            setStudent(results[0])
+            res.redirect('/student/dashboard')
+        });
+        
+    });
+});
+
 router.get('/student/resume', (req, res) => {
     const student = getStudent();
     const profile = `/images/${student.photo}`
@@ -193,14 +236,14 @@ router.post('/resume/form',(req,res)=>{
     })
 })
 
-router.get('/student/mocktest', (req, res) => {
-    flag = "test"
-    res.render("camera")
-})
-
-// router.get('/student/mocktest',(req,res)=>{
-//     res.render("std-test/std-test")
+// router.get('/student/mocktest', (req, res) => {
+//     flag = "test"
+//     res.render("camera")
 // })
+
+router.get('/student/mocktest',(req,res)=>{
+    res.render("std-test/std-test")
+})
 
 router.get('/MockTest/:heading',(req,res)=>{
     let student = getStudent()
