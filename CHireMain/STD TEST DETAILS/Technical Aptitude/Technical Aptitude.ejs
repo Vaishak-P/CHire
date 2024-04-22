@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHire</title>
-    <link rel="stylesheet" href="Technical Aptitude.css">
+    <link rel="stylesheet" href="/STD TEST DETAILS/Technical Aptitude/Technical Aptitude.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,8 +17,7 @@
 <!-- NAVIGATION -->
     <nav>
         <div class="list">
-            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
-            <a href="">Student: <%= userName %></a>
+            <a href="">Student: <%= student.name %></a>
             <!-- <a href="">Home</a> -->
             <!-- <a href="">About US</a> -->
             <!-- <a href="">Listed Jobs</a> -->
@@ -35,7 +34,8 @@
         <!-- LEFT SECTION OF PAGE  -->
         <section class="lmenu">
             <div class="dp">
-                <i class="fa-solid fa-user-graduate"></i>
+                <!-- <i class="fa-solid fa-user-graduate"></i> -->
+                <img src="<%= locals.profile %>" alt="dp">
             </div>
             <div class="lmenu-items-con">
                 <!-- <div class="lmenu-items-icon">
@@ -46,11 +46,11 @@
 
                 </div> -->
                 <div class="lmenu-items">
-                    <li><a class="d" href="">Dashboard</a></li>
-                    <li><a class="mt" href="">Mock Test</a></li>
-                    <li><a class="mi" href="">Mock Interview</a></li>
-                    <li><a class="cv" href="">CV Generation</a></li>
-                    <li><a class="l" href="">Logout</a></li>
+                    <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                    <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
+                    <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
+                    <li><a class="cv" href="/student/resume">Create Resume</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
                 </div>
             </div>
         </section>
@@ -98,7 +98,7 @@
             </div>
             <div class="test-info">
                 <!-- <h4>Syllabus</h4> -->
-                <button>Start Test</button>
+                <button onclick="window.location.href='/test/Technical%20Aptitude'">Start Test</button>
                 <div class="petal1">
                     <h1 class="petal-h1">10</h1>
                     <h4 class="petal-h4">Minutes</h4>

@@ -126,7 +126,7 @@ app.post('/LOGIN', (req, res) => {
                     }
                     setPo(results[0])
                     //user = results[0];
-                    res.render('PO/po-dashboard/po-dashboard',{userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state});
+                    res.redirect('/po/dashboard')
                 });
                 break;
             case 'company':
@@ -149,11 +149,11 @@ app.post('/LOGIN', (req, res) => {
     });
 });
 
-app.get('/MockTest/:heading', (req, res) => {
-    const encodedHeading = req.params.heading;
-    const decodedHeading = decodeURIComponent(encodedHeading);
-    res.render("std-test-details/std-test-details",{heading:decodedHeading})
-});
+// app.get('/MockTest/:heading', (req, res) => {
+//     const encodedHeading = req.params.heading;
+//     const decodedHeading = decodeURIComponent(encodedHeading);
+//     res.render("std-test-details/std-test-details",{heading:decodedHeading})
+// });
 
 // Export user variable after it has been assigned a value
 module.exports = { setStudent, setPo, setComp, getStudent, getPo, getComp };

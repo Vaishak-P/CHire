@@ -168,15 +168,6 @@ router.get('/student/resume', (req, res) => {
     res.render("RESUME GENERATION/RESUME INTRODUCTION/resume_ntroduction", { student, profile })
 })
 
-// router.get('/resume',(req,res)=>{
-//     const student = getStudent();
-//     const profile = `/images/${student.photo}`
-//     res.render('RESUME GENERATION/RESUME DISPLAY/resume_show',{student,profile})
-//     router.get('/resume_template.html',(req,res)=>{
-//         res.render('RESUME GENERATION/RESUME DISPLAY/resume_template',{student})
-//     })
-// })
-
 router.get('/resume/form',(req,res)=>{
     const student = getStudent()
     const profile = `/images/${student.photo}`
@@ -206,6 +197,79 @@ router.get('/student/mocktest', (req, res) => {
     flag = "test"
     res.render("camera")
 })
+
+// router.get('/student/mocktest',(req,res)=>{
+//     res.render("std-test/std-test")
+// })
+
+router.get('/MockTest/:heading',(req,res)=>{
+    let student = getStudent()
+    let profile = `/images/${student.photo}`
+    // Extract the encoded text from the URL parameter
+    const encodedText = req.params.heading;
+
+    // Decode the URL encoding
+    const heading = decodeURIComponent(encodedText);
+
+    // Render the page dynamically based on the extracted text
+    res.render(`STD TEST DETAILS/${heading}/${heading}`,{student,profile})
+})
+
+router.get('/test/:heading',(req,res)=>{
+    let student = getStudent()
+    let profile = `/images/${student.photo}`
+    // Extract the encoded text from the URL parameter
+    const encodedText = req.params.heading;
+
+    // Decode the URL encoding
+    const heading = decodeURIComponent(encodedText);
+
+    // Check if the student has already attended the test
+    
+    if (student.test_type.includes(heading)) {
+        res.render('std-test/std-test',{profile, error:'You have already attended the test.'})
+        return
+    }
+
+    res.render(`TESTS/${heading}/${heading}`,{student,profile})
+})
+
+router.post('/submit-score', async(req,res) => {
+    let student = getStudent();
+    let { score, type } = req.body;
+    console.log(score,type)
+
+    // Update the student's mock test score
+    // let currentScore = await student.mocktest_score + parseInt(score, 10);
+    let currentScore = parseInt(score,10)
+    //Convert the score to the base of 100
+    console.log((currentScore/10)*100)
+    let mockTestScore = Math.round((((currentScore/10)*100) + student.mocktest_score)/2)
+    console.log(mockTestScore)
+
+    let totalScore = await Math.round((mockTestScore + student.fluency_score)/2)
+
+    // Retrieve the existing test types for the student
+    let existingTestTypes = student.test_type || '';
+
+    // Append the new test type to the existing ones
+    let updatedTestTypes = existingTestTypes ? `${existingTestTypes},${type}` : type;
+    student.mocktest_score = mockTestScore
+    student.test_type = updatedTestTypes
+    student.total = totalScore
+
+    setStudent(student)
+    // Update the student's record in the database with the new score and test type
+    let sql = 'UPDATE student SET mocktest_score = ?, test_type = ?, total = ? WHERE idstudent = ?';
+    mysqlConnection.query(sql, [mockTestScore, updatedTestTypes, totalScore, student.idstudent], (error, results) => {
+        if (error) {
+            console.error('Error updating mock test score:', error);
+            res.status(500).send('Error updating mock test score');
+            return;
+        }
+        res.json('Score and test type updated');
+    });
+});
 
 router.get('/student/mockinterview', (req, res) => {
     flag = "interview"
@@ -296,12 +360,12 @@ router.post('/save-image', async (req, res) => {
                 flag = null
                 //const student = getStudent();
                 const profile = `/images/${student.photo}`
-                res.render("std-test/std-test.ejs", { profile: profile });
+                res.render("std-test/std-test", { profile: profile });
             } else {
                 flag = null
                 //const student = getStudent();
                 const profile = `/images/${student.photo}`
-                res.render('MOCK INTERVIEW/interview', { profile: profile })
+                res.render('MOCK INTERVIEW/interview', { profile })
             }
         } else {
             res.render("camera", { error: "Mismatch in the image" })
