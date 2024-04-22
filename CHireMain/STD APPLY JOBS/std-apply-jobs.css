@@ -1,0 +1,251 @@
+/* CSS IS COMMENTED WELL, SO YOU CAN EASILY FIND ELEMENTS AND PROPERTIES */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+}
+body{
+    font-family: poppins;
+    font-size: var(--h2);
+    background-color: #BFCFE7;
+        
+}
+:root{
+    --sec-color:#ffffff;
+    --bg-color:#BFCFE7;
+    --icon-color:#ffffff;
+    --pri-color:black;
+    --top-color:#575fd6;
+    --border-color:rgba(204, 204, 204, 0.5);
+    --h1:20px;
+    --h2:15px;
+}
+/* -------CleverHire heading------- */
+.topMenu{
+    position: fixed;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px ;
+
+}
+.cleverhire{
+    text-align: center;
+    background-color:var(--top-color);
+    font-weight: 900;
+    height: 6vh;
+    padding: 20px 0 50px 0;
+    font-size: 20px;
+}
+.cleverhire a{
+    text-decoration: none;
+    color:#F8EDFF;
+    
+}
+@keyframes ani-cleverhire{
+    0%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    30%{height: 100vh; padding-top: 50vh; font-size: 50px;}
+    50%{height: 100vh; padding-top: 50vh;font-size: 50px;}
+    100%{height: 6vh;}
+}
+.cleverhire:hover{
+    font-size: 20px;
+    color: var(--bg-color);
+    /* text-transform: uppercase; */
+    transition: color 700ms ease-in-out;
+    transition: font-weight 700ms ease-in-out;
+}
+
+
+/* -------navigation bar ------- */
+nav{
+    display: flex;
+    padding: 0px 40px 10px;
+    background-color:var(--top-color);
+    font-weight: lighter;
+}
+nav .list{
+    text-decoration: none;
+}
+nav .list a{
+    font-size: 15px;
+    padding: 0px 10px;
+    color:var(--bg-color);
+    text-decoration: none;
+    transition: all 500ms;
+}
+nav .list a:hover{
+    color: var(--sec-color);
+    padding: 5px;
+}
+nav .soc-icon{
+    position: absolute;
+    right: 20px;
+    /* left: 90%; */
+}
+nav i{
+    color:var(--bg-color);
+    padding-right: 20px;
+    
+}
+nav i:hover{
+    color: var(--sec-color);
+}
+
+/* ------- main body------- */
+main-body{
+    display: flex;
+}
+
+/* ------- left menu of pages------- */
+.lmenu .aj{
+    background-color: #bfcfe73b;
+    border:2px #3D3B40 ;
+    border-radius: 15px;
+    color:var(--bg-color);
+    padding: 5px 20px 5px 20px;
+    left: 50px;
+}
+/* .lmenu-items-con .fa-solid{
+    background-color: ;
+} */
+.lmenu{
+    background-color:  var(--pri-color);
+    width: 200px;
+    height:100vh;
+    padding: 10px 20px;
+    float: left;
+
+    /* ALERT */
+    top: 103px;
+    left: 0;
+    position: fixed;
+}
+.dp{
+    margin: 30px;
+    width: 100px; /* Adjust width and height to set the size of the circle */
+    height: 100px;
+    border-radius: 50%; /* Make it circular */
+    overflow: hidden; /* Clip the content to the circle */
+    border: 2px solid #ccc;
+}.dp img{
+    width: 100%; /* Make the image fill the container */
+    height: 100%;
+    object-fit: cover;
+}
+.lmenu-items-icon i{
+    color: var(--bg-color);
+    font-size: 15px;
+    display: grid; place-items: center;
+    margin: 15px 5px;
+}
+.lmenu-items-con{
+    display: flex;
+}
+
+.lmenu-items li{
+    padding: 15px 0px 0 10px;
+    text-decoration: none;
+    list-style:none
+
+}
+.lmenu-items a:hover{
+    color:var(--sec-color);
+    border:var(--bg-color) 1px solid;
+    border-radius: 20px;
+}
+.lmenu-items a{
+    color: var(--bg-color);
+    /* background-color: rgb(19, 201, 95); */
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 1s;
+    padding: 5px 10px;
+
+}
+/* -------centre section of webpage ------- */
+.cmenu{
+    /* background-color: chartreuse; */
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    height: 100vh;
+    margin-left: 200px;
+    margin-right: 20px;
+}
+.content{
+    margin: 120px 0 20px 20px;
+    background-color: var(--sec-color);
+    border-radius: 20px;
+}
+
+/* main heading  */
+.headingSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.cmenu h1{
+    background-color: var(--top-color);
+    padding: 20px 40px;
+    border-radius: 50px;
+    color: var(--sec-color);
+    font-size:var(--h1);
+    text-transform: uppercase;
+    text-align: center;
+    
+}
+/* box for listed jobs */
+.jobGridContainer{
+    background-color: var(--sec-color);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 30px;
+}
+.jobGrid{
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 0 10px var(--bg-color);
+    border-radius: 20px;
+    margin: 10px;
+}
+.jobGrid .row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 20px;
+    padding: 10px;
+
+}
+/* highlight company name  */
+#companyName{
+    color: var(--top-color);
+    font-size: 15px;
+    font-weight: 800;
+}
+.row .label h6{
+    font-weight: 900;
+}
+.row .value h6{
+    font-weight: 400;
+}
+.jobGrid button {
+    background-color:var(--top-color);
+    border-radius: 20px;
+    border: 1px solid var(--bg-color);
+    box-shadow: var(--bg-color) 0px 0px 10px;
+    /* display: block; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: var(--sec-color);
+    font-weight: 500;
+    align-items: center;
+    padding: 10px 30px;
+    margin: 10px;
+    /* float: right; */
+    text-align: centre;
+}
+.jobGrid button:hover {
+    background-color: var(--pri-color);
+    color: var(--bg-color);
+}
