@@ -27,6 +27,7 @@ body{
     width: 100%;
     margin-bottom: 20px;
     box-shadow: 0 0 10px ;
+    z-index: 1;
 
 }
 .cleverhire{
@@ -174,6 +175,9 @@ main-body{
 }
 .content{
     margin: 120px 0 20px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 .welcomeDashboard{
     background-color:var(--bg-color);
@@ -181,51 +185,54 @@ main-body{
     background-size: cover;
     border:10px #3D3B40 ;
     border-radius: 15px;
-    padding: 20px;
+    padding: 25px;
     color: var(--sec-color);
-    width: 500px;
+    height: 150px;
     
 }
-.welcomeDashboard h1{
-    font-size: var(--h1);
+.welcome{
+    font-size: 15px;
+    margin-top: 10px;
 }
-.welcomeDashboard h2{
-    font-weight: 200;
-    font-size:var(--h2);
+.welcomeName{
+    font-size: var(--h1);
+    /* margin-top: 20px; */
 }
 
 /* PO INFORMATION */
 /* po overall info box  */
 .po-details{
     background-color: var(--sec-color);
+    border-radius: 20px;
+    box-shadow: 0 0 10px var(--border-color);
     padding: 20px;
     margin-top: 20px;
     border: 1px solid var(--border-color);
-    border-radius: 15px;
     /* width: 500px; */
 }
 /* heading section  */
 .info-top{
-    background-color: var(--top-color);
+    background-color: var(--sec-color);
+    box-shadow: 0 0 10px var(--top-color);
     display: grid;
     grid-template-columns:9fr 0.5fr;
     border:2px #3D3B40 ;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 20px;
+    padding: 20px;
 }
 .info-top h2{
-    font-size: var(--h2);
-    color: var(--sec-color);
-    padding-left: 10px;
+    padding: 5px;
 }
-.edit-button{
+.info-top button{
+    margin-top: 5px;
+}
+/* .edit-button{
     background-color:var(--pri-color);
     border:5px #3D3B40 ;
     border-radius: 20px;
     padding:5px 20px;
     color:var(--bg-color);
 }
-/* main contents */
 .infoFetchContainer{
     margin-top: 10px;
     padding: 10px;
@@ -233,8 +240,16 @@ main-body{
     border-radius: 15px;
     display: flex;
     gap: 20%;
-}
+} */
 
+/* main contents */
+.infoFetchContainer{
+    margin-top: 20px;
+    padding: 10px;
+    /* border: 1px solid var(--border-color); */
+    box-shadow: 0 0 10px var(--border-color);
+    border-radius: 15px;
+}
 /* inside the fetch-container  */
 .row{
     display: grid;
@@ -252,9 +267,84 @@ main-body{
     margin: 5px;
     padding: 10px;
     font-size:large ;
-    border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color); */
+    box-shadow: 0 0 10px var(--border-color);
     border-radius: 15px;
 
+}
+.rightDiv{
+    background-color: var(--sec-color);
+    /* margin: 10px 10px 10px 0px; */
+    padding: 20px;
+    border-radius: 20px;
+    
+}
+#heading{
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 2px;
+    font-weight:600;
+}
+.latestContainer{
+    width: 100%t;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px var(--top-color);
+}
+
+.latestContainer .text{
+    font-size: 15px;
+}
+
+
+button{
+    background-color:var(--pri-color);
+    border:5px #3D3B40 ;
+    border-radius: 20px;
+    padding:5px 20px;
+    color:var(--bg-color);
+    cursor: pointer;
+    font-weight: 800;
+    transition: all 0.5s;
+    margin-top: 10px;
+}
+button:hover{
+    background-color: var(--top-color);
+    box-shadow: 0 0 10px var(--sec-color);
+    color: var(--sec-color);
+}
+.countContainer{
+    height: 100%;
+}
+.countContainer .container1, .container2{
+    /* display: flex; */
+    gap: 20px;
+    height: 35%;
+    
+}
+.countBox{
+    padding: 40px 30px;
+    margin-top: 30px ;
+    border-radius: 20px;
+    box-shadow: 0 0 10px var(--border-color);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    /* height:; */
+    position: relative;
+    /* z-index: 1; */
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+}
+.countBox .count{
+    font-size: 50px;
+    font-weight: 700;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    float: right;
+    color: var(--top-color);
 }
 
 

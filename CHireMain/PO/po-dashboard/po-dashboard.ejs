@@ -6,6 +6,7 @@
             <title>CleverHiret</title>
             <!-- ALERT -->
             <link rel="stylesheet" href="/PO/po-dashboard/po-dashboard.css">
+            <link rel="stylesheet" href="po-dashboard.css">
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -63,67 +64,96 @@
                 <div class="cmenu" id="cmenu">
                     <section class="content">
 
-                        <div class="row1">
-                            <div class="welcomeDashboard">
-                                <div class="name">
-                                    <h1>Welcome <%= userName %></h1>
+                        <div class="leftDiv">
+                            <div class="row1">
+                                <div class="welcomeDashboard">
+                                    <div class="name">
+                                        <h1 class="welcome">Welcome </h1>
+                                        <h1 class="welcomeName"><%= userName %></h1>
+                                    </div>
+                                    <div class="po">
+                                        <h2>Placement Officer,<%= institute %></h2>
+                                    </div>
                                 </div>
-                                <div class="po">
-                                    <h2>Placement Officer,<%= institute %></h2>
+                            </div>
+                            
+                                <!-- STUDENT PERSONAL INFO -->
+                            <div class="po-details">
+                                <div class="info-top">
+                                    <div class="per-info-title">
+                                        <h2 id="heading">Personal Info</h2>
+                                    </div>
+                                    <div>
+                                        <!-- ALERT -->
+                                        <a onclick="window.location.href='/PO/edit'" ><button class="edit-button" id="edit-button">Edit</button></a>
+                                    </div>
+                                </div>
+                                <div class="infoFetchContainer">
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Address</h6>
+                                        </div>
+                                        <div class="value">
+                                            <!-- FOR 3 ADDRESS LINE -->
+                                            <h6><%= locals.institute %></h6>
+                                            <h6><%= locals.district %></h6>
+                                            <h6><%= locals.state %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>email</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.mail %></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>phone</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6><%= locals.phn %></h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        
-                            <!-- STUDENT PERSONAL INFO -->
-                        <div class="po-details">
-                            <div class="info-top">
-                                <div class="per-info-title">
-                                    <h2>Personal Info</h2>
-                                </div>
-                                <div>
-                                    <!-- ALERT -->
-                                    <a onclick="window.location.href='/PO/edit'" ><button class="edit-button" id="edit-button">Edit</button></a>
-                                </div>
+
+                        <section class="rightDiv">
+                            <div class="latestContainer">
+                                <div id="heading">latest job to be approved</div>
+                                <div class="text">fetch content</div>
+                                <button class="view">View</button>
                             </div>
-                            <div class="infoFetchContainer">
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>Address</h6>
+                            <div class="countContainer">
+                                <div class="container1">
+                                    <div class="countBox">
+                                        <div id="heading">No of Students</div>
+                                        <div class="count">5</div>
                                     </div>
-                                    <div class="value">
-                                        <!-- FOR 3 ADDRESS LINE -->
-                                        <h6><%= locals.institute %></h6>
-                                        <h6><%= locals.district %></h6>
-                                        <h6><%= locals.state %></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>email</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.mail %></h6>
+                                    <div class="countBox">
+                                        <div id="heading">No of Companies</div>
+                                        <div class="count">3</div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="label">
-                                        <h6>phone</h6>
+                                <div class="container2">
+                                    <div class="countBox">
+                                        <div id="heading">No of Applications</div>
+                                        <div class="count">11</div>
                                     </div>
-                                    <div class="value">
-                                        <h6><%= locals.phn %></h6>
+                                    <div class="countBox">
+                                        <div id="heading">No of Offers Given</div>
+                                        <div class="count">5</div>
                                     </div>
                                 </div>
-                                <!-- <div class="row">
-                                    <div class="label">
-                                        <h6>DOB</h6>
-                                    </div>
-                                    <div class="value">
-                                        <h6><%= locals.dob %></h6>
-                                    </div>
-                                </div> -->
+                               
+                                
                             </div>
-                        </div>
+                        </section>
+                       
                     </section>
+                    
                 </div>
                 
             </div>
