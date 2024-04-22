@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHire</title>
-    <link rel="stylesheet" href="\TESTS\Programming Skills\Verbal Ability.css">
-    <link rel="stylesheet" href="Verbal Ability.css">
+    <link rel="stylesheet" href="\TESTS\Verbal Ability\Verbal Ability.css">
+    <!-- <link rel="stylesheet" href="Verbal Ability.css"> -->
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,8 +18,7 @@
 <!-- NAVIGATION -->
     <nav>
         <div class="list">
-            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
-            <a href="">Student: <%= userName %></a>
+            <a href="">Student: <%= student.name %></a>
             <!-- <a href="">Home</a> -->
             <!-- <a href="">About US</a> -->
             <!-- <a href="">Listed Jobs</a> -->
@@ -35,9 +34,10 @@
     <div class="main-body">
         <!-- LEFT SECTION OF PAGE  -->
         <section class="lmenu">
-            <div class="dp">
-                <i class="fa-solid fa-user-graduate"></i>
-            </div>
+          <div class="dp">
+            <!-- <i class="fa-solid fa-user-graduate"></i> -->
+            <img src="<%= locals.profile %>" alt="dp">
+        </div>
             <div class="lmenu-items-con">
                 <!-- <div class="lmenu-items-icon">
                     <i class="fa-solid fa-chart-line"></i>
@@ -354,17 +354,53 @@
       
           if (timeInSeconds < 0) {
             showResult();
+            testScore();
           }
 
         //   TO SHOW RESULTS AFTER FINAL QUESTION 
           if(currentIndex==10){
                 showResult();
+                testScore();
                 console.log(currentIndex);
           }
         }
 
         // TO END EXAM BY CLICKING END  BUTTON
-        document.getElementById("endButton").addEventListener("click",showResult);
+        document.getElementById("endButton").addEventListener("click", function() {
+            showResult();
+            testScore();
+        });
+
+
+        function testScore(){
+            const testType = "Verbal Ability";
+            score = document.getElementById('correctAnswersBox').textContent
+            console.log(score)
+            const payload = {
+                type: testType,
+                score: score
+            };
+            fetch('/submit-score', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Score submitted successfully.');
+                    // Handle success if needed
+                } else {
+                    console.error('Failed to submit score.');
+                    // Handle error if needed
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting score:', error);
+                // Handle error if needed
+            });
+        }
 
         // TO SHOW END RESULT 
         function showResult(){
@@ -390,7 +426,7 @@
         closeButton.addEventListener('click', endExam);
 
         function endExam() {
-            window.location.href = "std-dashboard.ejs";
+            window.location.href = "/student/dashboard";
             // setTimeout(() => {
             //      // Replace with your results page URL
             // }, 5000); // Delay in milliseconds ( 5second here)

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHire</title>
-    <link rel="stylesheet" href="std-test.css">
+    <!-- <link rel="stylesheet" href="std-test.css"> -->
+    <link rel="stylesheet" href="/std-test/std-test.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -47,12 +48,13 @@
                     <li><a class="d" href="/student/dashboard">Dashboard</a></li>
                     <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
                     <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
-                    <li><a class="cv" href="/student/cv">CV Generation</a></li>
+                    <li><a class="cv" href="/student/resume">Create Resume</a></li>
                     <li><a class="l" href="/LOGOUT">Logout</a></li>
                 </div>
             </div>
         </section>
         <!-- CENTRE SECTION OF PAGE -->
+        <h3 style="color: red;"><%= locals.error %></h3>
         <div class="right-box">
             <div class="test-box1">
                 <div class="test-title1">
@@ -62,7 +64,7 @@
                     <p>Basic concepts in Computer Science, Information Technology, or other relevant engineering disciplines</p>
                 </div>
                 <div class="applybuttonbox">
-                    <button><a href="/MockTest/Technical%20Aptitude%20Test">Details</a></button>
+                    <button><a href="/MockTest/Technical%20Aptitude">Details</a></button>
                 </div>
             </div>
             <div class="test-box1">
@@ -73,7 +75,7 @@
                     <p>Coding challenges on algorithms, data structures, and problem-solving.</p>
                 </div>
                 <div class="applybuttonbox">
-                    <button><a href="/MockTest/Programming%20Skills%20Test">Details</a></button>
+                    <button><a href="/MockTest/Programming%20Skills">Details</a></button>
                 </div>
             </div>
             <div class="test-box1">
@@ -84,7 +86,7 @@
                     <p>Arithmetic, algebra, geometry, percentages, ratios, and data interpretation</p>
                 </div>
                 <div class="applybuttonbox">
-                    <button><a href="/MockTest/Quantitative%20Aptitude%20Test">Details</a></button>
+                    <button><a href="/MockTest/Quantitative%20Aptitude">Details</a></button>
                 </div>
             </div>
             <div class="test-box1">
@@ -95,7 +97,7 @@
                     <p>Reading comprehension, grammar, vocabulary, and verbal reasoning.</p>
                 </div>
                 <div class="applybuttonbox">
-                    <button><a href="/MockTest/Verbal%20Ability%20Test">Details</a></button>
+                    <button><a href="/MockTest/Verbal%20Ability">Details</a></button>
                 </div>
             </div>
             <div class="test-box1">
@@ -106,7 +108,7 @@
                     <p>Deductive reasoning, pattern recognition, series completion, and logical puzzles.</p>
                 </div>
                 <div class="applybuttonbox">
-                    <button><a href="/MockTest/Logical%20Reasoning%20Test">Details</a></button>
+                    <button><a href="/MockTest/Logical%20Reasoning">Details</a></button>
                 </div>
             </div>
             <div class="test-box1">
@@ -117,7 +119,7 @@
                     <p>Situational judgment questions or scenarios evaluating teamwork, leadership, and interpersonal skills</p>
                 </div>
                 <div class="applybuttonbox">
-                    <button><a href="/MockTest/Behavioral%20Skills%20Test">Details</a></button>
+                    <button><a href="/MockTest/Behavioral%20Skills">Details</a></button>
                 </div>
             </div>
         </div>

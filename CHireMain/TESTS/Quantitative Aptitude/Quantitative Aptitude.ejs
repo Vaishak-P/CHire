@@ -18,8 +18,7 @@
 <!-- NAVIGATION -->
     <nav>
         <div class="list">
-            <!-- <a href="">Recruiting Company: <%= locals.comp.name %></a> -->
-            <a href="">Student: <%= userName %></a>
+            <a href="">Student: <%= student.name %></a>
             <!-- <a href="">Home</a> -->
             <!-- <a href="">About US</a> -->
             <!-- <a href="">Listed Jobs</a> -->
@@ -36,7 +35,8 @@
         <!-- LEFT SECTION OF PAGE  -->
         <section class="lmenu">
             <div class="dp">
-                <i class="fa-solid fa-user-graduate"></i>
+                <!-- <i class="fa-solid fa-user-graduate"></i> -->
+                <img src="<%= locals.profile %>" alt="dp">
             </div>
             <div class="lmenu-items-con">
                 <!-- <div class="lmenu-items-icon">
@@ -314,17 +314,53 @@
       
           if (timeInSeconds < 0) {
             showResult();
+            testScore();
           }
 
         //   TO SHOW RESULTS AFTER FINAL QUESTION 
           if(currentIndex==10){
                 showResult();
+                testScore();
                 console.log(currentIndex);
           }
         }
 
         // TO END EXAM BY CLICKING END  BUTTON
-        document.getElementById("endButton").addEventListener("click",showResult);
+        document.getElementById("endButton").addEventListener("click", function() {
+            showResult();
+            testScore();
+        });
+
+
+        function testScore(){
+            const testType = "Quantitative Aptitude";
+            score = document.getElementById('correctAnswersBox').textContent
+            console.log(score)
+            const payload = {
+                type: testType,
+                score: score
+            };
+            fetch('/submit-score', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Score submitted successfully.');
+                    // Handle success if needed
+                } else {
+                    console.error('Failed to submit score.');
+                    // Handle error if needed
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting score:', error);
+                // Handle error if needed
+            });
+        }
 
         // TO SHOW END RESULT 
         function showResult(){
@@ -350,7 +386,7 @@
         closeButton.addEventListener('click', endExam);
 
         function endExam() {
-            window.location.href = "std-dashboard.ejs";
+            window.location.href = "/student/dashboard";
             // setTimeout(() => {
             //      // Replace with your results page URL
             // }, 5000); // Delay in milliseconds ( 5second here)
