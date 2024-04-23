@@ -348,9 +348,13 @@ router.post('/submit-score', async(req,res) => {
     });
 });
 
-router.get('/student/mockinterview', (req, res) => {
-    flag = "interview"
-    res.render("camera")
+// router.get('/student/mockinterview', (req, res) => {
+//     flag = "interview"
+//     res.render("camera")
+// })
+
+router.get('/student/mockinterview',(req,res)=>{
+    res.render('MOCK INTERVIEW/interview')
 })
 
 const saveImage = async (imageData) => {

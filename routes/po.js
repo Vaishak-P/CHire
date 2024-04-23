@@ -249,7 +249,6 @@ router.post('/filterStudents',(req,res)=>{
     let po = getPo()
     let institute = po.institute
     const { yearOfStudy, branch, cgpa } = req.body;
-    console.log(cgpa)
 
     // Construct SQL query based on selected options
     let query = 'SELECT * FROM student WHERE institute = ? ';
@@ -274,8 +273,6 @@ router.post('/filterStudents',(req,res)=>{
 
     // Execute the SQL query
     mysqlConnection.query(query, queryParams, (err, results) => {
-        console.log(query)
-        console.log(queryParams)
       if (err) {
         console.error('Error executing query:', err);
         res.status(500).json({ error: 'An error occurred while fetching data.' });
