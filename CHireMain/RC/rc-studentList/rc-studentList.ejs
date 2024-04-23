@@ -99,7 +99,7 @@
                         <td><%= student.department %></td>
                         <td><%= student.cgpa %></td>
                         <!-- Pass the index to the function -->
-                        <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= index %>)">View</button></td>
+                        <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= student.idstudent %>)">View</button></td>
                     </tr>
                     <% }); %>
                     </tbody>
@@ -306,7 +306,7 @@
         <td>${student.institute}</td>
         <td>${student.department}</td>
         <td>${student.cgpa}</td>
-        <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(${index})">View</button></td>
+        <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(${student.idstudent})">View</button></td>
         `;
         tableBody.appendChild(row);
     });
@@ -317,13 +317,13 @@
     }
 
 
-    function showStudentDetails(index) {
+    function showStudentDetails(idstudent) {
         const viewButtons = document.querySelectorAll(".view-button");
         const infoPopupDiv = document.getElementById("infoPopup");
         const popupWrapper = document.getElementById("popupWrapper");
     // Get the student details from the students array
     var students = <%- JSON.stringify(students) %>;
-    var student = students[index];
+    var student = students.find(student => student.idstudent === idstudent);
     var softskillsArray = JSON.parse(student.softskills);
     var hardskillsArray = JSON.parse(student.hardskills);
     var profile = `../../images/${student.photo}`;

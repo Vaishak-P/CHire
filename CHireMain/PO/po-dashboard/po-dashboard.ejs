@@ -123,28 +123,28 @@
                         <section class="rightDiv">
                             <div class="latestContainer">
                                 <div id="heading">latest job to be approved</div>
-                                <div class="text">fetch content</div>
-                                <button class="view">View</button>
+                                <div class="text"><%= locals.lastAddedJob.jobId %> - <%= locals.lastAddedJob.company %></div>
+                                <button class="view" onclick="window.location.href='/po/approveJobs'">View</button>
                             </div>
                             <div class="countContainer">
                                 <div class="container1">
                                     <div class="countBox">
                                         <div id="heading">No of Students</div>
-                                        <div class="count">5</div>
+                                        <div class="count"><%= locals.totalStudentsCount %></div>
                                     </div>
                                     <div class="countBox">
-                                        <div id="heading">No of Companies</div>
-                                        <div class="count">3</div>
+                                        <div id="heading">No of Pending Jobs</div>
+                                        <div class="count"><%= locals.pendingJobs %></div>
                                     </div>
                                 </div>
                                 <div class="container2">
                                     <div class="countBox">
                                         <div id="heading">No of Applications</div>
-                                        <div class="count">11</div>
+                                        <div class="count"><%= locals.appliedStudentsCount %></div>
                                     </div>
                                     <div class="countBox">
-                                        <div id="heading">No of Offers Given</div>
-                                        <div class="count">5</div>
+                                        <div id="heading">No of Current Jobs</div>
+                                        <div class="count"><%= locals.approvedJobs %></div>
                                     </div>
                                 </div>
                                
