@@ -170,7 +170,7 @@ router.get('/student/editinfo',(req,res)=>{
 
 router.post('/edit/student', (req, res) => {
     let student = getStudent();
-    const profile = `/images/${student.photo}`
+    // const profile = `/images/${student.photo}`
     const userId = student.idstudent;
     const { name, email, phone, address1, address2, address3, state, district, cgpa, backlog, ugyear, password } = req.body;
     const query = 'UPDATE student SET name = ?, email = ?, phone = ?, address1 = ?, address2 = ?, address3 = ?, state = ?, district = ?, cgpa = ?, backlog = ?, ugyear = ?, password = ? WHERE idstudent = ?';
@@ -203,6 +203,40 @@ router.post('/edit/student', (req, res) => {
         });
         
     });
+});
+
+// Define a function to fetch listed jobs from the database
+const fetchJobs = (institute) => {
+    return new Promise((resolve, reject) => {
+        // Prepare SQL statement to select jobs where approved is 1
+        const sql = "SELECT * FROM jobs WHERE approved = 1 AND institute = ?";
+
+        // Execute the SQL statement
+        mysqlConnection.query(sql,[institute], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
+// Define a route to handle requests for fetching listed jobs
+router.get('/student/applyJob', async (req, res) => {
+    student = getStudent()
+    const profile = `/images/${student.photo}`
+    try {
+        institute = student.institute
+        // Fetch listed jobs using async/await
+        const jobs = await fetchJobs(institute);
+
+        // Render the HTML template with the fetched jobs data
+        res.render('STD APPLY JOBS/std-apply-jobs',{student,jobs,profile})
+    } catch (error) {
+        console.error('Error fetching listed jobs:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 router.get('/student/resume', (req, res) => {
@@ -317,12 +351,6 @@ router.post('/submit-score', async(req,res) => {
 router.get('/student/mockinterview', (req, res) => {
     flag = "interview"
     res.render("camera")
-})
-
-router.get('/fluency.html', (req, res) => {
-    const student = getStudent();
-    const profile = `/images/${student.photo}`
-    res.render('MOCK INTERVIEW/fluency', { profile: profile })
 })
 
 const saveImage = async (imageData) => {
