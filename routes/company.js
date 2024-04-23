@@ -97,11 +97,59 @@ router.post('/register/company', (req, res) => {
     );
 });
 
-router.get('/comp/dashboard',(req,res)=>{
+router.get('/comp/dashboard',async(req,res)=>{
     let comp = getComp()
     const profile = `/images/${comp.photo}`
-    res.render('RC/rc-dashboard/rc-dashboard',{comp,profile})
+    try{
+        const jobsCount =  await getjobsCount(comp.name)
+        const lastAddedJob = await getLastAddedJob(comp.name)
+        const studInstCount = await getStudentsAndUniqueInstitutesCount(comp.name)
+        
+        res.render('RC/rc-dashboard/rc-dashboard',{comp,profile,jobsCount,lastAddedJob,studInstCount})
+    } catch (error) {
+        // Handle error
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
 })
+
+function getjobsCount(company) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT COUNT(*) AS count FROM jobs WHERE company = ?', [company], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(results[0].count);
+        });
+    });
+}
+
+function getLastAddedJob(company) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT * FROM jobs WHERE company = ?', [company], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            console.log(results)
+            resolve(results[results.length - 1]);
+        });
+    });
+}
+
+function getStudentsAndUniqueInstitutesCount(company){
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query(`SELECT COUNT(*) AS studentCount, COUNT(DISTINCT institute) AS uniqueInstitutesCount FROM student WHERE JSON_CONTAINS(appliedjobs, JSON_ARRAY(?))`, [company], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            console.log(results)
+            resolve(results[0]);
+        });
+    });
+}
 
 router.get('/comp/edit',(req,res)=>{
     let comp =getComp()
