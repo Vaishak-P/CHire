@@ -160,6 +160,7 @@
                                                 <h6>:<%= job.description %></h6>
                                             </div>
                                         </div>
+                                        <button onclick="applyJob(`<%= job.jobId %>`)">Apply</button>
                                     </div>
                                 <% }); %>
                             <% } %>
@@ -169,5 +170,25 @@
                 </div>
                 
             </div>
+            <script>
+                async function applyJob(jobId) {
+                    try {
+                        // ALERT 
+                        const response = await fetch('/approveJob', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ jobId: jobId })
+                        });
+                        const data = await response.text();
+                        console.log(data);
+                        // Redirect to the student list page
+                        window.location.href = '/po/approveJobs';
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            </script>
         </body>
 </html>
