@@ -142,22 +142,22 @@
                         <section class="rightDiv">
                             <div class="latestContainer">
                                 <div id="heading">recently added jobs</div>
-                                <div class="text">fetch content</div>
-                                <button class="view">View</button>
+                                <div class="text"><%= locals.lastAddedJob.jobId %> - <%= locals.lastAddedJob.company %></div>
+                                <button class="view" onclick="window.location.href='/comp/listedjobs'">View</button>
                             </div>
                             <div class="countContainer">
                                 <div class="container1">
                                     <div class="countBox">
                                         <div id="heading">No of Offers Given</div>
-                                        <div class="count">5</div>
+                                        <div class="count"><%= locals.jobsCount %></div>
                                     </div>
                                     <div class="countBox">
                                         <div id="heading">No of Applications</div>
-                                        <div class="count">11</div>
+                                        <div class="count"><%= locals.studInstCount.studentCount %></div>
                                     </div>
                                     <div class="countBox">
-                                        <div id="heading">No of Students</div>
-                                        <div class="count">5</div>
+                                        <div id="heading">No of Connected Institutes</div>
+                                        <div class="count"><%= locals.studInstCount.uniqueInstitutesCount %></div>
                                     </div>
                                 </div>
                                 

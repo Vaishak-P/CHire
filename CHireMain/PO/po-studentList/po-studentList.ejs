@@ -101,7 +101,7 @@
                             <td><%= student.department %></td>
                             <td><%= student.cgpa %></td>
                             <!-- Pass the index to the function -->
-                            <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= index %>)">View</button></td>
+                            <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= student.idstudent %>)">View</button></td>
                         </tr>
                         <% }); %>
                         </tbody>

@@ -97,11 +97,98 @@ router.post('/register/po', (req, res) => {
     );
 });
 
-router.get('/po/dashboard',(req,res)=>{
-    let po = getPo();
+router.get('/po/dashboard',async(req,res)=>{
+    let po = getPo()
     const profile = `/images/${po.photo}`
-    res.render('PO/po-dashboard/po-dashboard',{profile, userName:po.name,mail:po.email,phn:po.phone,institute:po.institute,district:po.district,state:po.state})
+    try{
+        const appliedStudentsCount =  await getAppliedStudentsCount(po.institute)
+        const totalStudentsCount = await getTotalStudentsCount(po.institute)
+        const lastAddedJob = await getLastAddedJob(po.institute)
+        const pendingJobs = await getPendingJobsCount(po.institute)
+        const approvedJobs = await getApprovedJobsCount(po.institute)
+        
+        res.render('PO/po-dashboard/po-dashboard', {
+            profile,
+            userName: po.name,
+            mail: po.email,
+            phn: po.phone,
+            institute: po.institute,
+            district: po.district,
+            state: po.state,
+            appliedStudentsCount,
+            totalStudentsCount,
+            lastAddedJob,
+            pendingJobs,
+            approvedJobs
+        });
+    } catch (error) {
+        // Handle error
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
 })
+
+function getAppliedStudentsCount(institute) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT COUNT(*) AS count FROM student WHERE institute = ? AND appliedjobs IS NOT NULL', [institute], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(results[0].count);
+        });
+    });
+}
+
+function getTotalStudentsCount(institute) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT COUNT(*) AS count FROM student WHERE institute = ?', [institute], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(results[0].count);
+        });
+    });
+}
+
+function getLastAddedJob(institute) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT * FROM jobs WHERE institute = ? AND approved = ?', [institute,0], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            console.log(results)
+            resolve(results[results.length - 1]);
+        });
+    });
+}
+
+function getPendingJobsCount(institute) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT COUNT(*) AS count FROM jobs WHERE institute = ? AND approved = ?', [institute,0], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(results[0].count);
+        });
+    });
+}
+
+function getApprovedJobsCount(institute) {
+    return new Promise((resolve, reject) => {
+        mysqlConnection.query('SELECT COUNT(*) AS count FROM jobs WHERE institute = ? AND approved = ?', [institute,1], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(results[0].count);
+        });
+    });
+}
+
 
 router.get('/PO/edit',(req,res)=>{
     let po = getPo();
