@@ -136,10 +136,10 @@ router.get('/student/dashboard', async (req, res) => {
         const profile = `/images/${student.photo}`
 
         // Query to fetch matching jobs
-        const sql = `SELECT * FROM jobs WHERE institute = ? AND skill IN (?) AND cgpa < ? AND backlog > ?`;
+        const sql = `SELECT * FROM jobs WHERE approved = ? AND institute = ? AND skill IN (?) AND cgpa < ? AND backlog > ?`;
 
         // Execute the query
-        const jobs = await executeQuery(sql, [student.institute, hardskillsArray, student.cgpa, student.backlog]);
+        const jobs = await executeQuery(sql, [1, student.institute, hardskillsArray, student.cgpa, student.backlog]);
 
         // Render the dashboard template with fetched data
         //Parse JSON strings into JavaScript objects
@@ -206,17 +206,23 @@ router.post('/edit/student', (req, res) => {
 });
 
 // Define a function to fetch listed jobs from the database
-const fetchJobs = (institute) => {
+const fetchJobs = (institute,appliedJobsArray) => {
     return new Promise((resolve, reject) => {
         // Prepare SQL statement to select jobs where approved is 1
-        const sql = "SELECT * FROM jobs WHERE approved = 1 AND institute = ?";
-
+        const sql = `SELECT * FROM jobs WHERE approved = 1 AND institute = ?`;
         // Execute the SQL statement
         mysqlConnection.query(sql,[institute], (err, results) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(results);
+                let filteredJobs = results 
+                if (appliedJobsArray && appliedJobsArray.length > 0) {
+                        // Filter out jobs whose company is not in the appliedJobsArray
+                        filteredJobs = results.filter(job => {
+                        return !appliedJobsArray.includes(job.company);
+                    });
+                }
+                resolve(filteredJobs);
             }
         });
     });
@@ -228,16 +234,117 @@ router.get('/student/applyJob', async (req, res) => {
     const profile = `/images/${student.photo}`
     try {
         institute = student.institute
+        let appliedJobsArray = []
+        if (student.appliedjobs) {
+            appliedJobsArray = JSON.parse(student.appliedjobs);
+        }
         // Fetch listed jobs using async/await
-        const jobs = await fetchJobs(institute);
+        const jobs = await fetchJobs(institute, appliedJobsArray);
 
         // Render the HTML template with the fetched jobs data
-        res.render('STD APPLY JOBS/std-apply-jobs',{student,jobs,profile})
+        res.render('STD APPLY NEW JOB/std-apply-new-job',{student,jobs,profile})
     } catch (error) {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
+const queryAsync = (sql, params) => {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query(sql, params, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+}
+
+router.post('/applyJobs',async(req,res)=>{
+    company = req.body.company
+    student = getStudent()
+    institute = student.institute
+    hardSkillsArray = JSON.parse(student.hardskills)
+    console.log(company,student)
+    const profile = `/images/${student.photo}`
+    // Fetch job details based on jobId
+    const job = await queryAsync('SELECT * FROM jobs WHERE company = ? AND institute = ? AND cgpa < ? AND backlog > ? AND skill IN (?)',[company,student.institute,student.cgpa,student.backlog,hardSkillsArray])
+    
+    let appliedJobs = student.appliedjobs || [];
+    if(job.length > 0){
+        console.log('inside the if clause')
+            appliedJobs.push(job[0].company);
+            appliedJobs = JSON.stringify(appliedJobs);
+            await queryAsync('UPDATE student SET appliedJobs = ? WHERE idstudent = ?',[appliedJobs, student.idstudent])
+        // mysqlConnection.query('UPDATE student SET appliedJobs = ? WHERE idstudent = ?', [appliedJobs, student.idstudent], (err,results) => {
+        //     if (err) {
+        //         console.error('Error updating student applied jobs:', err);
+        //         return res.status(500).send('Internal server error');
+        //     }
+            // res.send('/student/appliedjobs')
+        // });
+        console.log("HELLO")
+        res.send("HELLOI")
+        // Render applied jobs page
+        // res.redirect('/student/appliedjobs')
+    }else{
+        let appliedJobsArray = []
+        if (student.appliedjobs) {
+            appliedJobsArray = JSON.parse(student.appliedjobs);
+        }
+        // Fetch listed jobs using async/await
+        const jobs = await fetchJobs(institute, appliedJobsArray);
+        console.log('Does not meet the job requirements')
+        // Render the HTML template with the fetched jobs data
+        console.log("HI")
+        res.send('Does not meet the job requirements')
+        // res.render('STD APPLY NEW JOB/std-apply-new-job',{error:'Does not meet the job requirements',student,jobs,profile})
+    }
+})
+
+function getAppliedJobs(sql, params) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query(sql, params, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+}
+
+router.get('/student/appliedjobs', async (req, res) => {
+    student = getStudent();
+    const profile = `/images/${student.photo}`;
+    let appliedJobsArray = [];
+    if (student.appliedjobs) {
+        appliedJobsArray = JSON.parse(student.appliedjobs);
+    }
+    
+    let sql = `SELECT * FROM jobs WHERE approved = 1 AND institute = ?`;
+    let params = [student.institute];
+
+    // Check if appliedJobsArray is not empty
+    if (appliedJobsArray.length > 0) {
+        // Dynamically construct the IN clause
+        sql += ` AND company IN (?)`;
+        params.push(appliedJobsArray);
+    } else {
+        // If appliedJobsArray is empty, return an empty result set
+        sql += ` AND 1=0`;
+    }
+
+    try {
+        const jobs = await getAppliedJobs(sql, params);
+        res.render('STD APPLIED JOBS/std-applied-jobs', { student, profile, jobs });
+    } catch (error) {
+        console.error('Error fetching applied jobs:', error);
+        res.status(500).send('Error fetching applied jobs');
+    }
+});
+
 
 router.get('/student/resume', (req, res) => {
     const student = getStudent();
@@ -270,14 +377,14 @@ router.post('/resume/form',(req,res)=>{
     })
 })
 
-// router.get('/student/mocktest', (req, res) => {
-//     flag = "test"
-//     res.render("camera")
-// })
-
-router.get('/student/mocktest',(req,res)=>{
-    res.render("std-test/std-test")
+router.get('/student/mocktest', (req, res) => {
+    flag = "test"
+    res.render("camera")
 })
+
+// router.get('/student/mocktest',(req,res)=>{
+//     res.render("std-test/std-test")
+// })
 
 router.get('/MockTest/:heading',(req,res)=>{
     let student = getStudent()
@@ -348,14 +455,14 @@ router.post('/submit-score', async(req,res) => {
     });
 });
 
-// router.get('/student/mockinterview', (req, res) => {
-//     flag = "interview"
-//     res.render("camera")
-// })
-
-router.get('/student/mockinterview',(req,res)=>{
-    res.render('MOCK INTERVIEW/interview')
+router.get('/student/mockinterview', (req, res) => {
+    flag = "interview"
+    res.render("camera")
 })
+
+// router.get('/student/mockinterview',(req,res)=>{
+//     res.render('MOCK INTERVIEW/interview')
+// })
 
 const saveImage = async (imageData) => {
     try {

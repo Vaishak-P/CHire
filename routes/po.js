@@ -159,7 +159,7 @@ function getLastAddedJob(institute) {
                 reject(error);
                 return;
             }
-            console.log(results)
+            // console.log(results)
             resolve(results[results.length - 1]);
         });
     });
@@ -245,12 +245,12 @@ router.get('/po/postjobs',(req,res)=>{
 router.post('/PO/postjob', (req, res) => {
     let po = getPo();
     const profile = `/images/${po.photo}`
-    const { jobId, companyName, jobPost, qualification,cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
+    const { companyName, jobPost, qualification,cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
     const institute = po.institute;
 
     // Check if a job with the same jobId already exists
-    const selectQuery = "SELECT * FROM jobs WHERE jobId = ?";
-    mysqlConnection.query(selectQuery, [jobId], (err, rows) => {
+    const selectQuery = "SELECT * FROM jobs WHERE company = ? AND post = ? AND institute = ?";
+    mysqlConnection.query(selectQuery, [companyName, jobPost, institute], (err, rows) => {
         if (err) {
             console.error("Error selecting job:", err);
             res.status(500).send("Internal Server Error");
@@ -259,15 +259,15 @@ router.post('/PO/postjob', (req, res) => {
         
         // If a job with the same jobId exists, return an error
         if (rows.length > 0) {
-            res.render('PO/po-postJobs/po-postJobs',{error:"Job with the same jobId already exists",po,profile})
+            res.render('PO/po-postJobs/po-postJobs',{error:"Job already exists.",po,profile})
             return;
         }
 
         // Prepare SQL statement to insert job details into the jobs table
-        const sql = "INSERT INTO jobs (jobId, company, post, qualification, cgpa, backlog, skill, type, salary, location, deadline, experience, description, approved, institute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO jobs ( company, post, qualification, cgpa, backlog, skill, type, salary, location, deadline, experience, description, approved, institute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Execute the SQL statement
-        mysqlConnection.query(sql, [jobId, companyName, jobPost, qualification, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 1, institute], (err, result) => {
+        mysqlConnection.query(sql, [companyName, jobPost, qualification, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 1, institute], (err, result) => {
             if (err) {
                 console.error("Error inserting job:", err);
                 res.status(500).send("Error adding job");
@@ -415,7 +415,7 @@ router.post('/approveJob', (req, res) => {
     const sql = `UPDATE jobs SET approved = 1 WHERE jobId = ${jobId}`;
     mysqlConnection.query(sql, (err, result) => {
       if (err) throw err;
-      console.log(`Job ${jobId} approved.`);
+    //   console.log(`Job ${jobId} approved.`);
       res.send('Job approved successfully.');
     });
 });
@@ -426,7 +426,7 @@ router.post('/declineJob', (req, res) => {
     const sql = `DELETE FROM jobs WHERE jobId = ${jobId}`;
     mysqlConnection.query(sql, (err, result) => {
       if (err) throw err;
-      console.log(`Job ${jobId} declined.`);
+    //   console.log(`Job ${jobId} declined.`);
       res.send('Job declined and deleted successfully.');
     });
 });
@@ -449,14 +449,14 @@ router.get('/po/editJob/:jobId', async(req,res)=>{
     const profile = `/images/${po.photo}`
     const jobId = req.params.jobId
     const job = await fetchJob(jobId)
-    console.log(job)
+    // console.log(job)
     res.render('PO/po-approveJobs/poJobEdit/poJobEdit',{job,po,profile})
 })
 
 router.post('/po/editJob',(req,res)=>{
-    const {jobId, companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, backlog, skill, cgpa} = req.body
-    const query = 'UPDATE jobs SET company = ?, post = ?, qualification = ?, type = ?, salary = ?, location = ?, deadline = ?, experience = ?, description = ?, backlog = ?, skill = ?, cgpa = ? WHERE jobId = ?';
-    mysqlConnection.query(query, [companyName, jobPost, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, backlog, skill, cgpa, jobId], (err, results) => {
+    const {jobId, qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, backlog, skill, cgpa} = req.body
+    const query = 'UPDATE jobs SET qualification = ?, type = ?, salary = ?, location = ?, deadline = ?, experience = ?, description = ?, backlog = ?, skill = ?, cgpa = ? WHERE jobId = ?';
+    mysqlConnection.query(query, [ qualification, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, backlog, skill, cgpa, jobId], (err, results) => {
         if(err) throw err;
         res.redirect('/po/approveJobs')
     })

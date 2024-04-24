@@ -57,12 +57,13 @@
                     <h1>Edit Job Details</h1>
                     <div class="formSection">
                         <div class="formSection1">
-                            <label for="jobId">Job ID:</label>
-                            <input type="text" id="jobId" name="jobId" value="<%= job.jobId %>">
-                            <label for="companyName">Company Name:</label>
+                            <!-- <label for="jobId">Job ID:</label>
+                            <input type="text" id="jobId" name="jobId" value="<%= job.jobId %>"> -->
+                            <input type="hidden" id="hiddenField" name="jobId" value="<%= job.jobId %>">
+                            <!-- <label for="companyName">Company Name:</label>
                             <input type="text" id="companyName" name="companyName" value="<%= job.company %>" required>
                             <label for="jobPost">Job Post:</label>
-                            <input type="text" id="jobPost" name="jobPost" value="<%= job.post %>" required>
+                            <input type="text" id="jobPost" name="jobPost" value="<%= job.post %>" required> -->
                             <label for="qualification">Qualification:</label>
                             <input type="text" id="qualification" name="qualification" value="<%= job.qualification %>" required>
                             <label for="cgpa">CGPA:</label>
@@ -78,12 +79,12 @@
                             </select>
                             <label for="backlog">Number of backlogs</label>
                             <input type="text" name="backlog" id="backlog" value="<%= job.backlog %>" required>
-                        </div>
-                        <div class="formSection2">
                             <label for="skill">Skills Required</label>
                             <input type="text" name="skill" id="skill" value="<%= job.skill %>" required>
                             <label for="salaryRange">Salary Range:</label>
                             <input type="text" id="salaryRange" name="salaryRange" value="<%= job.salary %>">
+                        </div>
+                        <div class="formSection2">
                             <label for="baseLocation">Base Location:</label>
                             <input type="text" id="baseLocation" name="baseLocation" value="<%= job.location %>" required>
 

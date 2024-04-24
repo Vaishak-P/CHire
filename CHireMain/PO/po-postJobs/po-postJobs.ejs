@@ -66,8 +66,8 @@
                             <h1>Add a new job</h1>
                             <div class="formSection">
                                 <div class="formSection1">
-                                    <label for="jobId">Job ID:</label>
-                                    <input type="text" id="jobId" name="jobId" required>
+                                    <!-- <label for="jobId">Job ID:</label>
+                                    <input type="text" id="jobId" name="jobId" required> -->
                                     <label for="companyName">Company Name:</label>
                                     <input type="text" id="companyName" name="companyName" required>
                                     <label for="jobPost">Job Post:</label>
@@ -110,7 +110,7 @@
                             </div>
                             <div class="form-bottom">
                                 <!-- <h6 style="color: red;" id="errorMessage"></h6> Error message placeholder -->
-                                <h6 style="color: red;" id="errorMessage"><%= locals.error %></h6>
+                                <h3 style="color: red;" id="errorMessage"><%= locals.error %></h3>
                                 <div class="submit">
                                     <button type="submit">Submit</button>
                                 </div>

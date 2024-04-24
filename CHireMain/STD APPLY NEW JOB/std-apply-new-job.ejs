@@ -4,8 +4,8 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CleverHire</title>
-            <link rel="stylesheet" href="/STD APPLY JOBS/std-apply-new-job.css">
-            <link rel="stylesheet" href="std-apply-new-job.css">
+            <link rel="stylesheet" href="/STD APPLY NEW JOB/std-apply-new-job.css">
+            <!-- <link rel="stylesheet" href="std-apply-new-job.css"> -->
             <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
             <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -41,7 +41,7 @@
                         <div class="lmenu-items">
                             <li><a class="d" href="/student/dashboard">Dashboard</a></li>
                             <li><a class="ei" href="/student/editinfo">Edit Info</a></li>
-                            <li><a class="anj" href="/student/applynewjob">Apply New Job</a></li>
+                            <li><a class="anj" href="/student/applyJob">Apply Jobs</a></li>
                             <li><a class="aj" href="/student/appliedjobs">Applied Jobs</a></li>
                             <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
                             <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
@@ -55,11 +55,13 @@
                     <section class="content">
                         <div class="headingSection">
                             <h1>Latest Jobs</h1>
+                        <!-- <h6 style="color: red;"><%= locals.error %></h6> -->
                         </div>
+                        <h6 style="color: red;"><%= locals.error %></h6>
                         <div class="jobGridContainer">
                             <% if (jobs.length === 0) { %>
                                 <div class="error-message">
-                                    <p style="color: red;">There are no listed jobs.</p>
+                                    <p style="color: red;">There are no applied jobs.</p>
                                 </div>
                             <% } else { %>
                                 <% jobs.forEach(job => { %>
@@ -160,7 +162,7 @@
                                                 <h6>:<%= job.description %></h6>
                                             </div>
                                         </div>
-                                        <button onclick="applyJob(`<%= job.jobId %>`)">Apply</button>
+                                        <button onclick="applyJob(`<%= job.company %>`)">Apply</button>
                                     </div>
                                 <% }); %>
                             <% } %>
@@ -171,24 +173,26 @@
                 
             </div>
             <script>
-                async function applyJob(jobId) {
-                    try {
-                        // ALERT 
-                        const response = await fetch('/approveJob', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ jobId: jobId })
-                        });
-                        const data = await response.text();
-                        console.log(data);
-                        // Redirect to the student list page
-                        window.location.href = '/po/approveJobs';
-                    } catch (error) {
+                
+                function applyJob(company) {
+                    fetch('/applyJobs', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ company: company })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Optionally, perform any other actions after the request is sent
+                    })
+                    .catch(error => {
                         console.error('Error:', error);
-                    }
+                    });
                 }
+
             </script>
         </body>
 </html>
