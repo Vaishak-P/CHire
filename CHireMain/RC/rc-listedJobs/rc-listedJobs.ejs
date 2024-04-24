@@ -169,6 +169,7 @@
                                                 <h6>:<%= job.description %></h6>
                                             </div>
                                         </div>
+                                        <button onclick="deleteJob(`<%= job.jobId %>`)">Delete</button>
                                     </div>
                                 <% }); %>
                             <% } %>
@@ -178,5 +179,25 @@
                 </div>
                 
             </div>
+            <script>
+                // ALERT 
+                async function deleteJob(jobId) {
+                   try {
+                       const response = await fetch('/declineJob', {
+                           method: 'POST',
+                           headers: {
+                               'Content-Type': 'application/json'
+                           },
+                           body: JSON.stringify({ jobId: jobId })
+                       });
+                       const data = await response.text();
+                       console.log(data);
+                       // Add any client-side logic you need after job decline
+                       window.location.href = '/po/approveJobs'
+                   } catch (error) {
+                       console.error('Error:', error);
+                   }
+               }
+           </script>
         </body>
 </html>
