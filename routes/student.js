@@ -216,12 +216,15 @@ const fetchJobs = (institute,appliedJobsArray) => {
                 reject(err);
             } else {
                 let filteredJobs = results 
+                // console.log(filteredJobs)
+                console.log(appliedJobsArray, appliedJobsArray.length)
                 if (appliedJobsArray && appliedJobsArray.length > 0) {
                         // Filter out jobs whose company is not in the appliedJobsArray
                         filteredJobs = results.filter(job => {
-                        return !appliedJobsArray.includes(job.jobId);
+                        return !appliedJobsArray.includes(String(job.jobId));
                     });
                 }
+                // console.log(filteredJobs)
                 resolve(filteredJobs);
             }
         });
@@ -230,6 +233,7 @@ const fetchJobs = (institute,appliedJobsArray) => {
 
 // Define a route to handle requests for fetching listed jobs
 router.get('/student/applyJob', async (req, res) => {
+    // setStudent(idstudent)
     student = getStudent()
     const profile = `/images/${student.photo}`
     try {
@@ -264,10 +268,10 @@ const queryAsync = (sql, params) => {
 router.post('/applyJobs', async (req, res) => {
     const jobId = req.body.jobId;
     const student = getStudent();
-    const institute = student.institute;
+    // const institute = student.institute;
     const hardSkillsArray = JSON.parse(student.hardskills);
-    console.log(jobId, student);
-    const profile = `/images/${student.photo}`;
+    // console.log(jobId, student);
+    // const profile = `/images/${student.photo}`;
     
     // Fetch job details based on jobId
     const job = await queryAsync('SELECT * FROM jobs WHERE jobId = ? AND cgpa <= ? AND backlog >= ? AND skill IN (?)', [jobId, student.cgpa, student.backlog, hardSkillsArray]);
@@ -276,22 +280,29 @@ router.post('/applyJobs', async (req, res) => {
     if (job.length > 0) {
         console.log('inside the if clause');
         appliedJobs += (appliedJobs ? ',' : '') + job[0].jobId;
+        // a = student
+        // a.appliedjobs = appliedJobs
+        student.appliedjobs = appliedJobs
+        setStudent(student);
         await queryAsync('UPDATE student SET appliedJobs = ? WHERE idstudent = ?', [appliedJobs, student.idstudent]);
         console.log("HELLO");
-        res.redirect('/student/appliedjobs')
+        res.status(200).send({
+            "success": true,
+          });
+        // res.redirect('/student/appliedjobs');
     } else {
         let appliedJobsArray = [];
         if (student.appliedjobs) {
             appliedJobsArray = student.appliedjobs.split(',');
         }
-        console.log(appliedJobsArray)
-        const jobs = await fetchJobs(institute, appliedJobsArray);
-        console.log('Does not meet the job requirements');
-        console.log("HI");
-        res.render('STD APPLY NEW JOB/std-apply-new-job',{error:'Does not meet the job requirements',student,jobs,profile})
-        // res.send('Does not meet the job requirements');
+        // console.log(appliedJobsArray)
+        res.status(200).send({
+            "success": false,
+            "error": "Does not meet the job requirements"
+          });
     }
 });
+
 
 
 function getAppliedJobs(sql, params) {
