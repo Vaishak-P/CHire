@@ -162,10 +162,10 @@ function executeQuery(sql, params) {
     });
 }
 
-router.get('/student/editinfo',(req,res)=>{
+router.get('/student/editinfo', (req, res) => {
     const student = getStudent()
     const profile = `/images/${student.photo}`
-    res.render('std-dashboard/stdInfoEdit/stdInfoEdit',{student,profile})
+    res.render('std-dashboard/stdInfoEdit/stdInfoEdit', { student, profile })
 })
 
 router.post('/edit/student', (req, res) => {
@@ -174,13 +174,13 @@ router.post('/edit/student', (req, res) => {
     const userId = student.idstudent;
     const { name, email, phone, address1, address2, address3, state, district, cgpa, backlog, ugyear, password } = req.body;
     const query = 'UPDATE student SET name = ?, email = ?, phone = ?, address1 = ?, address2 = ?, address3 = ?, state = ?, district = ?, cgpa = ?, backlog = ?, ugyear = ?, password = ? WHERE idstudent = ?';
-  
-    mysqlConnection.query(query, [name, email, phone, address1, address2, address3,  state, district, cgpa, backlog, ugyear, password, userId], (err, results) => {
-      if (err) {
-        console.error('Error updating user:', err);
-        res.status(500).send('Error updating user');
-        return;
-      }
+
+    mysqlConnection.query(query, [name, email, phone, address1, address2, address3, state, district, cgpa, backlog, ugyear, password, userId], (err, results) => {
+        if (err) {
+            console.error('Error updating user:', err);
+            res.status(500).send('Error updating user');
+            return;
+        }
         // Commit transaction if everything is successful
         mysqlConnection.commit((err) => {
             if (err) {
@@ -192,7 +192,7 @@ router.post('/edit/student', (req, res) => {
             }
         })
         // Registration successful
-        mysqlConnection.query('SELECT * FROM student WHERE idstudent = ?', [userId],(err, results)=>{
+        mysqlConnection.query('SELECT * FROM student WHERE idstudent = ?', [userId], (err, results) => {
             if (err) {
                 console.error('Error executing query: ', err);
                 res.status(500).send('Internal Server Error');
@@ -201,30 +201,27 @@ router.post('/edit/student', (req, res) => {
             setStudent(results[0])
             res.redirect('/student/dashboard')
         });
-        
+
     });
 });
 
 // Define a function to fetch listed jobs from the database
-const fetchJobs = (institute,appliedJobsArray) => {
+const fetchJobs = (institute, appliedJobsArray) => {
     return new Promise((resolve, reject) => {
         // Prepare SQL statement to select jobs where approved is 1
         const sql = `SELECT * FROM jobs WHERE approved = 1 AND institute = ?`;
         // Execute the SQL statement
-        mysqlConnection.query(sql,[institute], (err, results) => {
+        mysqlConnection.query(sql, [institute], (err, results) => {
             if (err) {
                 reject(err);
             } else {
-                let filteredJobs = results 
-                // console.log(filteredJobs)
-                console.log(appliedJobsArray, appliedJobsArray.length)
+                let filteredJobs = results
                 if (appliedJobsArray && appliedJobsArray.length > 0) {
-                        // Filter out jobs whose company is not in the appliedJobsArray
-                        filteredJobs = results.filter(job => {
+                    // Filter out jobs whose company is not in the appliedJobsArray
+                    filteredJobs = results.filter(job => {
                         return !appliedJobsArray.includes(String(job.jobId));
                     });
                 }
-                // console.log(filteredJobs)
                 resolve(filteredJobs);
             }
         });
@@ -246,7 +243,7 @@ router.get('/student/applyJob', async (req, res) => {
         const jobs = await fetchJobs(institute, appliedJobsArray);
 
         // Render the HTML template with the fetched jobs data
-        res.render('STD APPLY NEW JOB/std-apply-new-job',{student,jobs,profile})
+        res.render('STD APPLY NEW JOB/std-apply-new-job', { student, jobs, profile })
     } catch (error) {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
@@ -255,51 +252,42 @@ router.get('/student/applyJob', async (req, res) => {
 
 const queryAsync = (sql, params) => {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query(sql, params, (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results);
-        }
-      });
+        mysqlConnection.query(sql, params, (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
     });
 }
 
 router.post('/applyJobs', async (req, res) => {
     const jobId = req.body.jobId;
     const student = getStudent();
-    // const institute = student.institute;
     const hardSkillsArray = JSON.parse(student.hardskills);
-    // console.log(jobId, student);
-    // const profile = `/images/${student.photo}`;
-    
+
     // Fetch job details based on jobId
     const job = await queryAsync('SELECT * FROM jobs WHERE jobId = ? AND cgpa <= ? AND backlog >= ? AND skill IN (?)', [jobId, student.cgpa, student.backlog, hardSkillsArray]);
-    
+
     let appliedJobs = student.appliedjobs || '';
     if (job.length > 0) {
-        console.log('inside the if clause');
         appliedJobs += (appliedJobs ? ',' : '') + job[0].jobId;
-        // a = student
-        // a.appliedjobs = appliedJobs
         student.appliedjobs = appliedJobs
         setStudent(student);
         await queryAsync('UPDATE student SET appliedJobs = ? WHERE idstudent = ?', [appliedJobs, student.idstudent]);
-        console.log("HELLO");
         res.status(200).send({
             "success": true,
-          });
-        // res.redirect('/student/appliedjobs');
+        });
     } else {
         let appliedJobsArray = [];
         if (student.appliedjobs) {
             appliedJobsArray = student.appliedjobs.split(',');
         }
-        // console.log(appliedJobsArray)
         res.status(200).send({
             "success": false,
             "error": "Does not meet the job requirements"
-          });
+        });
     }
 });
 
@@ -307,13 +295,13 @@ router.post('/applyJobs', async (req, res) => {
 
 function getAppliedJobs(sql, params) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query(sql, params, (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results);
-        }
-      });
+        mysqlConnection.query(sql, params, (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
     });
 }
 
@@ -324,7 +312,6 @@ router.get('/student/appliedjobs', async (req, res) => {
     if (student.appliedjobs) {
         appliedJobsArray = student.appliedjobs.split(',')
     }
-    console.log(appliedJobsArray)
     let sql = `SELECT * FROM jobs WHERE approved = 1 AND institute = ?`;
     let params = [student.institute];
 
@@ -347,6 +334,42 @@ router.get('/student/appliedjobs', async (req, res) => {
     }
 });
 
+// Express Route to Remove Job Application
+router.post('/cancelJob', (req, res) => {
+    let student = getStudent()
+    const studentId = student.idstudent
+    const jobIdToRemove = req.body.jobId
+    // Fetch the current value of 'appliedjobs' column for the student
+    mysqlConnection.query('SELECT appliedjobs FROM student WHERE idstudent = ?', [studentId], (error, results) => {
+        if (error) {
+            console.error('Error fetching applied jobs: ' + error);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+
+        if (results.length === 0) {
+            res.status(404).json({ error: 'Student not found' });
+            return;
+        }
+
+        const currentAppliedJobs = results[0].appliedjobs.split(',').map(jobId => jobId.trim());
+
+        // Remove the specific job ID from the list
+        const updatedAppliedJobs = currentAppliedJobs.filter(id => id !== jobIdToRemove).join(',');
+        student.appliedjobs = updatedAppliedJobs
+        setStudent(student)
+        // Update the 'appliedjobs' column with the modified list
+        mysqlConnection.query('UPDATE student SET appliedjobs = ? WHERE idstudent = ?', [updatedAppliedJobs, studentId], (updateError, updateResults) => {
+            if (updateError) {
+                console.error('Error updating applied jobs: ' + updateError);
+                res.status(500).json({ error: 'Internal server error' });
+                return;
+            }
+            res.send('Job cancelled successfully')
+        });
+    });
+});
+
 
 router.get('/student/resume', (req, res) => {
     const student = getStudent();
@@ -354,14 +377,13 @@ router.get('/student/resume', (req, res) => {
     res.render("RESUME GENERATION/RESUME INTRODUCTION/resume_ntroduction", { student, profile })
 })
 
-router.get('/resume/form',(req,res)=>{
+router.get('/resume/form', (req, res) => {
     const student = getStudent()
     const profile = `/images/${student.photo}`
-    res.render("RESUME GENERATION/RESUME FORM/resume_form",{student, profile})
+    res.render("RESUME GENERATION/RESUME FORM/resume_form", { student, profile })
 })
 
-router.post('/resume/form',(req,res)=>{
-    console.log(req.body)
+router.post('/resume/form', (req, res) => {
     const details = req.body
     // const {project1, despro1, project2, despro2, project3, despro3, project4, despro4, Achievements, sslcinstitute, sslcyear, sslcper, hseinstitute, hseyear, hseper, hobbies, linkedin, portfolio} = req.body
     const student = getStudent()
@@ -370,12 +392,10 @@ router.post('/resume/form',(req,res)=>{
     const hardskillsArray = JSON.parse(student.hardskills);
     const skill1 = hardskillsArray[0]
     const skill2 = hardskillsArray[1]
-    console.log(softskillsArray, hardskillsArray)
-    console.log(skill1,skill2)
     hobbies = details.hobbies
-    res.render('RESUME GENERATION/RESUME DISPLAY/resume_show',{student,profile})
-    router.get('/resume_template.html',(req,res)=>{
-        res.render('RESUME GENERATION/RESUME DISPLAY/resume_template',{student,profile, softskillsArray, hardskillsArray, hobbies: hobbies, details, skill1, skill2})
+    res.render('RESUME GENERATION/RESUME DISPLAY/resume_show', { student, profile })
+    router.get('/resume_template.html', (req, res) => {
+        res.render('RESUME GENERATION/RESUME DISPLAY/resume_template', { student, profile, softskillsArray, hardskillsArray, hobbies: hobbies, details, skill1, skill2 })
     })
 })
 
@@ -388,7 +408,7 @@ router.get('/student/mocktest', (req, res) => {
 //     res.render("std-test/std-test")
 // })
 
-router.get('/MockTest/:heading',(req,res)=>{
+router.get('/MockTest/:heading', (req, res) => {
     let student = getStudent()
     let profile = `/images/${student.photo}`
     // Extract the encoded text from the URL parameter
@@ -398,10 +418,10 @@ router.get('/MockTest/:heading',(req,res)=>{
     const heading = decodeURIComponent(encodedText);
 
     // Render the page dynamically based on the extracted text
-    res.render(`STD TEST DETAILS/${heading}/${heading}`,{student,profile})
+    res.render(`STD TEST DETAILS/${heading}/${heading}`, { student, profile })
 })
 
-router.get('/test/:heading',(req,res)=>{
+router.get('/test/:heading', (req, res) => {
     let student = getStudent()
     let profile = `/images/${student.photo}`
     // Extract the encoded text from the URL parameter
@@ -411,29 +431,25 @@ router.get('/test/:heading',(req,res)=>{
     const heading = decodeURIComponent(encodedText);
 
     // Check if the student has already attended the test
-    
+
     if (student.test_type.includes(heading)) {
-        res.render('std-test/std-test',{profile, error:'You have already attended the test.'})
+        res.render('std-test/std-test', { profile, error: 'You have already attended the test.' })
         return
     }
 
-    res.render(`TESTS/${heading}/${heading}`,{student,profile})
+    res.render(`TESTS/${heading}/${heading}`, { student, profile })
 })
 
-router.post('/submit-score', async(req,res) => {
+router.post('/submit-score', async (req, res) => {
     let student = getStudent();
     let { score, type } = req.body;
-    console.log(score,type)
 
     // Update the student's mock test score
-    // let currentScore = await student.mocktest_score + parseInt(score, 10);
-    let currentScore = parseInt(score,10)
+    let currentScore = parseInt(score, 10)
     //Convert the score to the base of 100
-    console.log((currentScore/10)*100)
-    let mockTestScore = Math.round((((currentScore/10)*100) + student.mocktest_score)/2)
-    console.log(mockTestScore)
+    let mockTestScore = Math.round((((currentScore / 10) * 100) + student.mocktest_score) / 2)
 
-    let totalScore = await Math.round((mockTestScore + student.fluency_score)/2)
+    let totalScore = await Math.round((mockTestScore + student.fluency_score) / 2)
 
     // Retrieve the existing test types for the student
     let existingTestTypes = student.test_type || '';

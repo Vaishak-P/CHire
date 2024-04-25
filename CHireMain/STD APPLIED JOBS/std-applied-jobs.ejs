@@ -1,179 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CleverHire</title>
-            <link rel="stylesheet" href="\STD APPLIED JOBS\std-applied-jobs.css">
-            <!-- <link rel="stylesheet" href="std-applied-jobs.css"> -->
-            <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
-            <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        </head>
-        <body>
-            <div class="topMenu">
-                <div class="cleverhire">
-                    <p><a href="/index.html">CleverHire</a></p>
-                </div>
-            
-            <!-- NAVIGATION -->
-                <nav>
-                    <div class="list">
-                        <a href="">Student: <%= student.name %></a>
-                    </div>
-                    <div class="soc-icon">
-                        <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href=""><i class="fa-brands fa-facebook"></i></a>
-                        <a href=""><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href=""><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </nav>
-        
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverHire</title>
+    <link rel="stylesheet" href="\STD APPLIED JOBS\std-applied-jobs.css">
+    <!-- <link rel="stylesheet" href="std-applied-jobs.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="topMenu">
+        <div class="cleverhire">
+            <p><a href="/index.html">CleverHire</a></p>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav>
+            <div class="list">
+                <a href="">Student: <%= student.name %></a>
             </div>
-            <div class="main-body">
-                <!-- LEFT SECTION OF PAGE  -->
-                <section class="lmenu">
-                    <div class="dp">
-                        <!-- <i class="fa-solid fa-user-graduate"></i> -->
-                        <img src="<%= locals.profile %>" alt="dp">
-                    </div>
-                    <div class="lmenu-items-con">
-                        <div class="lmenu-items">
-                            <li><a class="d" href="/student/dashboard">Dashboard</a></li>
-                            <li><a class="ei" href="/student/editinfo">Edit Info</a></li>
-                            <li><a class="anj" href="/student/applyJob">Apply Jobs</a></li>
-                            <li><a class="aj" href="/student/appliedjobs">Applied Jobs</a></li>
-                            <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
-                            <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
-                            <li><a class="cv" href="/student/resume">Create Resume</a></li>
-                            <li><a class="l" href="/LOGOUT">Logout</a></li>
+            <div class="soc-icon">
+                <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </nav>
+
+    </div>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <!-- <i class="fa-solid fa-user-graduate"></i> -->
+                <img src="<%= locals.profile %>" alt="dp">
+            </div>
+            <div class="lmenu-items-con">
+                <div class="lmenu-items">
+                    <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                    <li><a class="ei" href="/student/editinfo">Edit Info</a></li>
+                    <li><a class="anj" href="/student/applyJob">Apply Jobs</a></li>
+                    <li><a class="aj" href="/student/appliedjobs">Applied Jobs</a></li>
+                    <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
+                    <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
+                    <li><a class="cv" href="/student/resume">Create Resume</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <!-- CENTRE SECTION OF PAGE -->
+        <div class="cmenu">
+            <section class="content">
+                <div class="headingSection">
+                    <h1>Applied Jobs</h1>
+                </div>
+                <div class="jobGridContainer">
+                    <% if (jobs.length===0) { %>
+                        <div class="error-message">
+                            <p style="color: red;">There are no applied jobs.</p>
                         </div>
-                    </div>
-                </section>
-                <!-- CENTRE SECTION OF PAGE -->
-                <div class="cmenu">
-                    <section class="content">
-                        <div class="headingSection">
-                            <h1>Applied Jobs</h1>
-                        </div>
-                        <div class="jobGridContainer">
-                            <% if (jobs.length === 0) { %>
-                                <div class="error-message">
-                                    <p style="color: red;">There are no listed jobs.</p>
-                                </div>
-                            <% } else { %>
-                                <% jobs.forEach(job => { %>
-                                    <div class="jobGrid">
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6 id="companyName">Company name</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6 id="companyName">: <%= job.company %></h6>
-                                            </div>
+                        <% } else { %>
+                            <% jobs.forEach(job=> { %>
+                                <div class="jobGrid">
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6 id="companyName">Company name</h6>
                                         </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Job Post</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.post %></h6>
-                                            </div>
+                                        <div class="value">
+                                            <h6 id="companyName">: <%= job.company %>
+                                            </h6>
                                         </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Qualification</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.qualification %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>CGPA</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.cgpa %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Number of backlogs</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.backlog %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Skills Required</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.skill %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Job Type</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.type %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Salary Range</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.salary %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Base Location</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.location %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Application deadline</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.deadline %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Experience required</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.experience %></h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="label">
-                                                <h6>Job description</h6>
-                                            </div>
-                                            <div class="value">
-                                                <h6>:<%= job.description %></h6>
-                                            </div>
-                                        </div>
-                                        <button onclick="cancelJob(`<%= job.jobId %>`)">Cancel</button>
                                     </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Job Post</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.post %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Qualification</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.qualification %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>CGPA</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.cgpa %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Number of backlogs</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.backlog %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Skills Required</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.skill %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Job Type</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.type %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Salary Range</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.salary %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Base Location</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.location %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Application deadline</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.deadline %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Experience required</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.experience %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label">
+                                            <h6>Job description</h6>
+                                        </div>
+                                        <div class="value">
+                                            <h6>:<%= job.description %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <button onclick="cancelJob(`<%= job.jobId %>`)">Cancel</button>
+                                </div>
                                 <% }); %>
-                            <% } %>
-                        </div>
-                        
-                    </section>
+                                    <% } %>
                 </div>
-                
-            </div>
-            <script>
-                 async function cancelJob(jobId) {
+
+            </section>
+        </div>
+
+    </div>
+    <script>
+        async function cancelJob(jobId) {
                     try {
-                        const response = await fetch('/declineJob', {
+                        const response = await fetch('/cancelJob', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -182,12 +196,13 @@
                         });
                         const data = await response.text();
                         console.log(data);
-                        // Add any client-side logic you need after job decline
-                        window.location.href = '/po/approveJobs'
+                        // Redirect to the student list page
+                        window.location.href = '/student/appliedjobs';
                     } catch (error) {
                         console.error('Error:', error);
                     }
                 }
-            </script>
-        </body>
+    </script>
+</body>
+
 </html>
