@@ -243,7 +243,7 @@ router.post('/comp/postjob', async (req, res) => {
         const companyName = comp.name;
 
         // Check if a job with the same jobId already exists
-        const selectQuery = "SELECT * FROM jobs WHERE jobPost = ? AND institute = ? AND company = ?";
+        const selectQuery = "SELECT * FROM jobs WHERE post = ? AND institute = ? AND company = ?";
         mysqlConnection.query(selectQuery, [jobPost,institute,companyName], async (err, results) => {
             if (err) {
                 console.error("Error selecting job:", err);
@@ -313,6 +313,16 @@ router.get('/comp/listedjobs', async (req, res) => {
         console.error('Error fetching listed jobs:', error);
         res.status(500).send('Internal Server Error');
     }
+});
+
+// Handle POST request to delete job
+router.post('/comp/deleteJob', (req, res) => {
+    const jobId = req.body.jobId; // assuming you're sending jobId with your request
+    const sql = `DELETE FROM jobs WHERE jobId = ${jobId}`;
+    mysqlConnection.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send('Job deleted successfully.');
+    });
 });
 
 //ALERT

@@ -378,3 +378,6 @@ main-body{
     margin-top: 20px;
     padding: 20px;
 }
+.match-job-list a{
+    cursor: pointer;
+}
