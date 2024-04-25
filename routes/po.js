@@ -98,9 +98,9 @@ router.post('/register/po', (req, res) => {
 });
 
 router.get('/po/dashboard',async(req,res)=>{
-    let po = getPo()
-    const profile = `/images/${po.photo}`
     try{
+        let po = getPo()
+        const profile = `/images/${po.photo}`
         const appliedStudentsCount =  await getAppliedStudentsCount(po.institute)
         const totalStudentsCount = await getTotalStudentsCount(po.institute)
         const lastAddedJob = await getLastAddedJob(po.institute)
@@ -144,6 +144,7 @@ function getTotalStudentsCount(institute) {
     return new Promise((resolve, reject) => {
         mysqlConnection.query('SELECT COUNT(*) AS count FROM student WHERE institute = ?', [institute], (error, results) => {
             if (error) {
+                console.log(error)
                 reject(error);
                 return;
             }
@@ -156,10 +157,10 @@ function getLastAddedJob(institute) {
     return new Promise((resolve, reject) => {
         mysqlConnection.query('SELECT * FROM jobs WHERE institute = ? AND approved = ?', [institute,0], (error, results) => {
             if (error) {
+                console.log(error)
                 reject(error);
                 return;
             }
-            // console.log(results)
             resolve(results[results.length - 1]);
         });
     });

@@ -132,24 +132,34 @@ function getLastAddedJob(company) {
                 reject(error);
                 return;
             }
-            console.log(results)
             resolve(results[results.length - 1]);
         });
     });
 }
 
-function getStudentsAndUniqueInstitutesCount(company){
+function getStudentsAndUniqueInstitutesCount(company) {
     return new Promise((resolve, reject) => {
-        mysqlConnection.query(`SELECT COUNT(*) AS studentCount, COUNT(DISTINCT institute) AS uniqueInstitutesCount FROM student WHERE JSON_CONTAINS(appliedjobs, JSON_ARRAY(?))`, [company], (error, results) => {
+        // First, query the jobs table to get the jobId's corresponding to the specified company
+        mysqlConnection.query(`SELECT jobId FROM jobs WHERE company = ?`, [company], (error, jobResults) => {
             if (error) {
                 reject(error);
                 return;
             }
-            console.log(results)
-            resolve(results[0]);
+            // Extracting jobId's from jobResults
+            const jobIds = jobResults.map(row => row.jobId);
+
+            // Now query the student table to count the number of students who have applied to those jobs
+            mysqlConnection.query(`SELECT COUNT(*) AS studentCount, COUNT(DISTINCT institute) AS uniqueInstitutesCount FROM student WHERE CONCAT(',', appliedJobs, ',') REGEXP ',(${jobIds.join('|')})[,|$]'`, [jobIds.join()], (error, studentResults) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                resolve(studentResults[0]);
+            });
         });
     });
 }
+
 
 router.get('/comp/edit',(req,res)=>{
     let comp =getComp()
@@ -229,12 +239,12 @@ router.post('/comp/postjob', async (req, res) => {
     try {
         let comp = getComp();
         const profile = `/images/${comp.photo}`
-        const { jobId, jobPost, qualification, institute, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
+        const { jobPost, qualification, institute, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription } = req.body;
         const companyName = comp.name;
 
         // Check if a job with the same jobId already exists
-        const selectQuery = "SELECT * FROM jobs WHERE jobId = ?";
-        mysqlConnection.query(selectQuery, [jobId], async (err, results) => {
+        const selectQuery = "SELECT * FROM jobs WHERE jobPost = ? AND institute = ? AND company = ?";
+        mysqlConnection.query(selectQuery, [jobPost,institute,companyName], async (err, results) => {
             if (err) {
                 console.error("Error selecting job:", err);
                 res.status(500).send("Internal Server Error");
@@ -250,15 +260,15 @@ router.post('/comp/postjob', async (req, res) => {
                 // Extract institute names from the result array
                 const institutes = instituteList.map(row => row.institute);
 
-                res.render('RC/rc-postJobs/rc-postJobs', { error:'Job with the same jobId already exists', comp, institutes, profile });
+                res.render('RC/rc-postJobs/rc-postJobs', { error:'Job already exists', comp, institutes, profile });
                 return;
             }
 
             // Prepare SQL statement to insert job details into the jobs table
-            const sql = "INSERT INTO jobs (jobId, company, post, qualification, cgpa, backlog, skill, type, salary, location, deadline, experience, description, approved, institute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            const sql = "INSERT INTO jobs ( company, post, qualification, cgpa, backlog, skill, type, salary, location, deadline, experience, description, approved, institute) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             // Execute the SQL statement
-            mysqlConnection.query(sql, [jobId, companyName, jobPost, qualification, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 0, institute], (err, result) => {
+            mysqlConnection.query(sql, [ companyName, jobPost, qualification, cgpa, backlog, skill, employmentType, salaryRange, baseLocation, applicationDeadline, experienceRequired, jobDescription, 0, institute], (err, result) => {
                 if (err) {
                     console.error("Error inserting job:", err);
                     res.status(500).send("Error adding job");
@@ -305,11 +315,16 @@ router.get('/comp/listedjobs', async (req, res) => {
     }
 });
 
-// Function to get students whose applied job matches the company's name
+//ALERT
 const getStudents = async (company) => {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM student WHERE JSON_CONTAINS(appliedJobs, ?)';
-        mysqlConnection.query(query, [JSON.stringify(company)], (error, results) => {
+        const query = `
+        SELECT DISTINCT s.*
+        FROM student s
+        JOIN jobs j ON FIND_IN_SET(j.jobId, s.appliedJobs)
+        WHERE j.company = ?
+    `;
+        mysqlConnection.query(query, [company], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -318,6 +333,7 @@ const getStudents = async (company) => {
         });
     });
 };
+
 
 
 router.get('/comp/appliedStudentList', async (req, res) => {
@@ -341,26 +357,44 @@ router.get('/comp/appliedStudentList', async (req, res) => {
     }
 });
 
-router.post('/comp/filterStudents',(req,res)=>{
-    let comp = getComp()
-    let company = comp.name
+router.post('/comp/filterStudents', (req, res) => {
+    let comp = getComp();
+    let company = comp.name;
     const institutes = req.body;
     const institute = Object.keys(institutes)[0];
 
-    // Convert company to JSON array with a single element
-     const companyJSON = JSON.stringify([company]);
+    // Query to get jobIds corresponding to the company
+    mysqlConnection.query('SELECT jobId FROM jobs WHERE company = ?', [company], (err, jobResults) => {
+        if (err) {
+            console.error('Error executing job query:', err);
+            res.status(500).json({ error: 'An error occurred while fetching job data.' });
+            return;
+        }
 
-     // Construct SQL query based on selected options
-     let query = 'SELECT * FROM student WHERE institute = ? AND JSON_CONTAINS(appliedJobs, ?)';
-    // Execute the SQL query
-    mysqlConnection.query(query, [institute,companyJSON], (err, results) => {
-      if (err) {
-        console.error('Error executing query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.' });
-      } else {
-        res.json(results);
-      }
+        // Extracting jobIds from jobResults
+        const jobIds = jobResults.map(row => row.jobId);
+
+        // Construct SQL query to filter students
+        let query = 'SELECT * FROM student WHERE institute = ? AND (';
+        jobIds.forEach((jobId, index) => {
+            query += `FIND_IN_SET('${jobId}', appliedJobs) > 0`;
+            if (index < jobIds.length - 1) {
+                query += ' OR ';
+            }
+        });
+        query += ')';
+
+        // Execute the SQL query
+        mysqlConnection.query(query, [institute], (err, results) => {
+            if (err) {
+                console.error('Error executing student query:', err);
+                res.status(500).json({ error: 'An error occurred while fetching student data.' });
+            } else {
+                res.json(results);
+            }
+        });
     });
-})
+});
+
 
 module.exports = router

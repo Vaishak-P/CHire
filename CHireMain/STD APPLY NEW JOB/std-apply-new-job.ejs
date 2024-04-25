@@ -162,7 +162,7 @@
                                                 <h6>:<%= job.description %></h6>
                                             </div>
                                         </div>
-                                        <button onclick="applyJob(`<%= job.company %>`)">Apply</button>
+                                        <button onclick="applyJob(`<%= job.jobId %>`)">Apply</button>
                                     </div>
                                 <% }); %>
                             <% } %>
@@ -174,13 +174,13 @@
             </div>
             <script>
                 
-                function applyJob(company) {
+                function applyJob(jobId) {
                     fetch('/applyJobs', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ company: company })
+                        body: JSON.stringify({ jobId: jobId })
                     })
                     .then(response => {
                         if (!response.ok) {
