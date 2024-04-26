@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleverHire</title>
-    <!-- <link rel="stylesheet" href="rc-studentList.css"> -->
+    <link rel="stylesheet" href="rc-studentList.css">
     <link rel="stylesheet" href="/RC/rc-studentList/rc-studentList.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type="text/css">
     <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
@@ -71,6 +71,12 @@
                                 <option value="<%= institute %>"><%= institute %></option>
                             <% }); %>
                         </select>
+                        <select name="jobPost" id="jobPost" required>
+                            <option disabled selected>Select Job Post</option>
+                            <!-- <% institutes.forEach((institute) => { %> -->
+                                <option value="<%= jobPost%>"><%= jobPost %></option>
+                            <!-- <% }); %> -->
+                        </select>
                         <br>
                         <button type="submit">FILTER</button>
                     </form>
@@ -85,7 +91,7 @@
                         <th>Institute</th>
                         <th>Branch</th>
                         <th>Current CGPA</th>
-                        <!-- <th>Applied Jobs</th> -->
+                        <th>Job Post</th>
                         <th>Application</th>
                     </tr>
                     </thead>
@@ -98,6 +104,8 @@
                         <td><%= student.institute %></td>
                         <td><%= student.department %></td>
                         <td><%= student.cgpa %></td>
+                        <!-- ALERT  -->
+                        <td><%= student.job %></td>
                         <!-- Pass the index to the function -->
                         <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= student.idstudent %>)">View</button></td>
                     </tr>

@@ -245,10 +245,10 @@ tbody td{
     border-radius: 20px;
     padding: 5px 20px;
 }
-td:nth-child(even){
+td:nth-child(odd){
     background-color: var(--border-color);
 }
-td:nth-child(odd){
+td:nth-child(even){
     /* background-color: var(--bg-color); */
     border: 1px solid var(--border-color);
 }
