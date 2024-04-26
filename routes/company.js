@@ -325,11 +325,10 @@ router.post('/comp/deleteJob', (req, res) => {
     });
 });
 
-//ALERT
 const getStudents = async (company) => {
     return new Promise((resolve, reject) => {
         const query = `
-        SELECT DISTINCT s.*
+        SELECT DISTINCT s.*, j.post
         FROM student s
         JOIN jobs j ON FIND_IN_SET(j.jobId, s.appliedJobs)
         WHERE j.company = ?
@@ -345,6 +344,18 @@ const getStudents = async (company) => {
 };
 
 
+const getJobPost = async (company) =>{
+    return new Promise((resolve, reject)=>{
+        const query = 'SELECT post FROM jobs WHERE company = ?'
+        mysqlConnection.query(query, [company], (error,results)=>{
+            if(error){
+                reject(error)
+            }else{
+                resolve(results)
+            }
+        })
+    })
+}
 
 router.get('/comp/appliedStudentList', async (req, res) => {
     try {
@@ -353,14 +364,19 @@ router.get('/comp/appliedStudentList', async (req, res) => {
         const comp = getComp();
         const profile = `/images/${comp.photo}`
         const company = comp.name;
-
         // Fetch students belonging to the institute
-        const students = await getStudents([company]);
+        const studentsWithJobs = await getStudents(company);
+        const students = studentsWithJobs.map(student => ({
+            ...student,
+            post: student.post
+        }));
+
         let instituteList = await getInstituteList(); // Fetching institute list asynchronously
+        let jobPostsList = await getJobPost(company)
         // Extracting institute names from the result array
         const institutes = instituteList.map(row => row.institute);
-        
-        res.render('RC/rc-studentList/rc-studentList', { profile, comp, students, institutes }); // Pass students data and approved jobs data to the view
+        const jobPosts  = jobPostsList.map(row => row.post);
+        res.render('RC/rc-studentList/rc-studentList', { profile, comp, students, institutes, jobPosts }); // Pass students data and approved jobs data to the view
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
@@ -370,41 +386,36 @@ router.get('/comp/appliedStudentList', async (req, res) => {
 router.post('/comp/filterStudents', (req, res) => {
     let comp = getComp();
     let company = comp.name;
-    const institutes = req.body;
-    const institute = Object.keys(institutes)[0];
+    const { institute, jobPost } = req.body;
 
-    // Query to get jobIds corresponding to the company
-    mysqlConnection.query('SELECT jobId FROM jobs WHERE company = ?', [company], (err, jobResults) => {
+    // Initialize the base query
+    let query = 'SELECT s.*, j.post AS jobPost FROM student s LEFT JOIN jobs j ON FIND_IN_SET(j.jobId, s.appliedjobs)';
+
+    let queryParams = [];
+
+    // Add conditions based on the selected institute and job post
+    if (institute && jobPost) {
+        query += ' WHERE s.institute = ? AND j.company = ? AND j.post = ?';
+        queryParams.push(institute, company, jobPost);
+    } else if (institute) {
+        query += ' WHERE s.institute = ? AND j.company = ?';
+        queryParams.push(institute, company);
+    } else if (jobPost) {
+        query += ' WHERE j.company = ? AND j.post = ?';
+        queryParams.push(company, jobPost);
+    }
+
+    mysqlConnection.query(query, queryParams, (err, results) => {
         if (err) {
-            console.error('Error executing job query:', err);
-            res.status(500).json({ error: 'An error occurred while fetching job data.' });
-            return;
+            console.error('Error executing student query:', err);
+            res.status(500).json({ error: 'An error occurred while fetching student data.' });
+        } else {
+            res.json(results);
         }
-
-        // Extracting jobIds from jobResults
-        const jobIds = jobResults.map(row => row.jobId);
-
-        // Construct SQL query to filter students
-        let query = 'SELECT * FROM student WHERE institute = ? AND (';
-        jobIds.forEach((jobId, index) => {
-            query += `FIND_IN_SET('${jobId}', appliedJobs) > 0`;
-            if (index < jobIds.length - 1) {
-                query += ' OR ';
-            }
-        });
-        query += ')';
-
-        // Execute the SQL query
-        mysqlConnection.query(query, [institute], (err, results) => {
-            if (err) {
-                console.error('Error executing student query:', err);
-                res.status(500).json({ error: 'An error occurred while fetching student data.' });
-            } else {
-                res.json(results);
-            }
-        });
     });
 });
+
+
 
 
 module.exports = router

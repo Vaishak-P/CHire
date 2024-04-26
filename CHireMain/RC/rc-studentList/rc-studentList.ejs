@@ -73,9 +73,9 @@
                         </select>
                         <select name="jobPost" id="jobPost" required>
                             <option disabled selected>Select Job Post</option>
-                            <!-- <% institutes.forEach((institute) => { %> -->
+                             <% jobPosts.forEach((jobPost) => { %> 
                                 <option value="<%= jobPost%>"><%= jobPost %></option>
-                            <!-- <% }); %> -->
+                             <% }); %>
                         </select>
                         <br>
                         <button type="submit">FILTER</button>
@@ -105,7 +105,7 @@
                         <td><%= student.department %></td>
                         <td><%= student.cgpa %></td>
                         <!-- ALERT  -->
-                        <td><%= student.job %></td>
+                        <td><%= student.post %></td>
                         <!-- Pass the index to the function -->
                         <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(<%= student.idstudent %>)">View</button></td>
                     </tr>
@@ -253,13 +253,26 @@
     event.preventDefault();
     
     const institute = document.getElementById('selectInstitute').value;
+    const jobPost = document.getElementById('jobPost').value
+
+    console.log(institute,jobPost)
+    // Create an object to store selected filter options
+    const filterOptions = {};
+
+    // Add selected values to the filterOptions object if they are not default
+    if (institute !== 'Select Institute') {
+        filterOptions.institute = institute;
+    }
+    if (jobPost !== 'Select Job Post') {
+        filterOptions.jobPost = jobPost;
+    }
     try {
         const response = await fetch('/comp/filterStudents', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
-        body: institute // Include filtered options in the request body
+        body: JSON.stringify(filterOptions) // Include filtered options in the request body
         });
 
         if (!response.ok) {
@@ -298,6 +311,7 @@
         <th>Institute</th>
         <th>Branch</th>
         <th>Current CGPA</th>
+        <th>Job Post</th>
         <th>Application</th>
         </tr>
     `;
@@ -314,6 +328,7 @@
         <td>${student.institute}</td>
         <td>${student.department}</td>
         <td>${student.cgpa}</td>
+        <td>${student.jobPost}</td>
         <td class="buttonContainer"><button class="view-button" onclick="showStudentDetails(${student.idstudent})">View</button></td>
         `;
         tableBody.appendChild(row);
