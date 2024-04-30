@@ -473,14 +473,51 @@ router.post('/submit-score', async (req, res) => {
     });
 });
 
-router.get('/student/mockinterview', (req, res) => {
-    flag = "interview"
-    res.render("camera")
+// router.get('/student/mockinterview', (req, res) => {
+//     flag = "interview"
+//     res.render("camera")
+// })
+
+router.get('/student/mockinterview',(req,res)=>{
+    res.render('MOCK INTERVIEW/interview')
 })
 
-// router.get('/student/mockinterview',(req,res)=>{
-//     res.render('MOCK INTERVIEW/interview')
-// })
+router.get('/student/fluency',(req,res)=>{
+    res.render('MOCK INTERVIEW/templates/fluency')
+})
+
+router.post('/mockInterviewScore', async (req, res) => {
+    let student = getStudent();
+    let score = req.body;
+    let type = 'fluency'
+    // Update the student's mock test score
+    let currentScore = parseInt(score, 10)
+    //Convert the score to the base of 100
+    // let mockTestScore = Math.round((((currentScore / 10) * 100) + student.mocktest_score) / 2)
+
+    let totalScore = await Math.round((currentScore + student.mocktest_score) / 2)
+
+    // Retrieve the existing test types for the student
+    let existingTestTypes = student.test_type || '';
+
+    // Append the new test type to the existing ones
+    let updatedTestTypes = existingTestTypes ? `${existingTestTypes},${type}` : type;
+    student.fluency_score = currentScore
+    student.test_type = updatedTestTypes
+    student.total = totalScore
+
+    setStudent(student)
+    // Update the student's record in the database with the new score and test type
+    let sql = 'UPDATE student SET fluency_score = ?, test_type = ?, total = ? WHERE idstudent = ?';
+    mysqlConnection.query(sql, [currentScore, updatedTestTypes, totalScore, student.idstudent], (error, results) => {
+        if (error) {
+            console.error('Error updating mock test score:', error);
+            res.status(500).send('Error updating mock test score');
+            return;
+        }
+        res.json('Score and test type updated successfully');
+    });
+});
 
 const saveImage = async (imageData) => {
     try {

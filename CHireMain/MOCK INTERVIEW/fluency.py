@@ -10,9 +10,9 @@ app = Flask(__name__)
 
 nlp = spacy.load("en_core_web_sm")
 
-@app.route('/')
-def index():
-    return render_template('fluency.html')
+# @app.route('/')
+# def index():
+#     return render_template('fluency.html')
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
