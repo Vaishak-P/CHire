@@ -5,214 +5,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mock Interview</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        #timer {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        #question {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        #nextBtn {
-            display: none;
-        }
-
-        #finishBtn {
-            display: none;
-        }
-
-        #results {
-            margin-top: 20px;
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="/MOCK INTERVIEW/templates/fluency.css">
 </head>
 
 <body>
-    <div class="container">
-        <div id="timer">Time Left: <span id="countdown">20</span> seconds</div>
-        <div id="question">Tell me about yourself</div>
-        <button class="button" onclick="startRecording()">Start Recording </button>
-        <!-- Next button -->
-        <button class="button" id="nextBtn" style="display: none;" onclick="nextRound()">Next</button>
-        <button class="button" id="finishBtn" onclick="finishInterview()">Finish</button>
-        <div id="results"></div>
+    <div class="cleverhire">
+        <p><a href="/index.html">CleverHire</a></p>
     </div>
 
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="list">
+            <a href="">Home</a>
+            <a href="">About US</a>
+            <a href="">Listed Jobs</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="soc-icon">
+            <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </nav>
+    <div class="main-body">
+        <!-- LEFT SECTION OF PAGE  -->
+        <section class="lmenu">
+            <div class="dp">
+                <img src="<%= locals.profile %>" alt="dp">
+            </div>
+            <div class="lmenu-items-con">
+                <!-- <div class="lmenu-items-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                     <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <i class="fa-solid fa-people-group"></i>
 
-    <script>
-        let totalSeconds = 20; // Initial timer value for round 1
-        let currentRound = 0;
-        let interval;
-        let recognition;
-        let fluencyScores = [];
-        let nextClicked = false;
-        function startRecording() {
-            nextClicked = true;
-            // currentRound = roundNumber;
-            if (currentRound < 2) {
-                document.getElementById("nextBtn").style.display = "block";
-            } else if (currentRound == 2) {
-                document.getElementById("finishBtn").style.display = "block";
+                </div> -->
+                <div class="lmenu-items">
+                    <li><a class="d" href="/student/dashboard">Dashboard</a></li>
+                    <li><a class="ei" href="/student/editinfo">Edit Info</a></li>
+                    <li><a class="anj" href="/student/applynewjob">Apply New Job</a></li>
+                    <li><a class="aj" href="/student/appliedjobs">Applied Jobs</a></li>
+                    <li><a class="mt" href="/student/mocktest">Mock Test</a></li>
+                    <li><a class="mi" href="/student/mockinterview">Mock Interview</a></li>
+                    <li><a class="cv" href="/student/resume">Create Resume</a></li>
+                    <li><a class="l" href="/LOGOUT">Logout</a></li>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="mock">
+                <h2>Mock Interview</h2>
+            </div>
+            <div id="timer">Time Left: <span id="countdown">20</span> seconds</div>
+            <div id="question">Tell me about yourself</div>
+            <button class="button" onclick="startRecording()">Start Recording </button>
+            <!-- Next button -->
+            <button class="button" id="nextBtn" style="display: none;" onclick="nextRound()">Next</button>
+            <section id="camera-section">
+                <h3>Camera</h3>
+                <video id="video" autoplay></video>
+            </section>
+            <button class="button" id="finishBtn" onclick="finishInterview()">Finish</button>
+            <div id="results"></div>
+        </div>
+        <script>
+            let totalSeconds = 20; // Initial timer value for round 1
+            let currentRound = 0;
+            let interval;
+            let recognition;
+            let fluencyScores = [];
+            let nextClicked = false;
+            function startRecording() {
+                nextClicked = true;
+                // currentRound = roundNumber;
+                if (currentRound < 2) {
+                    document.getElementById("nextBtn").style.display = "block";
+                } else if (currentRound == 2) {
+                    document.getElementById("finishBtn").style.display = "block";
+                }
+                // Start the timer
+                startTimer();
+                startCamera()
+
+                // Start or initialize speech recognition
+                if (!recognition) {
+                    recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+                    recognition.lang = 'en-US';
+                    recognition.continuous = true; // Keep recognition active continuously
+                    recognition.interimResults = false;
+                    recognition.onresult = function (event) {
+                        const transcript = event.results[0][0].transcript;
+                        analyzeText(transcript);
+                    };
+                }
+                recognition.start();
             }
-            // Start the timer
-            startTimer();
 
-            // Start or initialize speech recognition
-            if (!recognition) {
-                recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-                recognition.lang = 'en-US';
-                recognition.continuous = true; // Keep recognition active continuously
-                recognition.interimResults = false;
-                recognition.onresult = function (event) {
-                    const transcript = event.results[0][0].transcript;
-                    analyzeText(transcript);
-                };
+
+            function startTimer() {
+                // totalSeconds = 20; // Set timer value for round 1
+                document.getElementById("countdown").textContent = totalSeconds;
+                interval = setInterval(updateTimer, 1000);
             }
-            recognition.start();
-        }
-
-
-        function startTimer() {
-            // totalSeconds = 20; // Set timer value for round 1
-            document.getElementById("countdown").textContent = totalSeconds;
-            interval = setInterval(updateTimer, 1000);
-        }
 
 
 
-        function nextRound() {
-            clearInterval(interval); // Stop the current timer
-            currentRound = currentRound + 1;
-            // Set up the next round based on the current round
-            if (currentRound === 1) {
-                totalSeconds = 10; // Set timer value for round 2
-                document.getElementById("question").textContent = "What is the use of final keyword in Java";
-            } else if (currentRound === 2) {
-                totalSeconds = 20; // Set timer value for round 3
-                document.getElementById("question").textContent = "What is your salary expectation";
-                // document.getElementById("finishBtn").style.display = "block"; // Show the "Finish" button in round 3
-                // Hide the "Next" button in round 3
+            function nextRound() {
+                clearInterval(interval); // Stop the current timer
+                currentRound = currentRound + 1;
+                // Set up the next round based on the current round
+                if (currentRound === 1) {
+                    totalSeconds = 10; // Set timer value for round 2
+                    document.getElementById("question").textContent = "What is the use of final keyword in Java";
+                } else if (currentRound === 2) {
+                    totalSeconds = 20; // Set timer value for round 3
+                    document.getElementById("question").textContent = "What is your salary expectation";
+                    // document.getElementById("finishBtn").style.display = "block"; // Show the "Finish" button in round 3
+                    // Hide the "Next" button in round 3
+                    document.getElementById("nextBtn").style.display = "none";
+                }
+
+                // Update the timer display
+                document.getElementById("countdown").textContent = totalSeconds;
+                recognition.stop(); // Stop speech recognition
+                clearResults();
                 document.getElementById("nextBtn").style.display = "none";
             }
 
-            // Update the timer display
-            document.getElementById("countdown").textContent = totalSeconds;
-            recognition.stop(); // Stop speech recognition
-            clearResults();
-            document.getElementById("nextBtn").style.display = "none";
-        }
+            async function startCamera() {
+                const video = document.getElementById('video');
 
-
-
-        function finishInterview() {
-            clearInterval(interval);
-            let sum = fluencyScores.reduce((acc, score) => acc + score, 0);
-            let averageScore = sum / fluencyScores.length;
-            document.getElementById("results").innerHTML = "<h2>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h2>";
-            recognition.stop(); // Stop speech recognition
-
-            // Send average fluency score to the Express server
-            fetch('/mockInterviewScore', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ averageScore: averageScore })
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Average fluency score sent successfully');
-                        renderDashboardPage();
-                    } else {
-                        console.error('Failed to send average fluency score');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        function renderDashboardPage(){
-            window.location.href = '/student/dashboard'
-        }
-
-        function displayResults(data) {
-            let resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "<h2>Analysis Results</h2>";
-            resultsDiv.innerHTML += "<p><strong>Text:</strong> " + data.text + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Errors:</strong> " + data.errors.join(", ") + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Speech Rate:</strong> " + data.speech_rate + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Repetition Rate:</strong> " + data.repetition_rate + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Word Frequency:</strong> " + JSON.stringify(data.word_frequency) + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Word Frequency Score:</strong> " + data.word_frequency_score + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Pronunciation Score:</strong> " + data.pronunciation_score + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Fluency Score:</strong> " + data.fluency_score + "</p>";
-            resultsDiv.innerHTML += "<p><strong>Round " + currentRound + " Fluency Score:</strong> " + data.fluency_score + "</p>";
-            // Store the fluency score for this round
-            fluencyScores.push(data.fluency_score);
-        }
-        function clearResults(data) {
-            let resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "";
-        }
-
-        // Function to send a request to the Flask server for analysis
-        function analyzeText(transcript) {
-            fetch('/analyze', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ text: transcript }) // Send the transcript to the server for analysis
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.text) {
-                        displayResults(data);
-                        // if (currentRound < 3) {
-                        //     // nextRound();
-                        //     // startRecording(); // Start the next round automatically
-                        // }
-                    } else {
-                        console.error('Error: Text not found in response');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        function updateTimer() {
-            totalSeconds--;
-            document.getElementById("countdown").textContent = totalSeconds;
-            if (totalSeconds <= 0) {
-                clearInterval(interval);
-                document.getElementById("countdown").textContent = 0;
-                if (currentRound === 3) {
-                    finishInterview();
-                } else {
-                    // nextRound();
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = stream;
+                } catch (err) {
+                    console.error('Error accessing webcam: ', err);
                 }
             }
-        }
-    </script>
+
+            function finishInterview() {
+                clearInterval(interval);
+                let sum = fluencyScores.reduce((acc, score) => acc + score, 0);
+                let averageScore = sum / fluencyScores.length;
+                document.getElementById("results").innerHTML = "<h2>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h2>";
+                recognition.stop(); // Stop speech recognition
+
+                // Send average fluency score to the Express server
+                fetch('/mockInterviewScore', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ averageScore: averageScore })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Average fluency score sent successfully');
+                            renderDashboardPage();
+                        } else {
+                            console.error('Failed to send average fluency score');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function renderDashboardPage() {
+                window.location.href = '/student/dashboard'
+            }
+
+            function displayResults(data) {
+                let resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "<h2>Analysis Results</h2>";
+                resultsDiv.innerHTML += "<p><strong>Text:</strong> " + data.text + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Errors:</strong> " + data.errors.join(", ") + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Speech Rate:</strong> " + data.speech_rate + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Repetition Rate:</strong> " + data.repetition_rate + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Word Frequency:</strong> " + JSON.stringify(data.word_frequency) + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Word Frequency Score:</strong> " + data.word_frequency_score + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Pronunciation Score:</strong> " + data.pronunciation_score + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Fluency Score:</strong> " + data.fluency_score + "</p>";
+                resultsDiv.innerHTML += "<p><strong>Round " + currentRound + " Fluency Score:</strong> " + data.fluency_score + "</p>";
+                // Store the fluency score for this round
+                fluencyScores.push(data.fluency_score);
+            }
+            function clearResults(data) {
+                let resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "";
+            }
+
+            // Function to send a request to the Flask server for analysis
+            function analyzeText(transcript) {
+                fetch('/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: transcript }) // Send the transcript to the server for analysis
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.text) {
+                            displayResults(data);
+                            // if (currentRound < 3) {
+                            //     // nextRound();
+                            //     // startRecording(); // Start the next round automatically
+                            // }
+                        } else {
+                            console.error('Error: Text not found in response');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function updateTimer() {
+                totalSeconds--;
+                document.getElementById("countdown").textContent = totalSeconds;
+                if (totalSeconds <= 0) {
+                    clearInterval(interval);
+                    document.getElementById("countdown").textContent = 0;
+                    if (currentRound === 3) {
+                        finishInterview();
+                    } else {
+                        // nextRound();
+                    }
+                }
+            }
+        </script>
 </body>
 
 </html>

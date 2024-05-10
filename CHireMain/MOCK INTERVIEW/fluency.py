@@ -152,4 +152,4 @@ def calculate_overall_score(fluency_score, word_frequency_score, pronunciation_s
     return fluency_score + word_frequency_score + pronunciation_score
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=3000)
