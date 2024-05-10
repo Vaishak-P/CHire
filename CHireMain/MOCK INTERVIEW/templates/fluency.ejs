@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mock Interview</title>
+    <script src="https://kit.fontawesome.com/48f7b1ac70.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/MOCK INTERVIEW/templates/fluency.css">
+    <link rel="stylesheet" href="fluency.css">
 </head>
 
 <body>
@@ -16,10 +18,11 @@
     <!-- NAVIGATION -->
     <nav>
         <div class="list">
-            <a href="">Home</a>
+            <a href="">Student: <%= student.name %></a>
+            <!-- <a href="">Home</a>
             <a href="">About US</a>
             <a href="">Listed Jobs</a>
-            <a href="">Contact</a>
+            <a href="">Contact</a> -->
         </div>
         <div class="soc-icon">
             <a href="/index.html"><i class="fa-brands fa-linkedin"></i></a>
@@ -58,17 +61,34 @@
             <div class="mock">
                 <h2>Mock Interview</h2>
             </div>
-            <div id="timer">Time Left: <span id="countdown">20</span> seconds</div>
-            <div id="question">Tell me about yourself</div>
-            <button class="button" onclick="startRecording()">Start Recording </button>
-            <!-- Next button -->
-            <button class="button" id="nextBtn" style="display: none;" onclick="nextRound()">Next</button>
-            <section id="camera-section">
-                <h3>Camera</h3>
-                <video id="video" autoplay></video>
-            </section>
-            <button class="button" id="finishBtn" onclick="finishInterview()">Finish</button>
-            <div id="results"></div>
+            <div class="contentsMain">
+                <div id="timer">Time Left: <span id="countdown">20</span> seconds</div>
+                <div class="qn">
+                    <h3>Question</h3>
+                    <div id="question">Tell me about yourself</div>
+                    <div class="qnbuttons">
+                        <button class="button" onclick="startRecording()">Start Recording </button>
+                        <!-- Next button -->
+                        <button class="button" id="nextBtn" style="display: none;" onclick="nextRound()">Next</button>
+                        <button class="button" id="finishBtn" onclick="finishInterview()">Finish</button>
+                    </div>
+                </div>
+                <section id="camera-section">
+                    <h3>Camera</h3>
+                    <video id="video" autoplay></video>
+                </section>
+                <div id="infoPopup" style="display: none;">
+                    <p class="closeButton"><b>X</b></p>
+                    
+                    <h2>INTERVIEW ENDED</h2>
+                    <div id="results">
+                        <h3>Average fluency score: "+ averageScore.toFixed(2) +"</h3>
+                           
+                    </div>
+                </div>
+                <div id="popupWrapper"></div>
+                <!-- <div id="results"></div> -->
+            </div>
         </div>
         <script>
             let totalSeconds = 20; // Initial timer value for round 1
@@ -149,7 +169,16 @@
                 clearInterval(interval);
                 let sum = fluencyScores.reduce((acc, score) => acc + score, 0);
                 let averageScore = sum / fluencyScores.length;
-                document.getElementById("results").innerHTML = "<h2>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h2>";
+
+                const infoPopupDiv = document.getElementById("infoPopup");
+                infoPopupDiv.style.display = "block"; // Change display from none to block
+                popupWrapper.style.display = "block";
+                const result = document.getElementById("result");
+                // result.style.display = "block";
+                // result.innerHTML = "<h3>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h3>";
+                
+                // document.getElementById("results").innerHTML = "<h2>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h2>";
+                // infoPopupDiv.innerHTML = "<h2>INTERVIEW ENDED</h2>";
                 recognition.stop(); // Stop speech recognition
 
                 // Send average fluency score to the Express server
@@ -172,7 +201,7 @@
             }
 
             function renderDashboardPage() {
-                window.location.href = '/student/dashboard'
+                // window.location.href = '/student/dashboard'
             }
 
             function displayResults(data) {
@@ -232,6 +261,26 @@
                     }
                 }
             }
+            // TO SHOW END RESULT 
+        function showResult(){
+            clearInterval(interval);
+            document.getElementById('countdown').textContent = '0:00';
+            const infoPopupDiv = document.getElementById("infoPopup");
+            infoPopupDiv.style.display = "block"; // Change display from none to block
+            popupWrapper.style.display = "block";
+            // endExam();
+        }
+
+        // TO SHOW DASHBOARD PAGE AFTER ENDING EXAM
+        const closeButton = document.querySelector('.closeButton');
+        closeButton.addEventListener('click', endExam);
+
+        function endExam() {
+            window.location.href = "/student/dashboard";
+            // setTimeout(() => {
+            //      // Replace with your results page URL
+            // }, 5000); // Delay in milliseconds ( 5second here)
+        }
         </script>
 </body>
 
