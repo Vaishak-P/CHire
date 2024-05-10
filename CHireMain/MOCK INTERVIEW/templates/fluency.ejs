@@ -81,14 +81,16 @@
                     <p class="closeButton"><b>X</b></p>
                     
                     <h2>INTERVIEW ENDED</h2>
-                    <div id="results">
-                        <h3>Average fluency score: "+ averageScore.toFixed(2) +"</h3>
-                           
-                    </div>
+                    <h3 id="avgScore">Interview Score</h3>
+                    
                 </div>
                 <div id="popupWrapper"></div>
                 <!-- <div id="results"></div> -->
             </div>
+            <div id="results">
+                <!-- <h3 id="score">Score:</h3> -->
+                <p id="p1"></p>
+         </div>
         </div>
         <script>
             let totalSeconds = 20; // Initial timer value for round 1
@@ -121,6 +123,7 @@
                     };
                 }
                 recognition.start();
+                displayResults();
             }
 
 
@@ -174,11 +177,11 @@
                 infoPopupDiv.style.display = "block"; // Change display from none to block
                 popupWrapper.style.display = "block";
                 const result = document.getElementById("result");
-                // result.style.display = "block";
+                const avgScore = document.getElementById("avgScore");
+                avgScore.textContent="Average fluency score: "+averageScore.toFixed(2);
+                
                 // result.innerHTML = "<h3>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h3>";
                 
-                // document.getElementById("results").innerHTML = "<h2>Interview ended! Average fluency score: " + averageScore.toFixed(2) + "</h2>";
-                // infoPopupDiv.innerHTML = "<h2>INTERVIEW ENDED</h2>";
                 recognition.stop(); // Stop speech recognition
 
                 // Send average fluency score to the Express server
@@ -206,7 +209,7 @@
 
             function displayResults(data) {
                 let resultsDiv = document.getElementById("results");
-                resultsDiv.innerHTML = "<h2>Analysis Results</h2>";
+                resultsDiv.innerHTML = "<h3>Analysis Results</h3>";
                 resultsDiv.innerHTML += "<p><strong>Text:</strong> " + data.text + "</p>";
                 resultsDiv.innerHTML += "<p><strong>Errors:</strong> " + data.errors.join(", ") + "</p>";
                 resultsDiv.innerHTML += "<p><strong>Speech Rate:</strong> " + data.speech_rate + "</p>";
