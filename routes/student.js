@@ -473,17 +473,25 @@ router.post('/submit-score', async (req, res) => {
     });
 });
 
-// router.get('/student/mockinterview', (req, res) => {
-//     flag = "interview"
-//     res.render("camera")
-// })
-
-router.get('/student/mockinterview',(req,res)=>{
-    res.render('MOCK INTERVIEW/interview')
+router.get('/student/mockinterview', (req, res) => {
+    flag = "interview"
+    res.render("camera")
 })
 
+// router.get('/student/mockinterview',(req,res)=>{
+//     let student = getStudent()
+//     const profile = `/images/${student.photo}`
+//     res.render('MOCK INTERVIEW/interview',{profile})
+// })
+
 router.get('/student/fluency',(req,res)=>{
-    res.render('MOCK INTERVIEW/templates/fluency')
+    let student = getStudent()
+    const profile = `/images/${student.photo}`
+    if (student.test_type && student.test_type.includes('fluency')) {
+        res.render('MOCK INTERVIEW/interview', { profile, error: 'You have already attended the test.' })
+        return
+    }
+    res.render('MOCK INTERVIEW/templates/fluency',{profile})
 })
 
 router.post('/mockInterviewScore', async (req, res) => {
@@ -507,9 +515,17 @@ router.post('/mockInterviewScore', async (req, res) => {
     student.total = totalScore
 
     setStudent(student)
+    let sql1 = 'UPDATE student SET test_type = ? WHERE idstudent = ?';
+    mysqlConnection.query(sql1, [updatedTestTypes,student.idstudent], (error, results) => {
+        if (error) {
+            console.error('Error updating test type score:', error);
+            res.status(500).send('Error updating test type score');
+            return;
+        }
+    });
     // Update the student's record in the database with the new score and test type
-    let sql = 'UPDATE student SET fluency_score = ?, test_type = ?, total = ? WHERE idstudent = ?';
-    mysqlConnection.query(sql, [currentScore, updatedTestTypes, totalScore, student.idstudent], (error, results) => {
+    let sql2 = 'UPDATE student SET fluency_score = ?, total = ? WHERE idstudent = ?';
+    mysqlConnection.query(sql2, [currentScore, totalScore, student.idstudent], (error, results) => {
         if (error) {
             console.error('Error updating mock test score:', error);
             res.status(500).send('Error updating mock test score');
