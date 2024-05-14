@@ -432,7 +432,7 @@ router.get('/test/:heading', (req, res) => {
 
     // Check if the student has already attended the test
 
-    if (student.test_type.includes(heading)) {
+    if (student.test_type && student.test_type.includes(heading)) {
         res.render('std-test/std-test', { profile, error: 'You have already attended the test.' })
         return
     }
@@ -491,7 +491,7 @@ router.get('/student/fluency',(req,res)=>{
         res.render('MOCK INTERVIEW/interview', { profile, error: 'You have already attended the test.' })
         return
     }
-    res.render('MOCK INTERVIEW/templates/fluency',{profile})
+    res.render('MOCK INTERVIEW/templates/fluency',{student, profile})
 })
 
 router.post('/mockInterviewScore', async (req, res) => {
@@ -613,12 +613,12 @@ router.post('/save-image', async (req, res) => {
                 flag = null
                 //const student = getStudent();
                 const profile = `/images/${student.photo}`
-                res.render("std-test/std-test", { profile: profile });
+                res.render("std-test/std-test", { student, profile: profile });
             } else {
                 flag = null
                 //const student = getStudent();
                 const profile = `/images/${student.photo}`
-                res.render('MOCK INTERVIEW/interview', { profile })
+                res.render('MOCK INTERVIEW/interview', { student, profile })
             }
         } else {
             res.render("camera", { error: "Mismatch in the image" })

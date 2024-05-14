@@ -274,15 +274,18 @@
         function checkAnswer(questionIndex, selectedOptionIndex) {
             if(currentIndex<10){
                 if (selectedOptionIndex === questions[questionIndex].correctOption) {
+                    currentIndex++;
                     // alert("Correct!");
                     currentScore++;
                     rightAnswers++;
-
+                    
                 } else {
+                    currentIndex++;
                     wrongAnswers++;
                     // alert("Incorrect. The correct answer is: " + questions[questionIndex].options[questions[questionIndex].correctOption]);
                 }
-                    currentIndex++;
+                questionIndex++;
+                    
                     if(currentIndex<10){
                         document.getElementById("currentQuestionNumber").textContent=currentIndex+1;
                     }

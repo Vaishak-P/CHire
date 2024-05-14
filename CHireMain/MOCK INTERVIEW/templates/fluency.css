@@ -181,7 +181,7 @@ nav i:hover{
 }
 .contentsMain{
     display: flex;
-    gap: 30px;
+    gap: 20px;
 }
 /* .button{
     width: 150px;
@@ -306,6 +306,13 @@ nav i:hover{
 }
 .results p{
     font-size: 16px;
+}
+#camera-section{
+    width: fit-content;
+}
+#video{
+    height: 170px;
+    width: 250px;
 }
 /* --------INFO POPUP SECTION ---------*/
 #infoPopup{
